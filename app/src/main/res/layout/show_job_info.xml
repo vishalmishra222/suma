@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<LinearLayout
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:background="@drawable/bordercolor"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/dialogTitle"
+        android:layout_width="match_parent"
+        android:textColor="@color/white"
+        android:layout_height="40dp"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:text="@string/job_info_popup_tile"
+        android:background="@color/clrToolbarBg"
+        />
+
+    <LinearLayout
+        android:id="@+id/scrollLin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+    <LinearLayout
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        >
+        <TextView
+            android:id="@+id/jobID"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:gravity="left"
+            android:textColor="@color/accent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="JOB ID"
+            />
+        <TextView
+            android:id="@+id/jobIDValue"
+            android:layout_width="0dp"
+            android:gravity="left"
+            android:layout_marginLeft="50dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="val"
+            />
+   </LinearLayout>
+
+ <!--   <LinearLayout
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        >
+        <TextView
+            android:id="@+id/applicationFormNo"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:textStyle="bold"
+            android:gravity="left"
+            android:textColor="@color/accent"
+            android:layout_height="wrap_content"
+            android:text="APPLICATION FORM NO"
+            />
+        <TextView
+            android:id="@+id/applicationFormNoValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_marginLeft="50dp"
+            android:layout_weight="1"
+            android:text="val"
+            />
+    </LinearLayout>-->
+  <!--  <LinearLayout
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        >
+        <TextView
+            android:id="@+id/nbfcName"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:textColor="@color/accent"
+            android:gravity="left"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="NBFC NAME"
+            />
+        <TextView
+            android:id="@+id/nbfcNameValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_marginLeft="50dp"
+            android:layout_weight="1"
+            android:text="val"
+            />
+    </LinearLayout>-->
+    <LinearLayout
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        >
+        <TextView
+            android:id="@+id/textViewCityName"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:gravity="left"
+            android:textColor="@color/accent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="CITY NAME"
+            />
+        <TextView
+            android:id="@+id/cityNameValue"
+            android:layout_width="0dp"
+            android:gravity="left"
+            android:layout_marginLeft="50dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="2"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        >
+        <TextView
+            android:id="@+id/textViewPinCode"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:gravity="left"
+            android:textColor="@color/accent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="PINCODE"
+            />
+        <TextView
+            android:id="@+id/pinCodeValue"
+            android:layout_width="0dp"
+            android:gravity="left"
+            android:layout_marginLeft="50dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="val"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        >
+        <TextView
+            android:id="@+id/mobileNo"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:textStyle="bold"
+            android:gravity="left"
+            android:textColor="@color/accent"
+            android:layout_height="wrap_content"
+            android:text="MOBILE NO"
+            />
+        <TextView
+            android:id="@+id/mobileNoValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_marginLeft="50dp"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        >
+        <TextView
+            android:id="@+id/address"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:textStyle="bold"
+            android:gravity="left"
+            android:textColor="@color/accent"
+            android:layout_height="wrap_content"
+            android:text="ADDRESS"
+            />
+        <TextView
+            android:id="@+id/addressValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_marginLeft="50dp"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        >
+        <TextView
+            android:id="@+id/templateName"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:gravity="left"
+            android:textColor="@color/accent"
+            android:text="JOB TYPE"
+            />
+        <TextView
+            android:id="@+id/templateNameValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginLeft="50dp"
+            android:gravity="left"
+            android:text="val"
+            />
+    </LinearLayout>
+ <!--   <LinearLayout
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        >
+        <TextView
+            android:id="@+id/creationTime"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:textStyle="bold"
+            android:gravity="left"
+            android:textColor="@color/accent"
+            android:layout_height="wrap_content"
+            android:text="CREATION DATE"
+            />
+        <TextView
+            android:id="@+id/creationTimeValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_marginLeft="50dp"
+            android:layout_weight="1"
+            android:text="val"
+            />
+    </LinearLayout>-->
+
+    <LinearLayout
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        >
+        <TextView
+            android:id="@+id/tATime"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:textStyle="bold"
+            android:gravity="left"
+            android:textColor="@color/accent"
+            android:layout_height="wrap_content"
+            android:text="TOTAL ASSIGNED TIME"
+            />
+        <TextView
+            android:id="@+id/tATimeValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_marginLeft="50dp"
+            android:layout_weight="1"
+            android:text="val"
+            />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        >
+        <TextView
+            android:id="@+id/jobStartTime"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:textStyle="bold"
+            android:gravity="left"
+            android:textColor="@color/accent"
+            android:layout_height="wrap_content"
+            android:text="JOB START TIME"
+            />
+        <TextView
+            android:id="@+id/jobStartTimeValue"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:layout_marginLeft="50dp"
+            android:layout_weight="1"
+            />
+    </LinearLayout>
+
+
+
+
+
+</LinearLayout>
+
+    <Button
+        android:id="@+id/locationValue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemButton"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:text="View Map"
+        />
+
+    <Button
+        android:id="@+id/okButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/ThemButton"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+        android:text="@string/hold_ok_button"
+        />
+    </LinearLayout>
+    </ScrollView>

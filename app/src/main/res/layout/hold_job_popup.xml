@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/selectDateInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="@string/select_next_date"
+            android:ems="10"
+            android:singleLine="true"
+            android:paddingLeft="10dp"
+            android:drawableRight="@drawable/calendar"
+            android:textColor="@color/black"
+            android:editable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:layout_marginTop="@dimen/fifteen"
+            android:id="@+id/HoldDateEditText" />
+    </android.support.design.widget.TextInputLayout>
+
+
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/selectReasonInput"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="@string/hold_reason"
+            android:ems="10"
+            android:paddingLeft="10dp"
+            android:drawableRight="@drawable/blue_dropdown_arrow"
+            android:textColor="@color/black"
+            android:editable="false"
+            android:focusable="false"
+            android:focusableInTouchMode="false"
+            android:layout_marginTop="@dimen/fifteen"
+            android:id="@+id/ReasonEditText" />
+    </android.support.design.widget.TextInputLayout>
+ <LinearLayout
+     android:id="@+id/buttonLin"
+     android:layout_width="match_parent"
+     android:layout_height="wrap_content"
+     android:orientation="horizontal"
+     android:weightSum="2"
+     >
+     <Button
+         android:id="@+id/okButton"
+         android:layout_width="0dp"
+         android:layout_marginLeft="7dp"
+         android:layout_marginTop="7dp"
+         android:layout_marginBottom="7dp"
+         android:layout_height="wrap_content"
+         android:layout_weight="1"
+         android:theme="@style/ThemButton"
+         android:textAllCaps="false"
+         android:textColor="@color/white"
+         android:text="@string/hold_ok_button"
+         />
+
+     <Button
+         android:id="@+id/cancelButton"
+         android:layout_width="0dp"
+         android:layout_marginRight="7dp"
+         android:layout_marginTop="7dp"
+         android:layout_marginBottom="7dp"
+         android:layout_height="wrap_content"
+         android:layout_weight="1"
+         android:text="@string/hold_cancel_button"
+         android:textAllCaps="false"
+         android:theme="@style/ThemButton"
+         android:textColor="@color/white"
+         />
+     </LinearLayout>
+</LinearLayout>

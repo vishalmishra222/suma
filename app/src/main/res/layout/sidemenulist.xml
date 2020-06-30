@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center_vertical"
+    >
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/twenty"
+        android:paddingRight="@dimen/twenty"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="@dimen/twenty"
+        android:layout_marginBottom="@dimen/twenty"
+
+        >
+
+
+
+
+        <TextView
+            android:id="@+id/txt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:text="Name"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/twenty"
+
+             />
+
+
+
+
+
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/vDottedLine"
+        android:background="#4E4F53"
+
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layerType="software"
+         />
+
+</LinearLayout>
