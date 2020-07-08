@@ -1,0 +1,21 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <include
+                android:id="@+id/app_bar"
+                layout="@layout/toolbar" />
+
+            <fragment android:id="@+id/upload_image_fragment"
+                android:layout_width="match_parent" android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:name="com.example.sumaforms.fragment.UploadImageFragment"
+                android:layout="@layout/fragment_upload_image"
+                />
+        </LinearLayout>
+
+
+    </RelativeLayout>

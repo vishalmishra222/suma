@@ -1,3 +1,0 @@
-<WakefulIntentService
-  listener="com.app.dusmile.JobReminderService.AppListener"
-/>

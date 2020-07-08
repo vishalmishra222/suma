@@ -1,2 +1,0 @@
-include ':app', ':autoinstall', ':siren', ':pdfBox'
-include ':sumaforms2'
