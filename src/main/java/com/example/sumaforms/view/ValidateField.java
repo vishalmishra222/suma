@@ -37,7 +37,7 @@ public class ValidateField extends Activity {
 
     public static boolean validateDataField(String validationPattern,String text){
        String pattern = validationPattern;
-       return pattern.matches(text);
+       return pattern.matches(text) ;
     }
 
 }
