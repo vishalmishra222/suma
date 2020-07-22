@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "29238759674",
+    "firebase_url": "https://dusmile-3b1d6.firebaseio.com",
+    "project_id": "dusmile-3b1d6",
+    "storage_bucket": "dusmile-3b1d6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:29238759674:android:0ac8301635bf2559",
+        "android_client_info": {
+          "package_name": "com.app.dusmile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "29238759674-5d9p13nfras7snl2fc2p1n5noo0482tp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.app.dusmile",
+            "certificate_hash": "01ff2f2b16a3d989e8de27a381edc152d537c652"
+          }
+        },
+        {
+          "client_id": "29238759674-l9tmo7h3phf0rngoakur7u34tl81tt1r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB6viMbQqZWi-a_N4HMM65mFnBNFuob_v0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "29238759674-l9tmo7h3phf0rngoakur7u34tl81tt1r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

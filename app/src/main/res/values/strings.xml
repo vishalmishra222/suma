@@ -1,0 +1,134 @@
+<resources>
+    <string name="app_name">Dusmile</string>
+    <string name="strUsername">Username</string>
+    <string name="stripAdd_Port">ip address:port</string>
+    <string name="strPassword">Password</string>
+    <string name="login">Login</string>
+    <string name="hold">Put a job on hold</string>
+    <string name="strSignIn">Sign In</string>
+    <string name="enter_username">Enter username</string>
+    <string name="enter_password">Enter password</string>
+    <string name="enter_ip_port">Enter ip address and port no</string>
+    <string name="enter_username_password">Enter username and password</string>
+    <string name="navigation_drawer_open">open drawer</string>
+    <string name="navigation_drawer_close">Close drawer</string>
+    <string name="exit_app">Do you want to exit Dusmile?</string>
+    <string name="logout_app">Do you want to logout?</string>
+    <string name="hold_reason">Reason</string>
+    <string name="hold_ok_button">OK</string>
+    <string name="hold_cancel_button">Cancel</string>
+    <string name="select_next_date">Select next date</string>
+    <string name="avialble_jobs">Available jobs</string>
+    <string name="assigned_jobs">Assigned Jobs</string>
+    <string name="completed_jobs">Completed Jobs</string>
+    <string name="search">search</string>
+    <string name="export_message">Export As</string>
+    <string name="export_title">search</string>
+    <string name="job_already_assigned">Please complete already assigned job.</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="strAdd">Add</string>
+    <string name="strDelete">Delete</string>
+    <string name="strClear">Clear</string>
+    <string name="strSave">Save</string>
+    <string name="strSendLoc">Save Location</string>
+    <string name="strAudio">Record Audio</string>
+    <string name="strSubmit">Submit</string>
+    <string name="strUploadImage">Upload Image</string>
+    <string name="strCancel">Cancel</string>
+    <string name="strSelectImage">Select Image</string>
+    <string name="strUpload">Upload</string>
+    <string name="strClose">Close</string>
+    <string name="strSelectLang">Select Language</string>
+    <string name="job_info_popup_tile">Job Info</string>
+    <string name="current_pass">Current Password</string>
+    <string name="new_pass">New Password</string>
+    <string name="confirm_pass">Confirm Password</string>
+    <string name="chnge_pass">Change Password</string>
+    <string name="accept_terms">Accept Terms</string>
+
+    <string name="enter_data">Fields can not be empty</string>
+    <string name="match_pass">Confirm Password should be same as New Password.</string>
+    <string name="enter_current_pass">Enter current password</string>
+    <string name="enter_new_password">Enter new password</string>
+    <string name="enter_confirm_password">Confirm new password</string>
+    <string name="capture_photo">Capture Photo</string>
+    <string name="browse_photo">Browse Photo</string>
+    <string name="uploadPhoto">Upload Photo</string>
+    <string name="strNext">Next</string>
+    <string name="strPrev">Prev</string>
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="backpress_msg">Please make sure you have saved the Form. Are you sure you want to exit this Form?</string>
+    <string name="upload_btn">Upload</string>
+    <string name="deassign_btn">Cancel Job</string>
+    <string name="upload_menu">Upload</string>
+    <string name="pending_menu">Pending</string>
+    <string name="title_activity_upload">UploadActivity</string>
+    <string name="job_reminder">Job Reminder</string>
+    <string name="form_exit">"Do you want exit form?"</string>
+    <string name="select_job">Select Job</string>
+    <string name="send_log">Send log</string>
+    <string-array name="horizontal_ntb">
+        <item>#df5a55</item>
+        <item>#f9bb72</item>
+        <item>#76afcf</item>
+        <item>#dd6495</item>
+        <item>#72d3b4</item>
+        <item>#df5a55</item>
+        <item>#f9bb72</item>
+        <item>#76afcf</item>
+        <item>#dd6495</item>
+        <item>#72d3b4</item>
+        <item>#df5a55</item>
+        <item>#f9bb72</item>
+        <item>#76afcf</item>
+        <item>#dd6495</item>
+        <item>#72d3b4</item>
+
+    </string-array>
+
+    <string-array name="default_preview">
+        <item>#df5a55</item>
+        <item>#f9bb72</item>
+        <item>#76afcf</item>
+        <item>#dd6495</item>
+        <item>#72d3b4</item>
+    </string-array>
+
+    <!--<string name="map_key">AIzaSyCqO6BOQ1-E9W35C70F_mivTYhD6P1NTno</string>-->
+    <string name="map_key">AIzaSyAFXqzRoUnFQQKYbjat0f0I1Sbk7pabRzI</string> <!--Added by Netra-->
+
+
+    <string name="cheese_ipsum">Jarlsberg lancashire edam. Dolcelatte hard cheese brie st. agur blue
+    cheese caerphilly bavarian bergkase cheese and biscuits mascarpone. Cheeseburger swiss bavarian
+    bergkase cream cheese fromage frais cheesy feet port-salut airedale. St. agur blue cheese rubber
+    cheese caerphilly cheddar cheesecake cream cheese manchego lancashire. Roquefort squirty cheese
+    the big cheese.</string>
+    <string name="checkin">Checkin</string>
+    <string name="menu_settings">Settings</string>
+
+    <string name="auth_success_text">
+		<![CDATA[
+		<p>Person with Aadhaar <font color="#0AC8E6"><b>%1$s</b></font> has been verified</p>
+		]]>
+    </string>
+
+    <string name="auth_fail_text">
+		<![CDATA[
+		<p>Person with Aadhaar <font color="#0AC8E6"><b>%1$s</b></font> could not be verified</p>
+		]]>
+    </string>
+    <string name="verify_another_person">VERIFY ANOTHER PERSON</string>
+    <string name="progress_message">Please wait while communicating with the server</string>
+
+    <string name="alert_dialog_title">Please Select Year and Month</string>
+    <string name="positive_button_text">Ok</string>
+    <string name="negative_button_text">Cancel</string>
+    <string name="title_activity_custom_maps">Map</string>
+
+    <string name="powered_by">
+        <u>Suma Soft Pvt Ltd</u>
+    </string>
+
+</resources>

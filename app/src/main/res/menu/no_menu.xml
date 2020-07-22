@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/option"
+        android:title="options"
+        android:orderInCategory="101"
+        app:showAsAction="always"
+        android:icon="@drawable/option_dot">
+
+        <menu>
+            <item android:id="@+id/send_log"
+                android:icon="@drawable/send_log"
+                app:showAsAction="ifRoom"
+                android:title="@string/send_log" />
+        </menu>
+
+    </item>
+</menu>
