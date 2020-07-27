@@ -3,10 +3,8 @@ package com.app.dynamicform;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -24,7 +22,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -32,14 +29,12 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.desai.vatsal.mydynamictoast.MyDynamicToast;
@@ -54,15 +49,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
-
-import it.sephiroth.android.library.imagezoom.ImageViewTouch;
-import it.sephiroth.android.library.imagezoom.ImageViewTouchBase;
 
 /**
  * Created by sumasoft on 26/07/2020.
@@ -78,7 +69,6 @@ public class UIFormsDB {
     private static HashMap<Integer, EditText> customValidEditTextHashMap = new HashMap<>();
     private static HashMap<Integer, EditText> showHideEditTextHashMap = new HashMap<>();
     static ArrayList<EditText> arrayListForMandatoryTableFields = new ArrayList<>();
-    static ArrayList<EditText> reportFilters = new ArrayList<>();
     private static boolean otherLoanInformationSelected;
     private static AwesomeValidation mAwesomeValidation;
     SparseArray<EditText> array = new SparseArray<EditText>();
@@ -87,8 +77,6 @@ public class UIFormsDB {
     HashMap<String, String> textViewData = new HashMap<>();
     HashMap<Integer, String> getDateOfBirth = new HashMap<>();
     HashMap<String, EditText> hashMapEditText = new HashMap<>();
-    HashMap<String, String> staticFieldsController = new HashMap<>();
-    HashMap<String, String> dynamicFieldsController = new HashMap<>();
     public static int addCount = 0;
     private static int noOfUncheck = 0;
     private static HashMap<Boolean, ArrayList<String>> hashMapToggleFields = new HashMap<>();
@@ -195,10 +183,7 @@ public class UIFormsDB {
 
             String val;
             try {
-                //   jsonObject = new JSONObject(applicant_json);
                 val = applicant_json.getString(key);
-                //  method = JobDetailsResponse.Applicant.class.getDeclaredMethod("get" + StringUtils.capitalize(key));
-              //  method = (Method) applicant.get(StringUtils.capitalize(key));
                 String text = val;
                 if (text != null && !text.isEmpty()) {
                     textInputLayout.setHint(label);
@@ -221,7 +206,6 @@ public class UIFormsDB {
                 editText.setText("");
                 textInputLayout.setHintAnimationEnabled(true);
             }
-
 
             if (validation.equalsIgnoreCase("Numeric") || validation.equalsIgnoreCase("Numbers") || validation.equalsIgnoreCase("Decimal")) {
                 editText.setInputType(InputType.TYPE_CLASS_PHONE);
@@ -284,7 +268,6 @@ public class UIFormsDB {
                         for (int i = 0; i < arrayListFields.size(); i++) {
                             if (key.trim().equalsIgnoreCase(arrayListFields.get(i).trim())) {
                                 if (hashMapkey == true) {
-                                    //editText.setBackground(null);
                                     editText.setEnabled(true);
                                 } else {
                                     editText.setBackgroundResource(R.drawable.disabled_edittext_background);
@@ -300,14 +283,12 @@ public class UIFormsDB {
             }
             textInputLayout.addView(editText);
             parent.addView(textInputLayout);
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public static void createReportAdapterUI(final Context mContext, LinearLayout parent, LinearLayout cardVerticalLin, final int position, JSONArray reportHeadersArray, JSONArray reportDataArray, JSONArray reportHeadersUIArray, JSONArray cardHeadersKeyArray) {
-
         try {
             parent.removeAllViews();
             parent.invalidate();
@@ -315,9 +296,7 @@ public class UIFormsDB {
             cardVerticalLin.invalidate();
             for (int k = 0; k < cardHeadersKeyArray.length(); k++) {
                 LinearLayout firstCardLayout = new LinearLayout(mContext);
-                //firstCardLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT));
                 firstCardLayout.setOrientation(LinearLayout.HORIZONTAL);
-
                 JSONObject jObject = cardHeadersKeyArray.getJSONObject(k);
                 firstCardLayout.setWeightSum(jObject.getInt("weightage"));
                 JSONArray jArray = jObject.getJSONArray("column");
@@ -334,12 +313,10 @@ public class UIFormsDB {
                         String fieldFinalVal = applicationJsonObject.getString(fieldDataArray[fieldDataArray.length - 1]);
                         data = fieldFinalVal;
                     } else {
-
                         data = jsonObject.getString(header_key);
                     }
                     String layout_weight = headerKeyJObject.getString("layout_weight");
                     TextView cardTextViews = createTextView(mContext, data, firstCardLayout, ContextCompat.getColor(mContext, R.color.Black), 16, "", "", "");
-
                     cardTextViews.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, Float.valueOf(layout_weight)));
                 }
                 cardVerticalLin.addView(firstCardLayout);
@@ -351,7 +328,6 @@ public class UIFormsDB {
                 final View mLinearView = inflater.inflate(R.layout.list_items, null);
                 TextView textViewHeader = (TextView) mLinearView.findViewById(R.id.jobId);
                 final TextView textViewValue = (TextView) mLinearView.findViewById(R.id.jobIdValue);
-                ImageView imageView = (ImageView) mLinearView.findViewById(R.id.ImageView);
                 textViewHeader.setTag("header" + position);
                 if (i < 2) {
                     textViewHeader.setTypeface(Typeface.DEFAULT_BOLD);
@@ -415,7 +391,6 @@ public class UIFormsDB {
 
     }
 
-
     //dynamic create UI for tabs header and form header
     public static void createUIForHeader(Context mContext, LinearLayout parent, String name, String headerType, String customerName, String coApplicantName) {
         try {
@@ -426,12 +401,9 @@ public class UIFormsDB {
             linearLayout.setOrientation(LinearLayout.HORIZONTAL);
             linearLayout.setTag("name_");
             if (headerType.equalsIgnoreCase("tabs")) {
-                // linearLayout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.tabs_background));
                 linearLayout.setBackgroundColor(mContext.getResources().getColor(R.color.clrToolbarBg));
                 linearLayout.setGravity(Gravity.CENTER);
             } else {
-                // createView(mContext, linearLayout, 15, ViewGroup.LayoutParams.MATCH_PARENT, ContextCompat.getColor(mContext, R.color.clrToolbarBg));
-                //linearLayout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.form_header_background));
                 linearLayout.setBackgroundColor(mContext.getResources().getColor(R.color.clrToolbarBg));
             }
             parent.addView(linearLayout);
@@ -439,9 +411,7 @@ public class UIFormsDB {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
-
 
     //create UI for custom view
     public static void createView(Context mContext, LinearLayout parent, int width, int height, int color) {
@@ -450,7 +420,6 @@ public class UIFormsDB {
         view.setLayoutParams(new LinearLayout.LayoutParams(width, height));
         parent.addView(view);
     }
-
 
     public static void createHorizontalLayoutAndFields(Context mContext, LinearLayout parent, JSONObject subProcessField, String type, JSONObject applicant, JSONObject appilcant_json, int formPosition) {
         try {
@@ -462,7 +431,6 @@ public class UIFormsDB {
             linearLayout.setOrientation(LinearLayout.HORIZONTAL);
             identifyViews(mContext, subProcessField, linearLayout, applicant, parent, appilcant_json, formPosition);
             String name = "";
-
             Method method = null;
             try {
                 name = (String) method.invoke(applicant, null);
@@ -478,7 +446,6 @@ public class UIFormsDB {
             } catch (Exception e) {
                 name = "";
             }
-
             createTextView(mContext, name, linearLayout, ContextCompat.getColor(mContext, R.color.black), 12, "", key, "");
             parent.addView(linearLayout);
         } catch (Exception e) {
@@ -510,7 +477,6 @@ public class UIFormsDB {
             String fieldType = subProcessField.getString("fieldType");
             boolean isMandatory = subProcessField.getBoolean("isMandatory");
             String label = subProcessField.getString("lable");
-
             switch (fieldType) {
                 case "label":
                     if (isMandatory) {
@@ -613,7 +579,6 @@ public class UIFormsDB {
             e.printStackTrace();
         }
     }
-
 
     public static void createDatePickerDialog(final Context mContext,
                                               final JSONObject subProcessField,
@@ -734,7 +699,6 @@ public class UIFormsDB {
 
     }
 
-
     public static void createYearMonthCombo(final Context mContext,
                                             final JSONObject subProcessField,
                                             final LinearLayout parent, JSONObject applicant,
@@ -781,7 +745,6 @@ public class UIFormsDB {
                 }
             }
 
-            JSONObject jsonObject = null;
             String val = null;
             Method method = null;
             try {
@@ -978,7 +941,7 @@ public class UIFormsDB {
                 editText.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        openDropDownOptions(mContext, subProcessField, editText, mainParent,label, params);
+                        openDropDownOptions(mContext, subProcessField, editText, mainParent, label, params);
                     }
                 });
             }
@@ -1039,14 +1002,14 @@ public class UIFormsDB {
                                             final JSONObject subProcessField, final EditText editText,
                                             final LinearLayout mainParent, final String lable, final LinearLayout.LayoutParams params) {
         try {
-            List<String> value = Collections.singletonList(subProcessField.getString("value"));
             String dependentField = subProcessField.getString("dependentField");
             List<String> dependentFieldList = Collections.singletonList(subProcessField.getString("value"));
-            final String value_arr[] = new String[value.size() + 1];
+            JSONArray values = subProcessField.getJSONArray("value");
+            final String value_arr[] = new String[values.length() + 1];
             value_arr[0] = lable;
-            for (int i = 0; i < value.size(); i++) {
+            for (int i = 0; i < values.length(); i++) {
                 int pos = i + 1;
-                value_arr[pos] = value.get(i);
+                value_arr[pos] = values.getString(i);
             }
             final Dialog dialog = new Dialog(mContext);
             dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -1084,7 +1047,6 @@ public class UIFormsDB {
                             otherLoanInformationSelected = true;
                         }
 
-                        //add this code in save button click
                         ArrayList<String> arrayListFields = new ArrayList<String>();
                         if (hashMapToggleFields.containsKey(otherLoanInformationSelected)) {
                             arrayListFields = hashMapToggleFields.get(otherLoanInformationSelected);
@@ -1135,7 +1097,7 @@ public class UIFormsDB {
                             if (dependentFieldList != null && dependentFieldList.size() > 0) {
                                 for (int k = 0; k < dependentFieldList.size(); k++) {
                                     if (!TextUtils.isEmpty(dependentFieldList.get(k))) {
-                                        HashMap<Integer, EditText> editTextHashMap = UIFormsDB.findEditTextForShowHide(mainParent,dependentFieldList.get(k));
+                                        HashMap<Integer, EditText> editTextHashMap = UIFormsDB.findEditTextForShowHide(mainParent, dependentFieldList.get(k));
                                         if (editTextHashMap.size() > 0) {
                                             for (Map.Entry<Integer, EditText> editTextEntry : editTextHashMap.entrySet()) {
                                                 editTextEntry.getValue().setText("");
@@ -1199,9 +1161,7 @@ public class UIFormsDB {
                 textInputLayout.setHintTextAppearance(R.style.TextLabel);
             }
 
-            Method method = null;
-            JSONObject jsonObject = null;
-            String val = null;
+            String val;
             try {
                 val = applicant_json.getString(key);
                 String text = val;
@@ -1219,7 +1179,6 @@ public class UIFormsDB {
                     editText.setText(val);
                     editText.setSelection(val.length());
                     textInputLayout.setHintAnimationEnabled(true);
-
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -1237,7 +1196,6 @@ public class UIFormsDB {
             } else {
                 editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
             }
-            //editText.setGravity(Gravity.TOP);
             editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 Pattern sPattern
                         = Pattern.compile(validationPattern);
@@ -1260,6 +1218,7 @@ public class UIFormsDB {
                         edt.setHint("");
                     }
                 }
+
                 private boolean isValid(CharSequence s) {
                     return sPattern.matcher(s).matches();
                 }
@@ -1268,7 +1227,6 @@ public class UIFormsDB {
                 editText.setBackgroundResource(R.drawable.disabled_edittext_background);
                 editText.setEnabled(false);
             } else {
-                // editText.setBackgroundResource(R.drawable.form_header_background);
                 editText.setEnabled(true);
             }
             boolean isDependentField = false;
@@ -1313,7 +1271,6 @@ public class UIFormsDB {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         return validateFlag;
     }
 
@@ -1488,9 +1445,7 @@ public class UIFormsDB {
                     SimpleDateFormat sdf2 = new SimpleDateFormat(myFormat, Locale.US);
                     editText.setText(sdf2.format(myCalendar.getTime()));
                     editText.setTag(sdf.format(myCalendar.getTime()));
-
                 }
-
             };
 
             new DatePickerDialog(mContext, date, myCalendar
@@ -1499,17 +1454,13 @@ public class UIFormsDB {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     private static void openTemplateCalenderView(Context mContext, final EditText editText,
                                                  final LinearLayout parent, final JSONObject subProcessField) {
         try {
-
             final Calendar myCalendar = Calendar.getInstance();
-
             final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-
                 @Override
                 public void onDateSet(DatePicker view, int year, int monthOfYear,
                                       int dayOfMonth) {
@@ -1524,9 +1475,8 @@ public class UIFormsDB {
                     String dependentKey = "";
                     try {
                         String onchange = subProcessField.getString("onchange");
-                        if (onchange!= null) {
+                        if (onchange != null) {
                             try {
-
                                 String dependentField = onchange;
                                 if (dependentField.contains(",")) {
                                     String keyData[] = dependentField.split(",");
@@ -1557,20 +1507,17 @@ public class UIFormsDB {
                         e.printStackTrace();
                     }
                 }
-
             };
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(mContext, date, myCalendar
                     .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                     myCalendar.get(Calendar.DAY_OF_MONTH));
-            //datePickerDialog.updateDate(1990, 0, 1);
             datePickerDialog.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
-
 
     private static void openTemplateYearMonthCalenderView(Context mContext,
                                                           final EditText editText, final LinearLayout parent,
@@ -1579,7 +1526,6 @@ public class UIFormsDB {
 
             final MonthYearPicker myp = new MonthYearPicker(activity);
             myp.build(new DialogInterface.OnClickListener() {
-
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     editText.setText(myp.getSelectedYear() + " yrs" + " - " + myp.getSelectedMonthName() + " months");
@@ -1588,7 +1534,6 @@ public class UIFormsDB {
                         String onchange = subProcessField.getString("onchange");
                         if (onchange != null) {
                             try {
-
                                 String dependentField = onchange;
                                 if (dependentField.contains(",")) {
                                     String keyData[] = dependentField.split(",");
@@ -1624,22 +1569,6 @@ public class UIFormsDB {
 
     }
 
-    public static void openFullImagePopup(final Context mContext, final Bitmap imageBitmap) {
-        try {
-            final Dialog dialogImages = new Dialog(mContext);
-            dialogImages.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialogImages.setContentView(R.layout.full_image_layout);
-            dialogImages.getWindow().setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
-            ImageViewTouch img = (ImageViewTouch) dialogImages.findViewById(R.id.zoomImage);
-            img.setFitsSystemWindows(true);
-            img.setDisplayType(ImageViewTouchBase.DisplayType.FIT_TO_SCREEN);
-            img.setImageBitmap(imageBitmap);
-            dialogImages.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public static ArrayList<EditText> findAllTableEdittexts(ViewGroup viewGroup, String
             mandatoryTag) {
         try {
@@ -1661,172 +1590,6 @@ public class UIFormsDB {
         }
         return arrayListForMandatoryTableFields;
     }
-
-    public HashMap<String, String> findAllEdittexts(ViewGroup viewGroup) {
-        try {
-            int count = viewGroup.getChildCount();
-            for (int i = 0; i < count; i++) {
-                View view = viewGroup.getChildAt(i);
-                if (view instanceof ViewGroup)
-                    findAllEdittexts((ViewGroup) view);
-                else if (view instanceof EditText) {
-                    EditText edittext = (EditText) view;
-                    if (edittext.getTag().toString().contains("_0")) {
-                    } else {
-                        if (edittext.getText().toString().equalsIgnoreCase("Select")) {
-                            editTextData.put(edittext.getTag().toString(), "");
-                        } else {
-                            editTextData.put(edittext.getTag().toString(), edittext.getText().toString());
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return editTextData;
-    }
-
-    public HashMap<String, EditText> findAllEdittextsToValidate(ViewGroup viewGroup) {
-        try {
-            int count = viewGroup.getChildCount();
-            for (int i = 0; i < count; i++) {
-                View view = viewGroup.getChildAt(i);
-                if (view instanceof ViewGroup)
-                    findAllEdittextsToValidate((ViewGroup) view);
-                else if (view instanceof EditText) {
-                    EditText edittext = (EditText) view;
-                    String tag = edittext.getTag().toString();
-                    String key = "";
-                    if (tag.contains("/")) {
-                        key = tag.split("/")[0];
-                    } else {
-                        key = tag;
-                    }
-                    hashMapEditText.put(key, edittext);
-                }
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return hashMapEditText;
-    }
-
-    public HashMap<String, String> putAllKeysToSave(String[]
-                                                            allFieldsKeysArray, JSONObject applicant, JSONObject applicant_json) {
-        try {
-            templateTextViewData.clear();
-            for (int j = 0; j < allFieldsKeysArray.length; j++) {
-
-                String key = allFieldsKeysArray[j];
-
-                Method method = null;
-                JSONObject jsonObject = null;
-                String val = null;
-                try {
-                    val = jsonObject.getString(key);
-                  //  method = (Method) applicant.get(StringUtils.capitalize(key));
-                    String text = (String) method.invoke(applicant, null);
-                    if (text != null && !text.isEmpty()) {
-                        templateTextViewData.put(key, text);
-                    } else if (!TextUtils.isEmpty(val)) {
-                        templateTextViewData.put(key, val);
-                    } else {
-                        templateTextViewData.put(key, "");
-                    }
-                } catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                    if (!TextUtils.isEmpty(val)) {
-                        templateTextViewData.put(key, val);
-                    } else {
-                        templateTextViewData.put(key, "");
-                    }
-                } catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                    if (!TextUtils.isEmpty(val)) {
-                        templateTextViewData.put(key, val);
-                    } else {
-                        templateTextViewData.put(key, "");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    ;
-                    templateTextViewData.put(key, "");
-                }
-
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return templateTextViewData;
-    }
-
-    public HashMap<String, String> findAllTemplateTextViews(ViewGroup viewGroup) {
-        try {
-
-            int count = viewGroup.getChildCount();
-            for (int i = 0; i < count; i++) {
-                View view = viewGroup.getChildAt(i);
-                if (view instanceof ViewGroup)
-                    findAllTemplateTextViews((ViewGroup) view);
-                else if (view instanceof TextView) {
-                    TextView textView = (TextView) view;
-                    if (textView.getTag() != null) {
-
-                        if (textView.getTag().toString().contains("textView_") || textView.getTag().toString().contains("_0") || textView.getTag().toString().isEmpty() || textView.getTag().toString().contains(" ")) {
-                        } else {
-
-                            templateTextViewData.put(textView.getTag().toString(), textView.getText().toString());
-                        }
-
-                    }
-                }
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return templateTextViewData;
-    }
-
-
-    public HashMap<String, String> findAllTextViews(ViewGroup viewGroup, String
-            tableExist, String tableKeys) {
-        try {
-            if (tableKeys != null) {
-                String tableHeaderArray[] = tableKeys.split(",");
-                int count = viewGroup.getChildCount();
-                for (int i = 0; i < count; i++) {
-                    View view = viewGroup.getChildAt(i);
-                    if (view instanceof ViewGroup) {
-                        //if (templateFields != null) {
-                        findAllTextViews((ViewGroup) view, tableExist, tableKeys);
-                        // }
-                    } else if (view instanceof TextView) {
-                        TextView textView = (TextView) view;
-                        if (textView.getTag() != null && !textView.getTag().toString().contains(" ")) {
-                            if (tableExist != null && tableExist.equalsIgnoreCase("true")) {
-                                for (int l = 0; l < tableHeaderArray.length; l++) {
-                                    if (textView.getTag().toString().contains(tableHeaderArray[l].trim())) {
-                                        if (textView.getTag().toString().contains("textView_") || textView.getTag().toString().contains("_0")) {
-                                        } else {
-                                            textViewData.put(textView.getTag().toString(), textView.getText().toString());
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return textViewData;
-    }
-
 
     public static HashMap<Integer, EditText> findCustomValidateEdittexts(ViewGroup
                                                                                  viewGroup, String key) {
@@ -1880,190 +1643,5 @@ public class UIFormsDB {
         }
         return showHideEditTextHashMap;
     }
-
-
-    public HashMap<String, RadioButton> findCustomValidateRadioButtons(ViewGroup viewGroup) {
-        try {
-            int count = viewGroup.getChildCount();
-            for (int i = 0; i < count; i++) {
-                View view = viewGroup.getChildAt(i);
-                if (view instanceof ViewGroup)
-                    findCustomValidateRadioButtons((ViewGroup) view);
-                else if (view instanceof RadioButton) {
-
-                    RadioButton radioButton = (RadioButton) view;
-                    if (radioButton.getTag() != null) {
-                        if (radioButton.isChecked()) {
-                            customValidRadioButtontHashMap.put(radioButton.getTag().toString(), radioButton);
-                        }
-                    }
-                }
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return customValidRadioButtontHashMap;
-    }
-
-
-    public HashMap<String, CheckBox> findAllCheckBox(ViewGroup viewGroup) {
-        try {
-            int count = viewGroup.getChildCount();
-            for (int i = 0; i < count; i++) {
-                View view = viewGroup.getChildAt(i);
-                if (view instanceof ViewGroup) {
-                    findAllCheckBox((ViewGroup) view);
-                } else if (view instanceof CheckBox) {
-
-                    CheckBox checkBox = (CheckBox) view;
-                    if (checkBox != null) {
-                        if (checkBox.getTag() != null) {
-                            checkBoxHashMap.put(checkBox.getTag().toString(), checkBox);
-                        }
-                    }
-                }
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return checkBoxHashMap;
-    }
-
-
-    public static HashMap<String, Button> findButtons(ViewGroup viewGroup, String key) {
-        buttonsHashMap.clear();
-        try {
-            int count = viewGroup.getChildCount();
-            for (int i = 0; i < count; i++) {
-                View view = viewGroup.getChildAt(i);
-                if (view instanceof ViewGroup) {
-                    if (buttonsHashMap.size() == 0) {
-                        findButtons((ViewGroup) view, key);
-                    }
-                } else if (view instanceof Button) {
-
-                    Button button = (Button) view;
-                    if (button != null) {
-                        if (button.getText().toString().equalsIgnoreCase(key)) {
-                            buttonsHashMap.put(button.getText().toString(), button);
-                        }
-                    }
-                }
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return buttonsHashMap;
-    }
-
-
-    public static HashMap<String, Button> findMapButtons(ViewGroup viewGroup, String key) {
-        mapbuttonsHashMap.clear();
-        try {
-            int count = viewGroup.getChildCount();
-            for (int i = 0; i < count; i++) {
-                View view = viewGroup.getChildAt(i);
-                if (view instanceof ViewGroup) {
-                    if (mapbuttonsHashMap.size() == 0) {
-                        findMapButtons((ViewGroup) view, key);
-                    }
-                } else if (view instanceof Button) {
-
-                    Button button = (Button) view;
-                    if (button != null) {
-                        if (button.getTag().toString().equalsIgnoreCase(key)) {
-                            mapbuttonsHashMap.put(button.getTag().toString(), button);
-                        }
-                    }
-                }
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return mapbuttonsHashMap;
-    }
-
-    private static void openHoldCalenderView(final Context mContext, final EditText editText) {
-
-        try {
-            final Date[] value = {new Date()};
-            final Calendar cal = Calendar.getInstance();
-            cal.setTime(value[0]);
-            new DatePickerDialog(mContext,
-                    new DatePickerDialog.OnDateSetListener() {
-                        boolean mFirst = true;
-
-                        @Override
-                        public void onDateSet(DatePicker view,
-                                              int y, int m, int d) {
-
-                            if (mFirst) {
-                                mFirst = false;
-
-                                cal.set(Calendar.YEAR, y);
-                                cal.set(Calendar.MONTH, m);
-                                cal.set(Calendar.DAY_OF_MONTH, d);
-                                // now show the time picker
-                                new TimePickerDialog(mContext,
-                                        new TimePickerDialog.OnTimeSetListener() {
-                                            @Override
-                                            public void onTimeSet(TimePicker view,
-                                                                  int h, int min) {
-                                                cal.set(Calendar.HOUR_OF_DAY, h);
-                                                cal.set(Calendar.MINUTE, min);
-                                                value[0] = cal.getTime();
-                                                String myFormat = "dd/MM/yyyy HH:mm:ss"; //In which you need put here
-                                                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-                                                String date = sdf.format(value[0]);
-                                                editText.setText(date);
-                                            }
-                                        }, cal.get(Calendar.HOUR_OF_DAY),
-                                        cal.get(Calendar.MINUTE), true).show();
-                            }
-                        }
-                    }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
-                    cal.get(Calendar.DAY_OF_MONTH)).show();
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    private static void openHoldDropDownOptions(final Context mContext, String value[],
-                                                final EditText editText, final String lable) {
-        try {
-
-            final String value_arr[] = new String[value.length + 1];
-            value_arr[0] = lable;
-            for (int i = 0; i < value.length; i++) {
-                int pos = i + 1;
-                value_arr[pos] = value[i];
-            }
-            final Dialog dialog = new Dialog(mContext);
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setContentView(R.layout.popup_dropdown);
-            ListView dropdownList = (ListView) dialog.findViewById(R.id.dropdownList);
-            final ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext, R.layout.list_dropdown_items, value_arr);
-            adapter.notifyDataSetChanged();
-            dropdownList.setAdapter(adapter);
-            dropdownList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    if (position != 0) {
-                        editText.setText(value_arr[position]);
-                    }
-                    dialog.dismiss();
-                }
-            });
-            dialog.show();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
 
 }
