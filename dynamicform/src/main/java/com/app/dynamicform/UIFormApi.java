@@ -55,6 +55,7 @@ public class UIFormApi {
     static ArrayList<Integer> arrayListCheckBoxPosition = new ArrayList<>();
     private static View viewParent;
     private static HashMap<Integer, EditText> customValidEditTextHashMap = new HashMap<>();
+    public static int addCount = 0;
     SparseArray<EditText> array = new SparseArray<EditText>();
     HashMap<String, String> templateTextViewData = new HashMap<>();
     HashMap<String, String> editTextData = new HashMap<>();
@@ -62,32 +63,8 @@ public class UIFormApi {
     HashMap<Integer, String> getDateOfBirth = new HashMap<>();
     HashMap<String, EditText> hashMapEditText = new HashMap<>();
     static HashMap<String, HashMap<String, ArrayList<String>>> hashMapCustomValidation = new HashMap<>();
-    static ArrayList<String> arrayListFields = new ArrayList<>();
-    HashMap<String, String> staticFieldsController = new HashMap<>();
-    HashMap<String, String> dynamicFieldsController = new HashMap<>();
-    public static int addCount = 0;
-    private static int noOfUncheck = 0;
     Context context;
     String response;
-    JSONObject subProcessFieldJsonObject;
-    JSONObject jobDetailsJsonObj;
-    LinearLayout linearLayout;
-    String defaultValueForDropDown;
-
-  /*  public UI(Context context,LinearLayout linearLayout,JSONObject subProcessFieldJsonObject,JSONObject jobDetailsJsonObj,String defaultValueForDropDown) {
-        this.context = context;
-        this.linearLayout = linearLayout;
-        this.subProcessFieldJsonObject = subProcessFieldJsonObject;
-        this.jobDetailsJsonObj = jobDetailsJsonObj;
-        this.defaultValueForDropDown = defaultValueForDropDown;
-    }*/
-
-/*    public UI(Context context,LinearLayout linearLayout,JSONObject subProcessFieldJsonObject,JSONObject jobDetailsJsonObj) {
-        this.context = context;
-        this.linearLayout = linearLayout;
-        this.subProcessFieldJsonObject = subProcessFieldJsonObject;
-        this.jobDetailsJsonObj = jobDetailsJsonObj;
-    }*/
 
     public UIFormApi(Context context, String response) {
         this.context = context;
@@ -125,8 +102,6 @@ public class UIFormApi {
     public static void createEditText(final Context mContext, final JSONObject subProcessField, LinearLayout parent, JSONObject applicant) {
         try {
             boolean isMandatory = subProcessField.getBoolean("isMandatory");
-            String label = subProcessField.getString("lable");
-            String fieldType = subProcessField.getString("fieldType");
             String key = subProcessField.getString("key");
             int fieldID = subProcessField.getInt("fieldID");
             String validation = subProcessField.getString("validation");
@@ -161,7 +136,6 @@ public class UIFormApi {
                 editText.setText("");
             } catch (Exception e) {
                 e.printStackTrace();
-                ;
                 editText.setText("");
             }
 
@@ -277,10 +251,8 @@ public class UIFormApi {
         try {
             Gson gson = new Gson();
             JsonObject body = gson.fromJson(value, JsonObject.class);
-            JsonArray results = body.get("results").getAsJsonArray();
             JSONObject json = new JSONObject(value);
             JSONObject json_LL = json.getJSONObject("LL");
-            String str_value = json_LL.getString("value");
         } catch (Exception e) {
 
         }
@@ -289,29 +261,6 @@ public class UIFormApi {
         params.setMargins(10, 10, 10, 10);
         linearLayout.setLayoutParams(params);
         linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-       /* identifyViews(mContext,,linearLayout, applicant,"",parent);
-        String name = "";
-        Method method = null;
-        try {
-            method =JobDetailsResponse.Applicant.class.getDeclaredMethod("get" + StringUtils.capitalize(subProcessField1.getKey()));
-            name = (String) method.invoke(applicant,null);
-            if(name==null || name.isEmpty()){
-                name = "";
-            }
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-            name = "";
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-            name = "";
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            name ="";
-        }catch (Exception e){
-            name = "";
-        }
-*/
-        // createTextView(mContext,name,linearLayout,ContextCompat.getColor(mContext,R.color.black),12,"",subProcessField1.getKey());
         parent.addView(linearLayout);
     }
 
@@ -320,9 +269,6 @@ public class UIFormApi {
         try {
             boolean isMandatory = subProcessField.getBoolean("isMandatory");
             String label = subProcessField.getString("lable");
-            JSONObject json = new JSONObject(value);
-            JSONObject json_LL = json.getJSONObject("LL");
-            String str_value = json_LL.getString("value");
             LinearLayout linearLayout = new LinearLayout(mContext);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             params.setMargins(10, 10, 10, 10);
@@ -345,12 +291,6 @@ public class UIFormApi {
             boolean isMandatory = subProcessField.getBoolean("isMandatory");
             String label = subProcessField.getString("lable");
             String fieldType = subProcessField.getString("fieldType");
-            String key = subProcessField.getString("key");
-            int fieldID = subProcessField.getInt("fieldID");
-            String validation = subProcessField.getString("validation");
-            String validationPattern = subProcessField.getString("validationPattern");
-            String validationMessage = subProcessField.getString("validationMessage");
-            boolean isreadonly = subProcessField.getBoolean("isreadonly");
             switch (fieldType) {
                 case "label":
                     if (isMandatory) {
@@ -381,14 +321,9 @@ public class UIFormApi {
         try {
 
             boolean isMandatory = subProcessField.getBoolean("isMandatory");
-            String label = subProcessField.getString("lable");
-            String fieldType = subProcessField.getString("fieldType");
             String key = subProcessField.getString("key");
             int fieldID = subProcessField.getInt("fieldID");
             String validation = subProcessField.getString("validation");
-            String validationPattern = subProcessField.getString("validationPattern");
-            String validationMessage = subProcessField.getString("validationMessage");
-            boolean isreadonly = subProcessField.getBoolean("isreadonly");
             final EditText editText = new EditText(mContext);
             LinearLayout.LayoutParams childparams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 50, 1f);
             editText.setLayoutParams(childparams);
@@ -405,23 +340,15 @@ public class UIFormApi {
             String myFormat = "dd-MM-yyyy"; //In which you need put here
             SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
             final Calendar myCalendar = Calendar.getInstance();
-            //  editText.setText(sdf.format(myCalendar.getTime()));
-            // editText.setCompoundDrawables(null,null,ContextCompat.getDrawable(mContext,R.drawable.black_dropdown_arrow),null);
-
-
             Method method = null;
             try {
-                method = (Method) applicant.get(StringUtils.capitalize(key));
-                String text = (String) method.invoke(applicant, null);
+                //method = (Method) applicant.get(StringUtils.capitalize(key));
+                //String text = (String) method.invoke(applicant, null);
+                String val = applicant.getString(key);
+                String text = val;
                 if (text != null && !text.isEmpty()) {
                     editText.setText(text);
                 }
-            } catch (InvocationTargetException e) {
-                e.printStackTrace();
-                editText.setText(sdf.format(myCalendar.getTime()));
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
-                editText.setText(sdf.format(myCalendar.getTime()));
             } catch (Exception e) {
                 e.printStackTrace();
                 editText.setText(sdf.format(myCalendar.getTime()));
@@ -454,13 +381,9 @@ public class UIFormApi {
     public static void createDropdown(final Context mContext, final JSONObject subProcessField, final LinearLayout parent, JSONObject applicant, final String value, final LinearLayout mainParent) {
         try {
             boolean isMandatory = subProcessField.getBoolean("isMandatory");
-            String label = subProcessField.getString("lable");
-            String fieldType = subProcessField.getString("fieldType");
             String key = subProcessField.getString("key");
             int fieldID = subProcessField.getInt("fieldID");
             String validation = subProcessField.getString("validation");
-            String validationPattern = subProcessField.getString("validationPattern");
-            String validationMessage = subProcessField.getString("validationMessage");
             boolean isreadonly = subProcessField.getBoolean("isreadonly");
             String CustomValidationFunction = subProcessField.getString("CustomValidationFunction");
             final EditText editText = new EditText(mContext);
@@ -554,7 +477,6 @@ public class UIFormApi {
     private static void openDropDownOptions(Context mContext, String value, final EditText editText, final LinearLayout mainParent) {
         try {
             JSONArray jsonArray = new JSONArray(value);
-
             final String value_arr[] = new String[jsonArray.length() + 1];
             value_arr[0] = "Select";
             for (int i = 0; i < jsonArray.length(); i++) {
