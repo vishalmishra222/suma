@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="next_time">Nākošreiz</string>
+    <string name="skip_this_version">Palaist garām šo versiju</string>
+    <string name="update">Atjaunot</string>
+    <string formatted="false" name="update_alert_message">Pieejama jauna %s versija.  Lūdzam atjaunot līdz %s versijai.</string>
+    <string name="update_available">Atjaunojums</string>
+</resources>
