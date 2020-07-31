@@ -1,2 +1,0 @@
-# Referenced at /Users/niketa.abnave/Documents/vishal.mishra/Dusmile/app/build/intermediates/merged_manifests/debug/AndroidManifest.xml:76
--keep class com.app.dusmile.application.DusmileApplication { <init>(); }
