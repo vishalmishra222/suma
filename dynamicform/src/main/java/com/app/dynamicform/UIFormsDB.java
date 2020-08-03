@@ -38,6 +38,7 @@ import android.widget.TextView;
 
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.desai.vatsal.mydynamictoast.MyDynamicToast;
+import com.google.common.collect.Range;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -171,12 +172,14 @@ public class UIFormsDB {
             editText.setId(fieldID);
             editText.setTextColor(Color.BLACK);
             editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
-
-            mAwesomeValidation.addValidation(editText, validationPattern, validationMessage);
+            if (key.equals("NoofFamily")){
+                mAwesomeValidation.addValidation(editText, Range.closed(0,100),"please enter family between 1 to 100");
+            }else {
+                mAwesomeValidation.addValidation(editText, validationPattern, validationMessage);
+            }
             if (isMandatory) {
                 textInputLayout.setHintTextAppearance(R.style.error_appearance);
                 editText.setHintTextColor(Color.RED);
-
             } else {
                 textInputLayout.setHintTextAppearance(R.style.TextLabel);
             }
@@ -1512,11 +1515,12 @@ public class UIFormsDB {
             DatePickerDialog datePickerDialog = new DatePickerDialog(mContext, date, myCalendar
                     .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
                     myCalendar.get(Calendar.DAY_OF_MONTH));
+            datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+            datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
             datePickerDialog.show();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     private static void openTemplateYearMonthCalenderView(Context mContext,
