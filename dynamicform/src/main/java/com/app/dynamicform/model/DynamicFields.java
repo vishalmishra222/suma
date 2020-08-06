@@ -1,4 +1,4 @@
-package com.app.dynamicform;
+package com.app.dynamicform.model;
 
 import java.util.List;
 import com.google.gson.annotations.Expose;
