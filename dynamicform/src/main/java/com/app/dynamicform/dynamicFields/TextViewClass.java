@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
 public class TextViewClass {
 
     //create UI for textView
-    public static TextView createTextView(Context mContext, String text, LinearLayout parent, int textColor, float textSize, String headerType, String tag, String customerName) {
+    public TextView createTextView(Context mContext, String text, LinearLayout parent, int textColor, float textSize, String headerType, String tag, String customerName) {
         TextView textView = new TextView(mContext);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
         textView.setLayoutParams(params);
@@ -64,7 +64,7 @@ public class TextViewClass {
         return textView;
     }
 
-    public static boolean validate(String expression, String text) {
+    public boolean validate(String expression, String text) {
         Pattern pattern = Pattern.compile(expression,Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(text);
         return matcher.matches();

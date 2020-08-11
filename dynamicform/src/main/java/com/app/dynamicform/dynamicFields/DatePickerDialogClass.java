@@ -30,9 +30,9 @@ import java.util.regex.Pattern;
 
 public class DatePickerDialogClass {
 
-    private static HashMap<Integer, EditText> customValidEditTextHashMap = new HashMap<>();
+    private HashMap<Integer, EditText> customValidEditTextHashMap = new HashMap<>();
 
-    public static void createDatePickerDialog(final Context mContext,
+    public void createDatePickerDialog(final Context mContext,
                                               final JSONObject subProcessField,
                                               final LinearLayout parent, JSONObject applicant,
                                               final LinearLayout mainParent, JSONObject applicant_json) {
@@ -142,7 +142,7 @@ public class DatePickerDialogClass {
     }
 
 
-    private static void openTemplateCalenderView(Context mContext, final EditText editText,
+    private void openTemplateCalenderView(Context mContext, final EditText editText,
                                                  final LinearLayout parent, final JSONObject subProcessField) {
         try {
             final Calendar myCalendar = Calendar.getInstance();
@@ -207,7 +207,7 @@ public class DatePickerDialogClass {
     }
 
 
-    public static HashMap<Integer, EditText> findCustomValidateEdittexts(ViewGroup
+    public HashMap<Integer, EditText> findCustomValidateEdittexts(ViewGroup
                                                                                  viewGroup, String key) {
         try {
             int count = viewGroup.getChildCount();

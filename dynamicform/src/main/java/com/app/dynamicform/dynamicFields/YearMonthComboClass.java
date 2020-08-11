@@ -25,12 +25,12 @@ import java.util.regex.Pattern;
 
 public class YearMonthComboClass {
 
-    private static HashMap<Integer, EditText> customValidEditTextHashMap = new HashMap<>();
+    private HashMap<Integer, EditText> customValidEditTextHashMap = new HashMap<>();
 
-    public static void createYearMonthCombo(final Context mContext,
+    public void createYearMonthCombo(final Context mContext,
                                             final JSONObject subProcessField,
                                             final LinearLayout parent, JSONObject applicant,
-                                            final LinearLayout mainParent, JSONObject applicant_json,Activity activity) {
+                                            final LinearLayout mainParent, JSONObject applicant_json, Activity activity) {
         try {
             boolean isMandatory = subProcessField.getBoolean("isMandatory");
             String label = subProcessField.getString("lable");
@@ -131,7 +131,7 @@ public class YearMonthComboClass {
         }
     }
 
-    private static void openTemplateYearMonthCalenderView(Context mContext,
+    private void openTemplateYearMonthCalenderView(Context mContext,
                                                           final EditText editText, final LinearLayout parent,
                                                           final JSONObject subProcessField, Activity activity){
         try {
@@ -181,7 +181,7 @@ public class YearMonthComboClass {
     }
 
 
-    public static HashMap<Integer, EditText> findCustomValidateEdittexts(ViewGroup
+    public HashMap<Integer, EditText> findCustomValidateEdittexts(ViewGroup
                                                                                  viewGroup, String key) {
         try {
             int count = viewGroup.getChildCount();
@@ -198,7 +198,6 @@ public class YearMonthComboClass {
                         }
                     }
                 }
-
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -206,7 +205,7 @@ public class YearMonthComboClass {
         return customValidEditTextHashMap;
     }
 
-    public static boolean validate(String expression, String text) {
+    public boolean validate(String expression, String text) {
         Pattern pattern = Pattern.compile(expression,Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(text);
         return matcher.matches();

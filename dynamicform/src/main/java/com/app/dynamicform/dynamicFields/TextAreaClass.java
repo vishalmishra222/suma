@@ -12,21 +12,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-
 import com.app.dynamicform.R;
-import com.app.dynamicform.ValidateField;
 
 import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class TextAreaClass {
-    static HashMap<String, Boolean> editTextValidate = new HashMap<>();
+    HashMap<String, Boolean> editTextValidate = new HashMap<>();
 
-    public static void createTextArea(final Context mContext,
+    public void createTextArea(final Context mContext,
                                       final JSONObject subProcessField, LinearLayout
                                               parent, JSONObject applicant, JSONObject applicant_json) {
         try {
@@ -59,7 +56,7 @@ public class TextAreaClass {
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    boolean editTextValid = ValidateField.validateDataField(validationPattern, charSequence.toString());
+                    boolean editTextValid = validate(validationPattern, charSequence.toString());
                     if (!editTextValid) {
                         editText.setError(validationMessage);
                     } else {
@@ -156,13 +153,13 @@ public class TextAreaClass {
         }
     }
 
-    public static boolean validate(String expression, String text) {
+    public boolean validate(String expression, String text) {
         Pattern pattern = Pattern.compile(expression,Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(text);
         return matcher.matches();
     }
 
-    public static boolean getTextAreaValidation(){
+    public boolean getTextAreaValidation(){
         boolean isValid = true;
         for (Map.Entry<String, Boolean> entry : editTextValidate.entrySet()) {
             if (!entry.getValue()){
@@ -171,5 +168,4 @@ public class TextAreaClass {
         }
         return isValid;
     }
-
 }

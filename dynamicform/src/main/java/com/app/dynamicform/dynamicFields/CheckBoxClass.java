@@ -28,7 +28,6 @@ import android.widget.TextView;
 
 import com.app.dynamicform.R;
 import com.app.dynamicform.UIFormsDB;
-import com.app.dynamicform.ValidateField;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -44,7 +43,7 @@ import java.util.regex.Pattern;
 
 public class CheckBoxClass {
 
-    public static void createCheckBox(final Context mContext,
+    public void createCheckBox(final Context mContext,
                                       final JSONObject subProcessField,
                                       final LinearLayout parent, JSONObject applicant,
                                       final LinearLayout mainParent, JSONObject applicant_json) {
@@ -103,15 +102,15 @@ public class CheckBoxClass {
         }
     }
 
-    public static class DropDownClass {
+    public class DropDownClass {
 
-        static HashMap<String, Boolean> editTextValidate = new HashMap<>();
-        private static ArrayList<String> dependentList = new ArrayList<>();
-        private static boolean otherLoanInformationSelected;
-        private static HashMap<Boolean, ArrayList<String>> hashMapToggleFields = new HashMap<>();
-        private static HashMap<Integer, EditText> customValidEditTextHashMap = new HashMap<>();
+        HashMap<String, Boolean> editTextValidate = new HashMap<>();
+        private ArrayList<String> dependentList = new ArrayList<>();
+        private boolean otherLoanInformationSelected;
+        private HashMap<Boolean, ArrayList<String>> hashMapToggleFields = new HashMap<>();
+        private HashMap<Integer, EditText> customValidEditTextHashMap = new HashMap<>();
 
-        public static void createDropdown(final Context mContext,
+        public void createDropdown(final Context mContext,
                                           final JSONObject subProcessField,
                                           final LinearLayout parent, JSONObject applicant,
                                           final LinearLayout mainParent, JSONObject applicant_json) {
@@ -158,7 +157,7 @@ public class CheckBoxClass {
 
                     @Override
                     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                        boolean editTextValid = ValidateField.validateDataField(validationPattern, charSequence.toString());
+                        boolean editTextValid = validate(validationPattern, charSequence.toString());
                         if (!editTextValid) {
                             editText.setError(validationMessage);
                         } else {
@@ -312,7 +311,7 @@ public class CheckBoxClass {
         }
 
 
-        private static void openDropDownOptions(final Context mContext,
+        private void openDropDownOptions(final Context mContext,
                                                 final JSONObject subProcessField, final EditText editText,
                                                 final LinearLayout mainParent, final String lable, final LinearLayout.LayoutParams params) {
             try {
@@ -396,7 +395,8 @@ public class CheckBoxClass {
                         try {
 
                             if (!TextUtils.isEmpty(dependentField)) {
-                                HashMap<Integer, EditText> editTextHashMap = UIFormsDB.findEditTextForShowHide(mainParent, dependentField);
+                                UIFormsDB uiDB = new UIFormsDB();
+                                HashMap<Integer, EditText> editTextHashMap = uiDB.findEditTextForShowHide(mainParent, dependentField);
                                 if (editTextHashMap.size() > 0) {
                                     for (Map.Entry<Integer, EditText> editTextEntry : editTextHashMap.entrySet()) {
                                         if (position == 0) {
@@ -411,7 +411,8 @@ public class CheckBoxClass {
                                 if (dependentFieldList != null && dependentFieldList.size() > 0) {
                                     for (int k = 0; k < dependentFieldList.size(); k++) {
                                         if (!TextUtils.isEmpty(dependentFieldList.get(k))) {
-                                            HashMap<Integer, EditText> editTextHashMap = UIFormsDB.findEditTextForShowHide(mainParent, dependentFieldList.get(k));
+                                            UIFormsDB uiDB = new UIFormsDB();
+                                            HashMap<Integer, EditText> editTextHashMap = uiDB.findEditTextForShowHide(mainParent, dependentFieldList.get(k));
                                             if (editTextHashMap.size() > 0) {
                                                 for (Map.Entry<Integer, EditText> editTextEntry : editTextHashMap.entrySet()) {
                                                     editTextEntry.getValue().setText("");
@@ -421,7 +422,8 @@ public class CheckBoxClass {
                                         }
                                     }
                                     if (!TextUtils.isEmpty(dependentFieldList.get(position - 1))) {
-                                        HashMap<Integer, EditText> editTextHashMap = UIFormsDB.findEditTextForShowHide(mainParent, dependentFieldList.get(position - 1));
+                                        UIFormsDB uiDB = new UIFormsDB();
+                                        HashMap<Integer, EditText> editTextHashMap = uiDB.findEditTextForShowHide(mainParent, dependentFieldList.get(position - 1));
                                         if (editTextHashMap.size() > 0) {
                                             for (Map.Entry<Integer, EditText> editTextEntry : editTextHashMap.entrySet()) {
                                                 editTextEntry.getValue().setVisibility(View.VISIBLE);
@@ -444,7 +446,7 @@ public class CheckBoxClass {
         }
 
 
-        public static HashMap<Integer, EditText> findCustomValidateEdittexts(ViewGroup
+        public HashMap<Integer, EditText> findCustomValidateEdittexts(ViewGroup
                                                                                      viewGroup, String key) {
             try {
                 int count = viewGroup.getChildCount();
@@ -470,7 +472,7 @@ public class CheckBoxClass {
         }
     }
 
-    public static boolean validate(String expression, String text) {
+    public boolean validate(String expression, String text) {
         Pattern pattern = Pattern.compile(expression,Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(text);
         return matcher.matches();

@@ -1,20 +1,15 @@
 package com.app.dynamicform;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
-import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.util.SparseArray;
@@ -23,16 +18,11 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -45,7 +35,6 @@ import com.app.dynamicform.dynamicFields.EditTextClass;
 import com.app.dynamicform.dynamicFields.TextAreaClass;
 import com.app.dynamicform.dynamicFields.TextViewClass;
 import com.app.dynamicform.dynamicFields.YearMonthComboClass;
-import com.desai.vatsal.mydynamictoast.MyDynamicToast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -53,13 +42,9 @@ import org.json.JSONObject;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
 
@@ -70,31 +55,30 @@ import java.util.regex.Pattern;
 public class UIFormsDB {
     static ArrayList<Integer> arrayListCheckBoxPosition = new ArrayList<>();
     private HashMap<String, RadioButton> customValidRadioButtontHashMap = new HashMap<>();
-    private static View viewParent;
-    private static HashMap<String, Button> buttonsHashMap = new HashMap<>();
+    private View viewParent;
+    private HashMap<String, Button> buttonsHashMap = new HashMap<>();
     private HashMap<String, CheckBox> checkBoxHashMap = new HashMap<>();
-    private static HashMap<String, Button> mapbuttonsHashMap = new HashMap<>();
-    private static HashMap<Integer, EditText> customValidEditTextHashMap = new HashMap<>();
-    private static HashMap<Integer, EditText> showHideEditTextHashMap = new HashMap<>();
+    private HashMap<String, Button> mapbuttonsHashMap = new HashMap<>();
+    private HashMap<Integer, EditText> customValidEditTextHashMap = new HashMap<>();
+    private HashMap<Integer, EditText> showHideEditTextHashMap = new HashMap<>();
     static ArrayList<EditText> arrayListForMandatoryTableFields = new ArrayList<>();
-    private static boolean otherLoanInformationSelected;
-    //private static AwesomeValidation mAwesomeValidation;
+    private boolean otherLoanInformationSelected;
     SparseArray<EditText> array = new SparseArray<EditText>();
     HashMap<String, String> templateTextViewData = new HashMap<>();
     HashMap<String, String> editTextData = new HashMap<>();
-    static HashMap<String, Boolean> editTextValidate = new HashMap<>();
+    HashMap<String, Boolean> editTextValidate = new HashMap<>();
     HashMap<String, String> textViewData = new HashMap<>();
     HashMap<Integer, String> getDateOfBirth = new HashMap<>();
     HashMap<String, EditText> hashMapEditText = new HashMap<>();
-    public static int addCount = 0;
-    private static int noOfUncheck = 0;
-    private static HashMap<Boolean, ArrayList<String>> hashMapToggleFields = new HashMap<>();
-    private static ArrayList<String> dependentList = new ArrayList<>();
-    private static boolean valid;
+    public int addCount = 0;
+    private int noOfUncheck = 0;
+    private HashMap<Boolean, ArrayList<String>> hashMapToggleFields = new HashMap<>();
+    private ArrayList<String> dependentList = new ArrayList<>();
+    private boolean valid;
     Context context;
-    static String jobId;
-    static Activity activity;
-    static android.support.v4.app.FragmentManager fragmentManager;
+    String jobId;
+    Activity activity;
+    android.support.v4.app.FragmentManager fragmentManager;
 
     public UIFormsDB() {
     }
@@ -107,7 +91,7 @@ public class UIFormsDB {
     }
 
     //create UI for textView
-    public static TextView createTextView(Context mContext, String text, LinearLayout parent, int textColor, float textSize, String headerType, String tag, String customerName) {
+    public TextView createTextView(Context mContext, String text, LinearLayout parent, int textColor, float textSize, String headerType, String tag, String customerName) {
         TextView textView = new TextView(mContext);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
         textView.setLayoutParams(params);
@@ -156,164 +140,7 @@ public class UIFormsDB {
         return textView;
     }
 
-
-    //create UI for editText
-    public static void createEditText(final Context mContext, final JSONObject subProcessField, LinearLayout parent, JSONObject applicant, JSONObject applicant_json) {
-        try {
-            boolean isMandatory = subProcessField.getBoolean("isMandatory");
-            String label = subProcessField.getString("lable");
-            String key = subProcessField.getString("key");
-            int fieldID = subProcessField.getInt("fieldID");
-            final String[] validationPattern = {subProcessField.getString("validationPattern")};
-            String validationMessage = subProcessField.getString("validationMessage");
-            String validation = subProcessField.getString("validation");
-            int maxlength = subProcessField.getInt("maxlength");
-            boolean isreadonly = subProcessField.getBoolean("isreadonly");
-            final TextInputLayout textInputLayout = new TextInputLayout(mContext);
-            final TextInputEditText editText = new TextInputEditText(mContext);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
-            editText.setLayoutParams(params);
-            params.setMargins(5, 5, 5, 5);
-            textInputLayout.setLayoutParams(params);
-            editText.setTag(key);
-            editText.setPadding(10, 10, 10, 20);
-            editText.setId(fieldID);
-            editText.setTextColor(Color.BLACK);
-            editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
-            editText.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    boolean editTextValid = ValidateField.validateDataField(validationPattern[0], charSequence.toString());
-                    if (!editTextValid) {
-                        editText.setError(validationMessage);
-                    } else {
-                        editText.setError(null);
-                    }
-                    editTextValidate.put(key, editTextValid);
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-
-                }
-            });
-            if (isMandatory) {
-                textInputLayout.setHintTextAppearance(R.style.error_appearance);
-                editText.setHintTextColor(Color.RED);
-            } else {
-                textInputLayout.setHintTextAppearance(R.style.TextLabel);
-            }
-            String val;
-            try {
-                val = applicant_json.getString(key);
-                String text = val;
-                if (text != null && !text.isEmpty()) {
-                    textInputLayout.setHint(label);
-                    editText.setHint(label);
-                    textInputLayout.setHintAnimationEnabled(false);
-                    editText.setText(text);
-                    textInputLayout.setHintAnimationEnabled(true);
-                } else {
-                    textInputLayout.setHint(label);
-                    editText.setHint(label);
-                    textInputLayout.setHintAnimationEnabled(false);
-                    editText.setText(val);
-                    textInputLayout.setHintAnimationEnabled(true);
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                textInputLayout.setHint(label);
-                editText.setHint(label);
-                textInputLayout.setHintAnimationEnabled(false);
-                editText.setText("");
-                textInputLayout.setHintAnimationEnabled(true);
-            }
-
-            if (validation.equalsIgnoreCase("Numeric") || validation.equalsIgnoreCase("Numbers") || validation.equalsIgnoreCase("Decimal")) {
-                editText.setInputType(InputType.TYPE_CLASS_PHONE);
-            } else if (validation.equalsIgnoreCase("alphaNumeric")) {
-                editText.setInputType(InputType.TYPE_CLASS_TEXT);
-            }
-            if (maxlength != 0 && maxlength > 0) {
-                editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(maxlength)});
-            }
-            boolean isDependentField = false;
-            if (dependentList.size() > 0) {
-                for (int l = 0; l < dependentList.size(); l++) {
-                    if (dependentList.get(l).equalsIgnoreCase(key)) {
-                        isDependentField = true;
-                    }
-                }
-            }
-            editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                Pattern sPattern
-                        = Pattern.compile(validationPattern[0]);
-
-                @Override
-                public void onFocusChange(View v, boolean hasFocus) {
-                    EditText edt = (EditText) v;
-                    if (!v.hasFocus()) {
-                        edt.setSelection(edt.getText().length());
-                        edt.setHint(label);
-                        if (validationPattern[0] != null && !validationPattern[0].isEmpty()) {
-
-                            if (!isValid(edt.getText().toString())) {
-                                editText.setError(validationMessage);
-                            } else {
-                                editText.setError(null);
-                            }
-                        }
-                    } else {
-                        edt.setHint("");
-                    }
-                }
-                private boolean isValid(CharSequence s) {
-                    return sPattern.matcher(s).matches();
-                }
-            });
-
-
-            if (isreadonly) {
-                editText.setBackgroundResource(R.drawable.disabled_edittext_background);
-                editText.setEnabled(false);
-            } else {
-                editText.setEnabled(true);
-            }
-            try {
-                viewParent = parent;
-                if (hashMapToggleFields.size() > 0) {
-                    Map.Entry<Boolean, ArrayList<String>> entry = hashMapToggleFields.entrySet().iterator().next();
-                    Boolean hashMapkey = entry.getKey();
-                    ArrayList<String> arrayListFields = entry.getValue();
-                    if (arrayListFields != null) {
-                        for (int i = 0; i < arrayListFields.size(); i++) {
-                            if (key.trim().equalsIgnoreCase(arrayListFields.get(i).trim())) {
-                                if (hashMapkey == true) {
-                                    editText.setEnabled(true);
-                                } else {
-                                    editText.setBackgroundResource(R.drawable.disabled_edittext_background);
-                                    editText.setEnabled(false);
-                                }
-                                break;
-                            }
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-            textInputLayout.addView(editText);
-            parent.addView(textInputLayout);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public static void createReportAdapterUI(final Context mContext, LinearLayout parent, LinearLayout cardVerticalLin, final int position, JSONArray reportHeadersArray, JSONArray reportDataArray, JSONArray reportHeadersUIArray, JSONArray cardHeadersKeyArray) {
+    public void createReportAdapterUI(final Context mContext, LinearLayout parent, LinearLayout cardVerticalLin, final int position, JSONArray reportHeadersArray, JSONArray reportDataArray, JSONArray reportHeadersUIArray, JSONArray cardHeadersKeyArray) {
         try {
             parent.removeAllViews();
             parent.invalidate();
@@ -417,7 +244,7 @@ public class UIFormsDB {
     }
 
     //dynamic create UI for tabs header and form header
-    public static void createUIForHeader(Context mContext, LinearLayout parent, String name, String headerType, String customerName, String coApplicantName) {
+    public void createUIForHeader(Context mContext, LinearLayout parent, String name, String headerType, String customerName, String coApplicantName) {
         try {
             LinearLayout linearLayout = new LinearLayout(mContext);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -439,14 +266,14 @@ public class UIFormsDB {
     }
 
     //create UI for custom view
-    public static void createView(Context mContext, LinearLayout parent, int width, int height, int color) {
+    public void createView(Context mContext, LinearLayout parent, int width, int height, int color) {
         View view = new View(mContext);
         view.setBackgroundColor(color);
         view.setLayoutParams(new LinearLayout.LayoutParams(width, height));
         parent.addView(view);
     }
 
-    public static void createHorizontalLayoutAndFields(Context mContext, LinearLayout parent, JSONObject subProcessField, String type, JSONObject applicant, JSONObject appilcant_json, int formPosition) {
+    public void createHorizontalLayoutAndFields(Context mContext, LinearLayout parent, JSONObject subProcessField, String type, JSONObject applicant, JSONObject appilcant_json, int formPosition) {
         try {
             String key = subProcessField.getString("key");
             LinearLayout linearLayout = new LinearLayout(mContext);
@@ -478,7 +305,7 @@ public class UIFormsDB {
         }
     }
 
-    public static void createHorizontalLayoutAndFields(Context mContext, LinearLayout
+    public void createHorizontalLayoutAndFields(Context mContext, LinearLayout
             parent, JSONObject subProcessField, JSONObject applicant, JSONObject applicant_json,
                                                        int formPosition) {
         try {
@@ -495,35 +322,43 @@ public class UIFormsDB {
     }
 
 
-    private static void identifyViews(Context mContext, JSONObject
+    private void identifyViews(Context mContext, JSONObject
             subProcessField, LinearLayout parent, JSONObject applicant, LinearLayout
                                               mainParent, JSONObject applicant_json, int formPosition) {
         try {
             String fieldType = subProcessField.getString("fieldType");
             boolean isMandatory = subProcessField.getBoolean("isMandatory");
             String label = subProcessField.getString("lable");
+            TextViewClass tvc = new TextViewClass();
+            EditTextClass edtClas = new EditTextClass();
+            DropDownClass ddc = new DropDownClass();
+            TextAreaClass tac = new TextAreaClass();
+            DatePickerDialogClass datePicker = new DatePickerDialogClass();
+            YearMonthComboClass ymcc = new YearMonthComboClass();
+            CheckBoxClass cbc = new CheckBoxClass();
+
             switch (fieldType) {
                 case "label":
                     if (isMandatory) {
-                        TextViewClass.createTextView(mContext, label, parent, Color.RED, 14, fieldType, "", "");
+                        tvc.createTextView(mContext, label, parent, Color.RED, 14, fieldType, "", "");
                     } else {
-                        TextViewClass.createTextView(mContext, label, parent, ContextCompat.getColor(mContext, R.color.black), 14, fieldType, "", "");
+                        tvc.createTextView(mContext, label, parent, ContextCompat.getColor(mContext, R.color.black), 14, fieldType, "", "");
                     }
                     break;
                 case "fieldHeader":
-                    TextViewClass.createTextView(mContext, label, parent, ContextCompat.getColor(mContext, R.color.black), 14, fieldType, "", "");
+                    tvc.createTextView(mContext, label, parent, ContextCompat.getColor(mContext, R.color.black), 14, fieldType, "", "");
                     break;
                 case "text":
-                    EditTextClass.createEditText(mContext, subProcessField, parent, applicant, applicant_json);
+                    edtClas.createEditText(mContext, subProcessField, parent, applicant, applicant_json);
                     break;
                 case "dropDownList":
-                    DropDownClass.createDropdown(mContext, subProcessField, parent, applicant, mainParent, applicant_json);
+                    ddc.createDropdown(mContext, subProcessField, parent, applicant, mainParent, applicant_json);
                     break;
                 case "textArea":
-                    TextAreaClass.createTextArea(mContext, subProcessField, parent, applicant, applicant_json);
+                    tac.createTextArea(mContext, subProcessField, parent, applicant, applicant_json);
                     break;
                 case "Date":
-                    DatePickerDialogClass.createDatePickerDialog(mContext, subProcessField, parent, applicant, mainParent, applicant_json);
+                    datePicker.createDatePickerDialog(mContext, subProcessField, parent, applicant, mainParent, applicant_json);
                     break;
                 case "RadioButton":
                     //createRadioButton(mContext, subProcessField, parent, applicant, mainParent, applicant_json, formPosition);
@@ -535,10 +370,10 @@ public class UIFormsDB {
                     // createUploadButton(mContext, subProcessField, parent, applicant);
                     break;
                 case "YearMonth":
-                    YearMonthComboClass.createYearMonthCombo(mContext, subProcessField, parent, applicant, mainParent, applicant_json,activity);
+                    ymcc.createYearMonthCombo(mContext, subProcessField, parent, applicant, mainParent, applicant_json,activity);
                     break;
                 case "checkbox":
-                    CheckBoxClass.createCheckBox(mContext, subProcessField, parent, applicant, mainParent, applicant_json);
+                    cbc.createCheckBox(mContext, subProcessField, parent, applicant, mainParent, applicant_json);
                     break;
             }
         } catch (Exception e) {
@@ -546,7 +381,7 @@ public class UIFormsDB {
         }
     }
 
-    public static void createTableRows(Context mContext, LinearLayout
+    public void createTableRows(Context mContext, LinearLayout
             parent, ArrayList<String> arrayListRow, final List<String> tableKeysList) {
         try {
             TableLayout tableLayout = new TableLayout(mContext);
@@ -571,7 +406,7 @@ public class UIFormsDB {
     }
 
     //create UI for custom view inside table row
-    public static void createView(Context mContext, TableRow parent, int width, int height,
+    public void createView(Context mContext, TableRow parent, int width, int height,
                                   int color) {
         View view = new View(mContext);
         view.setBackgroundColor(color);
@@ -580,7 +415,7 @@ public class UIFormsDB {
     }
 
 
-    private static void addCheckBoxToTableRow(Context mContext, String text,
+    private void addCheckBoxToTableRow(Context mContext, String text,
                                               final TableRow parentRow, int textColor, float textSize, final int positionToAdd,
                                               final LinearLayout parent) {
         try {
@@ -679,7 +514,7 @@ public class UIFormsDB {
         }
     }
 
-    private static void addTextViewToTableRow(Context mContext, String text, TableRow parentRow,
+    private void addTextViewToTableRow(Context mContext, String text, TableRow parentRow,
                                               int textColor, float textSize, int positionToAdd, String key) {
         try {
             TextView textView = new TextView(mContext);
@@ -697,8 +532,8 @@ public class UIFormsDB {
         }
     }
 
-    public static HashMap<Integer, EditText> findEditTextForShowHide(ViewGroup
-                                                                             viewGroup, String key) {
+    public HashMap<Integer, EditText> findEditTextForShowHide(ViewGroup
+                                                                      viewGroup, String key) {
         showHideEditTextHashMap.clear();
         try {
             int count = viewGroup.getChildCount();
@@ -723,5 +558,19 @@ public class UIFormsDB {
             e.printStackTrace();
         }
         return showHideEditTextHashMap;
+    }
+
+    public boolean hasErrorSet() {
+        boolean validation = true;
+        EditTextClass etc = new EditTextClass();
+        DropDownClass ddc = new DropDownClass();
+        TextAreaClass tac = new TextAreaClass();
+        boolean edtTextVal = etc.getEditTextValidation();
+        boolean dropDownVal = ddc.getDropDownValidation();
+        boolean textAreaVal = tac.getTextAreaValidation();
+        if (!edtTextVal || !dropDownVal || !textAreaVal) {
+            validation = false;
+        }
+        return validation;
     }
 }

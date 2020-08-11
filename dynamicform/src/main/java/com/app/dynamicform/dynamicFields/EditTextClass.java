@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.app.dynamicform.R;
-import com.app.dynamicform.ValidateField;
 
 import org.json.JSONObject;
 
@@ -26,12 +25,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class EditTextClass {
-    static HashMap<String, Boolean> editTextValidate = new HashMap<>();
-    private static HashMap<Boolean, ArrayList<String>> hashMapToggleFields = new HashMap<>();
-    private static View viewParent;
+    HashMap<String, Boolean> editTextValidate = new HashMap<>();
+    private HashMap<Boolean, ArrayList<String>> hashMapToggleFields = new HashMap<>();
+    private View viewParent;
 
     //create UI for editText
-    public static void createEditText(final Context mContext, final JSONObject subProcessField, LinearLayout parent, JSONObject applicant, JSONObject applicant_json) {
+    public void createEditText(final Context mContext, final JSONObject subProcessField, LinearLayout parent, JSONObject applicant, JSONObject applicant_json) {
         try {
             boolean isMandatory = subProcessField.getBoolean("isMandatory");
             String label = subProcessField.getString("lable");
@@ -60,7 +59,7 @@ public class EditTextClass {
 
                 @Override
                 public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    boolean editTextValid = ValidateField.validateDataField(validationPattern[0], charSequence.toString());
+                    boolean editTextValid = validate(validationPattern[0], charSequence.toString());
                     if (!editTextValid) {
                         editText.setError(validationMessage);
                     } else {
@@ -180,13 +179,13 @@ public class EditTextClass {
         }
     }
 
-    public static boolean validate(String expression, String text) {
+    public boolean validate(String expression, String text) {
         Pattern pattern = Pattern.compile(expression,Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(text);
         return matcher.matches();
     }
 
-    public static boolean getEditTextValidation(){
+    public boolean getEditTextValidation(){
         boolean isValid = true;
         for (Map.Entry<String, Boolean> entry : editTextValidate.entrySet()) {
             if (!entry.getValue()){
