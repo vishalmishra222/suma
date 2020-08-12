@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="strAudio">Record Audio</string>
+    <string name="strAdd">Add</string>
+    <string name="strDelete">Delete</string>
+    <string name="strClear">Clear</string>
+    <string name="strSave">Save</string>
+    <string name="strCancel">Cancel</string>
+    <string name="strSubmit">Submit</string>
+    <string name="strUploadImage">Upload Image</string>
+    <string name="alert_dialog_title">Please Select Year and Month</string>
+    <string name="positive_button_text">Ok</string>
+    <string name="negative_button_text">Cancel</string>
+</resources>
