@@ -12,9 +12,9 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/autoinstall" />
+            <option value="$PROJECT_DIR$/dynamicform" />
             <option value="$PROJECT_DIR$/pdfBox" />
             <option value="$PROJECT_DIR$/siren" />
-            <option value="$PROJECT_DIR$/sumaforms2" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
