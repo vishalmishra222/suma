@@ -35,6 +35,7 @@ import com.app.dynamicform.dynamicFields.EditTextClass;
 import com.app.dynamicform.dynamicFields.TextAreaClass;
 import com.app.dynamicform.dynamicFields.TextViewClass;
 import com.app.dynamicform.dynamicFields.YearMonthComboClass;
+import com.desai.vatsal.mydynamictoast.MyDynamicToast;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -572,5 +573,45 @@ public class UIFormsDB {
             validation = false;
         }
         return validation;
+    }
+
+
+    public boolean validateFromApplicant(Context mContext, JSONObject objectApplicant, JSONArray jsonObjectApplicant) {
+        boolean isFormValidated = hasErrorSet();
+        if (isFormValidated) {
+            isFormValidated =  checkIsMandatory(mContext,jsonObjectApplicant,objectApplicant);
+        }else {
+            isFormValidated = false;
+        }
+        return isFormValidated;
+    }
+
+    public boolean checkIsMandatory(Context mContext, JSONArray jsonObjectApplicant, JSONObject objectApplicant){
+        boolean isMandatory = true;
+        for (int i = 0; i < jsonObjectApplicant.length(); i++) {
+            try {
+                JSONObject obj = (JSONObject) jsonObjectApplicant.get(i);
+                String formName = obj.getString("form_name");
+                String allMandatoryFields = obj.getString("mandatory_field_keys");
+                if (!allMandatoryFields.isEmpty()) {
+                    String allMandatoryFieldsArray[] = allMandatoryFields.split(",");
+                    for (int j = 0; j < allMandatoryFieldsArray.length; j++) {
+                        System.out.println(formName);
+                        JSONObject jsonObject = new JSONObject(String.valueOf(jsonObjectApplicant));
+                        if (jsonObject.has(allMandatoryFieldsArray[j])) {
+                            String value = jsonObject.getString(allMandatoryFieldsArray[j]);
+                            if (value == null || value.isEmpty() || value.equalsIgnoreCase("")) {
+                                isMandatory = false;
+                                MyDynamicToast.errorMessage(mContext, allMandatoryFieldsArray[j] + " is Mandatory in " + formName);
+                                break;
+                            }
+                        }
+                    }
+                }
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return isMandatory;
     }
 }
