@@ -1,10 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: dev.dworks.libs:volleyplus:0.1.4@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9453b6a1dd32703b59d39d492aa6acef/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9453b6a1dd32703b59d39d492aa6acef/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e34f54db5cb55fa61880a7ffb71de10a/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e34f54db5cb55fa61880a7ffb71de10a/res" />
     </CLASSES>
     <JAVADOC />
+    <LIBRARY_FILE />
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/dev.dworks.libs/volleyplus/0.1.4/8b36aed61d800712de741bace466ec2d3e024dde/volleyplus-0.1.4-sources.jar!/" />
     </SOURCES>

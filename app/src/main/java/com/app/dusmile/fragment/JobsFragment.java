@@ -1830,30 +1830,15 @@ public class JobsFragment extends Fragment {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.length() > 0) {
                         Log.d("DUSMILE", response);
-                            getJobDataApi(jsonObject);
+                           // getJobDataApi(jsonObject);
                             reportHeadersArray = new JSONArray();
                             reportHeadersUIArray = new JSONArray();
                             cardHeadersKeyArray = new JSONArray();
+                            reportDataArray = new JSONArray();
                             reportHeadersArray = jsonObject.getJSONArray("reportHeaders");
                             reportHeadersUIArray = jsonObject.getJSONArray("reportHeadersKeys");
                             cardHeadersKeyArray = jsonObject.getJSONArray("cardHeadersKeys");
-                            if (AppConstant.isAssinedJobs) {
-                                DBHelper dbHelper = DBHelper.getInstance(mContext);
-                                OfflineAssignedJobsDB.removeOfflineAssignedJobs(dbHelper);
-                                OfflineAssignedJobs offlineAssignedJobs = new OfflineAssignedJobs();
-                                offlineAssignedJobs.setOffline_assigned_jobs_json(response);
-                                OfflineAssignedJobsDB.addOfflineAssignedJobsEntry(offlineAssignedJobs, dbHelper);
-                                UserPreference.writeInteger(mContext, UserPreference.ASSIGNED_CNT, reportDataArray.length());
-                            }
-                            if (reportDataArray != null) {
-                                if (reportDataArray.length() > 0) {
-                                    // exportBtn.setVisibility(View.VISIBLE);
-                                    setAdapter(reportHeadersArray, reportDataArray, reportHeadersUIArray, cardHeadersKeyArray);
-                                } else {
-                                    // exportBtn.setVisibility(View.GONE);
-                                    MyDynamicToast.informationMessage(mContext, "No Data Available");
-                                }
-                            }
+                            getJobDataApi(jsonObject);
                     }
                 }
             } catch (Exception e) {
@@ -1899,10 +1884,12 @@ public class JobsFragment extends Fragment {
 
     private void getJobDataApi(JSONObject jsonObject) {
         IOUtils.startLoading(mContext, "Loading......");
-        reportHeadersUIArray = new JSONArray();
+        //reportHeadersUIArray = new JSONArray();
         try {
-            JSONObject reportHeaderKeys = jsonObject.getJSONObject("reportHeadersKeys");
-            new HttpVolleyRequest(mContext, reportHeaderKeys,new Const().GET_JOB_DATA, listenerReporData);
+            JSONObject reportHeaderKeys = jsonObject.getJSONObject("reportHeaderKeys");
+            JSONObject jsonObject1 = new JSONObject();
+            jsonObject1.put("reportHeaderKeys",reportHeaderKeys);
+            new HttpVolleyRequest(mContext, jsonObject1,new Const().GET_JOB_DATA, listenerReporData);
            // reportDataArray = jsonObject.getJSONArray("reportData");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -1923,9 +1910,24 @@ public class JobsFragment extends Fragment {
                     String response = obj.toString();
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.length() > 0) {
-                        Log.d("DUSMILE", response);
-                            reportDataArray = new JSONArray();
-                            reportDataArray = jsonObject.getJSONArray("reportData");
+                        reportDataArray = jsonObject.getJSONArray("reportData");
+                        if(AppConstant.isAssinedJobs) {
+                            DBHelper dbHelper = DBHelper.getInstance(mContext);
+                            OfflineAssignedJobsDB.removeOfflineAssignedJobs(dbHelper);
+                            OfflineAssignedJobs offlineAssignedJobs = new OfflineAssignedJobs();
+                            offlineAssignedJobs.setOffline_assigned_jobs_json(response);
+                            OfflineAssignedJobsDB.addOfflineAssignedJobsEntry(offlineAssignedJobs, dbHelper);
+                            UserPreference.writeInteger(mContext, UserPreference.ASSIGNED_CNT, reportDataArray.length());
+                        }
+                        if (reportDataArray != null) {
+                            if (reportDataArray.length() > 0) {
+                                // exportBtn.setVisibility(View.VISIBLE);
+                                setAdapter(reportHeadersArray, reportDataArray, reportHeadersUIArray, cardHeadersKeyArray);
+                            } else {
+                                // exportBtn.setVisibility(View.GONE);
+                                MyDynamicToast.informationMessage(mContext, "No Data Available");
+                            }
+                        }
                     }
                 }
             }catch (Exception e) {

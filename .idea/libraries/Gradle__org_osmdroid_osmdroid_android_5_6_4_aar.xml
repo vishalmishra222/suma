@@ -1,10 +1,11 @@
 <component name="libraryTable">
   <library name="Gradle: org.osmdroid:osmdroid-android:5.6.4@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/aef834cab5a5d83d92b491b2cb6e5397/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/aef834cab5a5d83d92b491b2cb6e5397/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/res" />
     </CLASSES>
     <JAVADOC />
+    <LIBRARY_FILE />
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.osmdroid/osmdroid-android/5.6.4/cd404486e7cce903daf9866cb500761a6b5337f7/osmdroid-android-5.6.4-sources.jar!/" />
     </SOURCES>
