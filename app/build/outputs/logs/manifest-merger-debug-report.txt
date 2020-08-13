@@ -1,0 +1,1217 @@
+-- Merging decision tree log ---
+provider#com.app.dusmile.common.DusmileFileProvider
+INJECTED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:53:9-61:20
+	android:grantUriPermissions
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:57:13-47
+	android:authorities
+		INJECTED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:55:13-60
+	android:exported
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:56:13-37
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:54:13-55
+manifest
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:2:1-197:12
+INJECTED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:2:1-197:12
+INJECTED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:2:1-197:12
+INJECTED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:2:1-197:12
+MERGED from [com.android.support:multidex:1.0.2] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8c1cd01768f18f1f8f1af301ea0aade3/AndroidManifest.xml:17:1-22:12
+MERGED from [:pdfBox] /Users/niketa.abnave/Desktop/suma/pdfBox/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-13:12
+MERGED from [:siren] /Users/niketa.abnave/Desktop/suma/siren/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-13:12
+MERGED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-53:12
+MERGED from [:dynamicform] /Users/niketa.abnave/Desktop/suma/dynamicform/build/intermediates/library_manifest/debug/AndroidManifest.xml:2:1-11:12
+MERGED from [dev.dworks.libs:volleyplus:0.1.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e34f54db5cb55fa61880a7ffb71de10a/AndroidManifest.xml:2:1-11:12
+MERGED from [com.android.support:cardview-v7:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/77ef38d453c657cebf19fdc0d8500610/AndroidManifest.xml:17:1-28:12
+MERGED from [com.basgeekball:awesome-validation:2.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7b6196442bb4318d6dd188391f43889e/AndroidManifest.xml:2:1-11:12
+MERGED from [devlight.io:navigationtabbar:1.2.5] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b2454de7717018a243495d4589f37879/AndroidManifest.xml:14:1-28:12
+MERGED from [com.android.support:design:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c0577c08d19ba8168aeb6a3310d7592e/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:recyclerview-v7:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4cf6ce479f67a2ee3696d0d04643c644/AndroidManifest.xml:17:1-26:12
+MERGED from [id.zelory:compressor:1.0.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/f9d96472d836537ea65fc8a14262d6a0/AndroidManifest.xml:2:1-12:12
+MERGED from [com.yarolegovich:lovely-dialog:1.0.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/f471cef9ef662ed764f0250c51b70f23/AndroidManifest.xml:2:1-13:12
+MERGED from [com.auron:permission-manage:1.1.6] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7af4b1f5985d0e12df7fd896ac5fd63e/AndroidManifest.xml:25:1-40:12
+MERGED from [com.theartofdev.edmodo:android-image-cropper:2.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/01bdcefa9bf601ae718cfd614d644bc3/AndroidManifest.xml:2:1-12:12
+MERGED from [com.github.vatsaldesai92:MyDynamicToastLibrary:1.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/05800ec161ab34520b304ab2ef939e4f/AndroidManifest.xml:2:1-17:12
+MERGED from [com.github.f0ris.sweetalert:library:1.5.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/a2016e055237608a29d27b1cd4ebab4d/AndroidManifest.xml:2:1-13:12
+MERGED from [com.pnikosis:materialish-progress:1.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/0f286786bd3ffb26f5765dbb678cad7b/AndroidManifest.xml:2:1-17:12
+MERGED from [com.google.android.gms:play-services:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e25e2e4125c345278bd2d9fe8470e21a/AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.android.gms:play-services-cast-framework:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e5bc97b35ba5045c6de8bbd5f7c6a75f/AndroidManifest.xml:2:1-9:12
+MERGED from [com.google.android.gms:play-services-cast:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/3b8df53641031f6bee9dda2a39b3b043/AndroidManifest.xml:16:1-19:12
+MERGED from [com.android.support:mediarouter-v7:24.0.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/23578a76c6fa8e79e5d43fc1f3065c65/AndroidManifest.xml:17:1-24:12
+MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c5a6141a8057434fafd6992f0c10185f/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:transition:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c364410ce31069ebd586e7d951f2d869/AndroidManifest.xml:17:1-28:12
+MERGED from [com.google.android.gms:play-services-awareness:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e63c37bd6ac94e6b2789ee69b1c4e2b8/AndroidManifest.xml:16:1-19:12
+MERGED from [com.google.android.gms:play-services-places:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/a6d3587e3f35b85a7df65a90c2a0dca4/AndroidManifest.xml:16:1-19:12
+MERGED from [com.google.android.gms:play-services-wallet:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/6131f440401de50588e99ce1013944ba/AndroidManifest.xml:16:1-20:12
+MERGED from [com.google.android.gms:play-services-maps:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/502047e6c12aeb66c3c793b57a3cb2fc/AndroidManifest.xml:16:1-25:12
+MERGED from [com.google.android.gms:play-services-fitness:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8492ea14b7a861d336c20bbffcd68312/AndroidManifest.xml:16:1-19:12
+MERGED from [com.google.android.gms:play-services-location:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/5b93267c87a7b249d9089659c7f525ef/AndroidManifest.xml:2:1-5:12
+MERGED from [com.google.firebase:firebase-messaging:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/759e9df41ed5d1426e122719b374b7b9/AndroidManifest.xml:16:1-30:12
+MERGED from [com.google.firebase:firebase-database:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/91ceb58ca8bdaf0c5e47e8f489d2f0af/AndroidManifest.xml:2:1-4:12
+MERGED from [com.google.firebase:firebase-auth:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/a2391baf458bd248cbe08c32f1a214a1/AndroidManifest.xml:16:1-21:12
+MERGED from [com.google.android.gms:play-services-ads:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7330965b9a9d81551ea7e32a7a419710/AndroidManifest.xml:16:1-18:12
+MERGED from [com.google.android.gms:play-services-ads-lite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28bd302c556cf20e8a3b75c07c7a6b89/AndroidManifest.xml:16:1-28:12
+MERGED from [com.google.android.gms:play-services-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/18182559dc970287ca1f6cbc5eacb9ab/AndroidManifest.xml:16:1-27:12
+MERGED from [com.google.android.gms:play-services-tagmanager:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b81f3eeb648efd6021c8d9a2c6333967/AndroidManifest.xml:16:1-18:12
+MERGED from [com.google.android.gms:play-services-tagmanager-v4-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/963b71663792fe18fbe39980d4e29823/AndroidManifest.xml:16:1-20:12
+MERGED from [com.google.android.gms:play-services-analytics-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7538a7a557d08de5bdd3b1aeed9fe67d/AndroidManifest.xml:16:1-27:12
+MERGED from [com.google.android.gms:play-services-appinvite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/1bb4fe331de240329ddeb91a493da49d/AndroidManifest.xml:16:1-27:12
+MERGED from [com.google.android.gms:play-services-auth:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28680d461bde5fe98a9fc311c6f00fa7/AndroidManifest.xml:16:1-26:12
+MERGED from [com.google.android.gms:play-services-auth-base:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/766d48214504fe181ee032b7a1165d6d/AndroidManifest.xml:2:1-5:12
+MERGED from [com.google.android.gms:play-services-clearcut:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/f2dd74d69072be5f327a82b2be30cb02/AndroidManifest.xml:16:1-19:12
+MERGED from [com.google.firebase:firebase-config:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/03af8bc4f4b8430dc45bfb9417711ea2/AndroidManifest.xml:16:1-19:12
+MERGED from [com.google.android.gms:play-services-games:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/5ab18281e860e793f79a2ec7692b6b5f/AndroidManifest.xml:16:1-19:12
+MERGED from [com.google.android.gms:play-services-drive:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/51f0be2a6e8572e88cef5d86f63adacd/AndroidManifest.xml:16:1-19:12
+MERGED from [com.google.android.gms:play-services-gcm:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/f2617306671c1c7e6f0a330dfd309fcb/AndroidManifest.xml:16:1-24:12
+MERGED from [com.google.firebase:firebase-appindexing:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/53708b8a6a636a0a371e493d06e5d9b8/AndroidManifest.xml:16:1-19:12
+MERGED from [com.google.android.gms:play-services-identity:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/bd8a0143bbc97d86056d62c893911de2/AndroidManifest.xml:16:1-19:12
+MERGED from [com.google.android.gms:play-services-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8b02a3c0bd04a22a6ffaa0b52555f24a/AndroidManifest.xml:16:1-24:12
+MERGED from [com.google.android.gms:play-services-instantapps:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b89ead6181428089ff3790b99674b209/AndroidManifest.xml:2:1-4:12
+MERGED from [com.google.android.gms:play-services-nearby:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/56673632e068ff690bbb1305cd6ca2a7/AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.android.gms:play-services-panorama:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/58fc922ff0467dbd7ab0ee132e5f621f/AndroidManifest.xml:16:1-19:12
+MERGED from [com.google.android.gms:play-services-plus:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/1c3801044e1788d061fed54342a012ad/AndroidManifest.xml:16:1-19:12
+MERGED from [com.google.android.gms:play-services-safetynet:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/a9400356935b19e7912822b103607093/AndroidManifest.xml:16:1-19:12
+MERGED from [com.google.android.gms:play-services-vision:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e197b136d5ce1c46056250dbd9e726a2/AndroidManifest.xml:2:1-5:12
+MERGED from [com.google.android.gms:play-services-wearable:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/18a7ddae5ea689d75062f7c88443c882/AndroidManifest.xml:16:1-19:12
+MERGED from [com.google.android.gms:play-services-base:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/3a918894afd2ae90930b7ef7c26af06b/AndroidManifest.xml:16:1-21:12
+MERGED from [com.google.firebase:firebase-crash:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c9ac33b03c8068d5ff8703d86bdc3366/AndroidManifest.xml:16:1-25:12
+MERGED from [com.google.firebase:firebase-database-connection:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/9d7e6df576c9f8d129030150fbc65991/AndroidManifest.xml:2:1-4:12
+MERGED from [com.google.firebase:firebase-core:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/18bc393f05327b45fd329417daf7ce32/AndroidManifest.xml:2:1-6:12
+MERGED from [com.google.android.gms:play-services-tagmanager-api:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4f920fbb725f8751a5203adc2c36f393/AndroidManifest.xml:16:1-34:12
+MERGED from [com.google.firebase:firebase-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2e62595c8a04f6278af42e925213501e/AndroidManifest.xml:16:1-34:12
+MERGED from [com.google.firebase:firebase-analytics-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c1c0a7e6bf4a2d783063c49838072d7e/AndroidManifest.xml:16:1-29:12
+MERGED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:16:1-51:12
+MERGED from [com.google.firebase:firebase-storage:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2f725d9a95f235a5d0221dd896e3cf0d/AndroidManifest.xml:2:1-4:12
+MERGED from [com.google.firebase:firebase-storage-common:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d240eb6c62ba1183629e33cb3d1aabee/AndroidManifest.xml:2:1-4:12
+MERGED from [com.google.firebase:firebase-common:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/6224bebb51c51599149f1e0d38375a60/AndroidManifest.xml:2:1-8:12
+MERGED from [com.google.android.gms:play-services-gass:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/dbcd959c88b83871d7071e675d20327d/AndroidManifest.xml:2:1-5:12
+MERGED from [com.google.android.gms:play-services-tasks:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7aae49924ee9c2c89e029fc1a667f772/AndroidManifest.xml:2:1-5:12
+MERGED from [com.google.android.gms:play-services-basement:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/ee271f8ecd121b4194fd6cb1b46822b1/AndroidManifest.xml:16:1-23:12
+MERGED from [com.android.support:palette-v7:24.0.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/1f73f055286d3a779cf24f5661e74e8f/AndroidManifest.xml:17:1-25:12
+MERGED from [com.android.support:support-v4:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/24b004bc3065b52ed7cc7353fe9d6443/AndroidManifest.xml:17:1-31:12
+MERGED from [com.github.delight-im:Android-AdvancedWebView:v3.0.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/10c35d9d5c6ffa14da76ca5f182b7f8c/AndroidManifest.xml:2:1-11:12
+MERGED from [it.sephiroth.android.library.imagezoom:imagezoom:2.3.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8bf4a918a7e593bb9b3831b85bca0948/AndroidManifest.xml:2:1-13:12
+MERGED from [com.allenliu.badgeview:library:1.1.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/3985634fecfab3196721d9229e26891d/AndroidManifest.xml:2:1-16:12
+MERGED from [net.cachapa.expandablelayout:expandablelayout:2.7] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d93878e68eaee7bff7485bad8ca3077c/AndroidManifest.xml:2:1-12:12
+MERGED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:2:1-37:12
+MERGED from [com.crashlytics.sdk.android:crashlytics:2.6.8] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/090484b8bc6e82f6774630dcef601769/AndroidManifest.xml:2:1-13:12
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/6b2e30c9799a3f6ab8d554db39a6292d/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/bcd01d715379f0580f18d555e6115b2c/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8cae4b619d4a978b3e108b8fc2599f78/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2cf8f914250931bb5f46acca4ca86cc9/AndroidManifest.xml:17:1-31:12
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/cc62792b06c583823e1d38c10517f1c2/AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/97e9f8e4c00600659bf95204c0eb83b7/AndroidManifest.xml:17:1-28:12
+MERGED from [com.android.support:support-compat:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4a48b99e6a70a4a63f3cf168a5f237e5/AndroidManifest.xml:17:1-31:12
+MERGED from [com.crashlytics.sdk.android:beta:1.2.5] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/3b0d17e82331223e15c8c836b0688198/AndroidManifest.xml:2:1-13:12
+MERGED from [com.crashlytics.sdk.android:crashlytics-core:2.3.17] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8b115baf79898faa47f49605e7418251/AndroidManifest.xml:45:1-56:12
+MERGED from [com.crashlytics.sdk.android:answers:1.3.13] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/306c2e6d1a0a889c7f86910103a4b3ad/AndroidManifest.xml:2:1-13:12
+MERGED from [io.fabric.sdk.android:fabric:1.3.17] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2babe64294afc0084112ada10b64e884/AndroidManifest.xml:22:1-33:12
+INJECTED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:2:1-197:12
+INJECTED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:2:1-197:12
+INJECTED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:2:1-197:12
+	package
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:4:5-30
+		INJECTED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml
+	android:versionName
+		INJECTED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:2:1-197:12
+		INJECTED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml
+	xmlns:tools
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:3:5-51
+	android:versionCode
+		INJECTED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:2:1-197:12
+		INJECTED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml
+	xmlns:android
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:2:11-69
+uses-permission#android.permission.INTERNET
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:6:5-67
+MERGED from [:siren] /Users/niketa.abnave/Desktop/suma/siren/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-67
+MERGED from [:siren] /Users/niketa.abnave/Desktop/suma/siren/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-67
+MERGED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:5-67
+MERGED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:16:5-67
+MERGED from [com.google.android.gms:play-services-maps:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/502047e6c12aeb66c3c793b57a3cb2fc/AndroidManifest.xml:20:5-66
+MERGED from [com.google.android.gms:play-services-maps:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/502047e6c12aeb66c3c793b57a3cb2fc/AndroidManifest.xml:20:5-66
+MERGED from [com.google.android.gms:play-services-ads-lite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28bd302c556cf20e8a3b75c07c7a6b89/AndroidManifest.xml:19:5-66
+MERGED from [com.google.android.gms:play-services-ads-lite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28bd302c556cf20e8a3b75c07c7a6b89/AndroidManifest.xml:19:5-66
+MERGED from [com.google.android.gms:play-services-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/18182559dc970287ca1f6cbc5eacb9ab/AndroidManifest.xml:20:5-66
+MERGED from [com.google.android.gms:play-services-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/18182559dc970287ca1f6cbc5eacb9ab/AndroidManifest.xml:20:5-66
+MERGED from [com.google.android.gms:play-services-analytics-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7538a7a557d08de5bdd3b1aeed9fe67d/AndroidManifest.xml:20:5-66
+MERGED from [com.google.android.gms:play-services-analytics-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7538a7a557d08de5bdd3b1aeed9fe67d/AndroidManifest.xml:20:5-66
+MERGED from [com.google.android.gms:play-services-appinvite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/1bb4fe331de240329ddeb91a493da49d/AndroidManifest.xml:18:5-66
+MERGED from [com.google.android.gms:play-services-appinvite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/1bb4fe331de240329ddeb91a493da49d/AndroidManifest.xml:18:5-66
+MERGED from [com.google.android.gms:play-services-gcm:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/f2617306671c1c7e6f0a330dfd309fcb/AndroidManifest.xml:21:5-66
+MERGED from [com.google.android.gms:play-services-gcm:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/f2617306671c1c7e6f0a330dfd309fcb/AndroidManifest.xml:21:5-66
+MERGED from [com.google.android.gms:play-services-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8b02a3c0bd04a22a6ffaa0b52555f24a/AndroidManifest.xml:21:5-66
+MERGED from [com.google.android.gms:play-services-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8b02a3c0bd04a22a6ffaa0b52555f24a/AndroidManifest.xml:21:5-66
+MERGED from [com.google.firebase:firebase-crash:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c9ac33b03c8068d5ff8703d86bdc3366/AndroidManifest.xml:18:5-66
+MERGED from [com.google.firebase:firebase-crash:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c9ac33b03c8068d5ff8703d86bdc3366/AndroidManifest.xml:18:5-66
+MERGED from [com.google.android.gms:play-services-tagmanager-api:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4f920fbb725f8751a5203adc2c36f393/AndroidManifest.xml:20:5-66
+MERGED from [com.google.android.gms:play-services-tagmanager-api:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4f920fbb725f8751a5203adc2c36f393/AndroidManifest.xml:20:5-66
+MERGED from [com.google.firebase:firebase-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2e62595c8a04f6278af42e925213501e/AndroidManifest.xml:20:5-66
+MERGED from [com.google.firebase:firebase-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2e62595c8a04f6278af42e925213501e/AndroidManifest.xml:20:5-66
+MERGED from [com.google.firebase:firebase-analytics-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c1c0a7e6bf4a2d783063c49838072d7e/AndroidManifest.xml:20:5-66
+MERGED from [com.google.firebase:firebase-analytics-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c1c0a7e6bf4a2d783063c49838072d7e/AndroidManifest.xml:20:5-66
+MERGED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:20:5-66
+MERGED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:20:5-66
+MERGED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:20:5-67
+MERGED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:20:5-67
+MERGED from [com.crashlytics.sdk.android:crashlytics:2.6.8] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/090484b8bc6e82f6774630dcef601769/AndroidManifest.xml:9:5-67
+MERGED from [com.crashlytics.sdk.android:crashlytics:2.6.8] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/090484b8bc6e82f6774630dcef601769/AndroidManifest.xml:9:5-67
+MERGED from [com.crashlytics.sdk.android:beta:1.2.5] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/3b0d17e82331223e15c8c836b0688198/AndroidManifest.xml:9:5-67
+MERGED from [com.crashlytics.sdk.android:beta:1.2.5] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/3b0d17e82331223e15c8c836b0688198/AndroidManifest.xml:9:5-67
+MERGED from [com.crashlytics.sdk.android:crashlytics-core:2.3.17] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8b115baf79898faa47f49605e7418251/AndroidManifest.xml:52:5-67
+MERGED from [com.crashlytics.sdk.android:crashlytics-core:2.3.17] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8b115baf79898faa47f49605e7418251/AndroidManifest.xml:52:5-67
+MERGED from [com.crashlytics.sdk.android:answers:1.3.13] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/306c2e6d1a0a889c7f86910103a4b3ad/AndroidManifest.xml:9:5-67
+MERGED from [com.crashlytics.sdk.android:answers:1.3.13] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/306c2e6d1a0a889c7f86910103a4b3ad/AndroidManifest.xml:9:5-67
+MERGED from [io.fabric.sdk.android:fabric:1.3.17] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2babe64294afc0084112ada10b64e884/AndroidManifest.xml:29:5-67
+MERGED from [io.fabric.sdk.android:fabric:1.3.17] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2babe64294afc0084112ada10b64e884/AndroidManifest.xml:29:5-67
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:6:22-64
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:7:5-79
+MERGED from [com.google.android.gms:play-services-maps:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/502047e6c12aeb66c3c793b57a3cb2fc/AndroidManifest.xml:19:5-78
+MERGED from [com.google.android.gms:play-services-maps:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/502047e6c12aeb66c3c793b57a3cb2fc/AndroidManifest.xml:19:5-78
+MERGED from [com.google.android.gms:play-services-ads-lite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28bd302c556cf20e8a3b75c07c7a6b89/AndroidManifest.xml:20:5-78
+MERGED from [com.google.android.gms:play-services-ads-lite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28bd302c556cf20e8a3b75c07c7a6b89/AndroidManifest.xml:20:5-78
+MERGED from [com.google.android.gms:play-services-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/18182559dc970287ca1f6cbc5eacb9ab/AndroidManifest.xml:21:5-78
+MERGED from [com.google.android.gms:play-services-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/18182559dc970287ca1f6cbc5eacb9ab/AndroidManifest.xml:21:5-78
+MERGED from [com.google.android.gms:play-services-analytics-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7538a7a557d08de5bdd3b1aeed9fe67d/AndroidManifest.xml:21:5-78
+MERGED from [com.google.android.gms:play-services-analytics-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7538a7a557d08de5bdd3b1aeed9fe67d/AndroidManifest.xml:21:5-78
+MERGED from [com.google.android.gms:play-services-nearby:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/56673632e068ff690bbb1305cd6ca2a7/AndroidManifest.xml:4:5-78
+MERGED from [com.google.android.gms:play-services-nearby:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/56673632e068ff690bbb1305cd6ca2a7/AndroidManifest.xml:4:5-78
+MERGED from [com.google.android.gms:play-services-tagmanager-api:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4f920fbb725f8751a5203adc2c36f393/AndroidManifest.xml:21:5-78
+MERGED from [com.google.android.gms:play-services-tagmanager-api:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4f920fbb725f8751a5203adc2c36f393/AndroidManifest.xml:21:5-78
+MERGED from [com.google.firebase:firebase-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2e62595c8a04f6278af42e925213501e/AndroidManifest.xml:21:5-78
+MERGED from [com.google.firebase:firebase-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2e62595c8a04f6278af42e925213501e/AndroidManifest.xml:21:5-78
+MERGED from [com.google.firebase:firebase-analytics-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c1c0a7e6bf4a2d783063c49838072d7e/AndroidManifest.xml:21:5-78
+MERGED from [com.google.firebase:firebase-analytics-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c1c0a7e6bf4a2d783063c49838072d7e/AndroidManifest.xml:21:5-78
+MERGED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:19:5-78
+MERGED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:19:5-78
+MERGED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:19:5-79
+MERGED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:19:5-79
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:7:22-76
+uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:8:5-81
+MERGED from [:pdfBox] /Users/niketa.abnave/Desktop/suma/pdfBox/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-81
+MERGED from [:pdfBox] /Users/niketa.abnave/Desktop/suma/pdfBox/build/intermediates/library_manifest/debug/AndroidManifest.xml:11:5-81
+MERGED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:5-81
+MERGED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:17:5-81
+MERGED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:21:5-81
+MERGED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:21:5-81
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:8:22-78
+uses-permission#android.permission.READ_EXTERNAL_STORAGE
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:9:5-80
+MERGED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:5-80
+MERGED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:18:5-80
+MERGED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:22:5-80
+MERGED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:22:5-80
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:9:22-77
+uses-permission#android.permission.ACCESS_FINE_LOCATION
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:10:5-79
+MERGED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:16:5-79
+MERGED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:16:5-79
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:10:22-76
+uses-permission#android.permission.ACCESS_COARSE_LOCATION
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:11:5-81
+MERGED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:17:5-81
+MERGED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:17:5-81
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:11:22-78
+uses-permission#android.permission.CAMERA
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:12:5-65
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:12:22-62
+uses-permission#android.permission.CALL_PHONE
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:13:5-69
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:13:22-66
+uses-permission#android.permission.RECEIVE_BOOT_COMPLETED
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:14:5-81
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:14:22-78
+uses-permission#com.app.dusmile.fragment.MapUpdateFragment.permission.MAPS_RECEIVE
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:15:5-106
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:15:22-103
+uses-permission#com.google.android.providers.gsf.permission.READ_GSERVICES
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:16:5-98
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:16:22-95
+uses-permission#android.permission.RECORD_AUDIO
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:17:5-71
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:17:22-68
+uses-permission#android.permission.WAKE_LOCK
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:18:5-67
+MERGED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:22:5-68
+MERGED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:22:5-68
+MERGED from [com.google.android.gms:play-services-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/18182559dc970287ca1f6cbc5eacb9ab/AndroidManifest.xml:24:5-67
+MERGED from [com.google.android.gms:play-services-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/18182559dc970287ca1f6cbc5eacb9ab/AndroidManifest.xml:24:5-67
+MERGED from [com.google.android.gms:play-services-analytics-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7538a7a557d08de5bdd3b1aeed9fe67d/AndroidManifest.xml:24:5-67
+MERGED from [com.google.android.gms:play-services-analytics-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7538a7a557d08de5bdd3b1aeed9fe67d/AndroidManifest.xml:24:5-67
+MERGED from [com.google.firebase:firebase-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2e62595c8a04f6278af42e925213501e/AndroidManifest.xml:22:5-67
+MERGED from [com.google.firebase:firebase-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2e62595c8a04f6278af42e925213501e/AndroidManifest.xml:22:5-67
+MERGED from [com.google.firebase:firebase-analytics-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c1c0a7e6bf4a2d783063c49838072d7e/AndroidManifest.xml:22:5-67
+MERGED from [com.google.firebase:firebase-analytics-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c1c0a7e6bf4a2d783063c49838072d7e/AndroidManifest.xml:22:5-67
+MERGED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:21:5-67
+MERGED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:21:5-67
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:18:22-65
+uses-permission#android.permission.MOUNT_UNMOUNT_FILESYSTEMS
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:20:5-22:47
+MERGED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:5-21:47
+MERGED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:19:5-21:47
+	tools:ignore
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:22:9-44
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:21:9-68
+uses-feature#android.hardware.camera
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:24:5-60
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:24:19-57
+uses-feature#0x00020000
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:27:5-29:35
+MERGED from [com.google.android.gms:play-services-maps:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/502047e6c12aeb66c3c793b57a3cb2fc/AndroidManifest.xml:21:5-77
+MERGED from [com.google.android.gms:play-services-maps:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/502047e6c12aeb66c3c793b57a3cb2fc/AndroidManifest.xml:21:5-77
+	android:glEsVersion
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:28:9-41
+	android:required
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:29:9-32
+uses-feature#android.hardware.camera.autofocus
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:30:5-70
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:30:19-67
+uses-permission#android.permission.READ_LOGS
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:32:5-34:47
+	tools:ignore
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:34:9-44
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:33:9-52
+uses-permission#android.permission.READ_PHONE_STATE
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:35:5-75
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:35:22-72
+application
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:41:5-195:19
+MERGED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:5-51:19
+MERGED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:24:5-51:19
+MERGED from [dev.dworks.libs:volleyplus:0.1.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e34f54db5cb55fa61880a7ffb71de10a/AndroidManifest.xml:9:5-20
+MERGED from [dev.dworks.libs:volleyplus:0.1.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e34f54db5cb55fa61880a7ffb71de10a/AndroidManifest.xml:9:5-20
+MERGED from [com.android.support:cardview-v7:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/77ef38d453c657cebf19fdc0d8500610/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:cardview-v7:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/77ef38d453c657cebf19fdc0d8500610/AndroidManifest.xml:26:5-20
+MERGED from [devlight.io:navigationtabbar:1.2.5] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b2454de7717018a243495d4589f37879/AndroidManifest.xml:23:5-26:38
+MERGED from [devlight.io:navigationtabbar:1.2.5] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b2454de7717018a243495d4589f37879/AndroidManifest.xml:23:5-26:38
+MERGED from [com.android.support:design:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c0577c08d19ba8168aeb6a3310d7592e/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:design:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c0577c08d19ba8168aeb6a3310d7592e/AndroidManifest.xml:29:5-20
+MERGED from [com.yarolegovich:lovely-dialog:1.0.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/f471cef9ef662ed764f0250c51b70f23/AndroidManifest.xml:11:5-52
+MERGED from [com.yarolegovich:lovely-dialog:1.0.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/f471cef9ef662ed764f0250c51b70f23/AndroidManifest.xml:11:5-52
+MERGED from [com.auron:permission-manage:1.1.6] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7af4b1f5985d0e12df7fd896ac5fd63e/AndroidManifest.xml:34:5-38:19
+MERGED from [com.auron:permission-manage:1.1.6] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7af4b1f5985d0e12df7fd896ac5fd63e/AndroidManifest.xml:34:5-38:19
+MERGED from [com.github.vatsaldesai92:MyDynamicToastLibrary:1.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/05800ec161ab34520b304ab2ef939e4f/AndroidManifest.xml:11:5-15:19
+MERGED from [com.github.vatsaldesai92:MyDynamicToastLibrary:1.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/05800ec161ab34520b304ab2ef939e4f/AndroidManifest.xml:11:5-15:19
+MERGED from [com.github.f0ris.sweetalert:library:1.5.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/a2016e055237608a29d27b1cd4ebab4d/AndroidManifest.xml:11:5-20
+MERGED from [com.github.f0ris.sweetalert:library:1.5.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/a2016e055237608a29d27b1cd4ebab4d/AndroidManifest.xml:11:5-20
+MERGED from [com.pnikosis:materialish-progress:1.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/0f286786bd3ffb26f5765dbb678cad7b/AndroidManifest.xml:11:5-15:19
+MERGED from [com.pnikosis:materialish-progress:1.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/0f286786bd3ffb26f5765dbb678cad7b/AndroidManifest.xml:11:5-15:19
+MERGED from [com.google.android.gms:play-services:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e25e2e4125c345278bd2d9fe8470e21a/AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e25e2e4125c345278bd2d9fe8470e21a/AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-cast-framework:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e5bc97b35ba5045c6de8bbd5f7c6a75f/AndroidManifest.xml:4:5-8:19
+MERGED from [com.google.android.gms:play-services-cast-framework:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e5bc97b35ba5045c6de8bbd5f7c6a75f/AndroidManifest.xml:4:5-8:19
+MERGED from [com.google.android.gms:play-services-cast:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/3b8df53641031f6bee9dda2a39b3b043/AndroidManifest.xml:18:5-19
+MERGED from [com.google.android.gms:play-services-cast:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/3b8df53641031f6bee9dda2a39b3b043/AndroidManifest.xml:18:5-19
+MERGED from [com.android.support:mediarouter-v7:24.0.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/23578a76c6fa8e79e5d43fc1f3065c65/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:mediarouter-v7:24.0.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/23578a76c6fa8e79e5d43fc1f3065c65/AndroidManifest.xml:22:5-20
+MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c5a6141a8057434fafd6992f0c10185f/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c5a6141a8057434fafd6992f0c10185f/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:transition:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c364410ce31069ebd586e7d951f2d869/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:transition:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c364410ce31069ebd586e7d951f2d869/AndroidManifest.xml:26:5-20
+MERGED from [com.google.android.gms:play-services-awareness:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e63c37bd6ac94e6b2789ee69b1c4e2b8/AndroidManifest.xml:18:5-19
+MERGED from [com.google.android.gms:play-services-awareness:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e63c37bd6ac94e6b2789ee69b1c4e2b8/AndroidManifest.xml:18:5-19
+MERGED from [com.google.android.gms:play-services-places:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/a6d3587e3f35b85a7df65a90c2a0dca4/AndroidManifest.xml:18:5-19
+MERGED from [com.google.android.gms:play-services-places:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/a6d3587e3f35b85a7df65a90c2a0dca4/AndroidManifest.xml:18:5-19
+MERGED from [com.google.android.gms:play-services-maps:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/502047e6c12aeb66c3c793b57a3cb2fc/AndroidManifest.xml:24:5-19
+MERGED from [com.google.android.gms:play-services-maps:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/502047e6c12aeb66c3c793b57a3cb2fc/AndroidManifest.xml:24:5-19
+MERGED from [com.google.android.gms:play-services-fitness:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8492ea14b7a861d336c20bbffcd68312/AndroidManifest.xml:18:5-19
+MERGED from [com.google.android.gms:play-services-fitness:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8492ea14b7a861d336c20bbffcd68312/AndroidManifest.xml:18:5-19
+MERGED from [com.google.android.gms:play-services-location:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/5b93267c87a7b249d9089659c7f525ef/AndroidManifest.xml:4:5-19
+MERGED from [com.google.android.gms:play-services-location:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/5b93267c87a7b249d9089659c7f525ef/AndroidManifest.xml:4:5-19
+MERGED from [com.google.firebase:firebase-messaging:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/759e9df41ed5d1426e122719b374b7b9/AndroidManifest.xml:19:5-29:19
+MERGED from [com.google.firebase:firebase-messaging:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/759e9df41ed5d1426e122719b374b7b9/AndroidManifest.xml:19:5-29:19
+MERGED from [com.google.firebase:firebase-auth:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/a2391baf458bd248cbe08c32f1a214a1/AndroidManifest.xml:19:5-20:19
+MERGED from [com.google.firebase:firebase-auth:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/a2391baf458bd248cbe08c32f1a214a1/AndroidManifest.xml:19:5-20:19
+MERGED from [com.google.android.gms:play-services-ads-lite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28bd302c556cf20e8a3b75c07c7a6b89/AndroidManifest.xml:23:5-27:19
+MERGED from [com.google.android.gms:play-services-ads-lite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28bd302c556cf20e8a3b75c07c7a6b89/AndroidManifest.xml:23:5-27:19
+MERGED from [com.google.android.gms:play-services-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/18182559dc970287ca1f6cbc5eacb9ab/AndroidManifest.xml:26:5-19
+MERGED from [com.google.android.gms:play-services-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/18182559dc970287ca1f6cbc5eacb9ab/AndroidManifest.xml:26:5-19
+MERGED from [com.google.android.gms:play-services-tagmanager-v4-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/963b71663792fe18fbe39980d4e29823/AndroidManifest.xml:19:5-19
+MERGED from [com.google.android.gms:play-services-tagmanager-v4-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/963b71663792fe18fbe39980d4e29823/AndroidManifest.xml:19:5-19
+MERGED from [com.google.android.gms:play-services-analytics-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7538a7a557d08de5bdd3b1aeed9fe67d/AndroidManifest.xml:26:5-19
+MERGED from [com.google.android.gms:play-services-analytics-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7538a7a557d08de5bdd3b1aeed9fe67d/AndroidManifest.xml:26:5-19
+MERGED from [com.google.android.gms:play-services-appinvite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/1bb4fe331de240329ddeb91a493da49d/AndroidManifest.xml:19:5-26:19
+MERGED from [com.google.android.gms:play-services-appinvite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/1bb4fe331de240329ddeb91a493da49d/AndroidManifest.xml:19:5-26:19
+MERGED from [com.google.android.gms:play-services-auth:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28680d461bde5fe98a9fc311c6f00fa7/AndroidManifest.xml:19:5-25:19
+MERGED from [com.google.android.gms:play-services-auth:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28680d461bde5fe98a9fc311c6f00fa7/AndroidManifest.xml:19:5-25:19
+MERGED from [com.google.android.gms:play-services-clearcut:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/f2dd74d69072be5f327a82b2be30cb02/AndroidManifest.xml:18:5-19
+MERGED from [com.google.android.gms:play-services-clearcut:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/f2dd74d69072be5f327a82b2be30cb02/AndroidManifest.xml:18:5-19
+MERGED from [com.google.firebase:firebase-config:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/03af8bc4f4b8430dc45bfb9417711ea2/AndroidManifest.xml:18:5-19
+MERGED from [com.google.firebase:firebase-config:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/03af8bc4f4b8430dc45bfb9417711ea2/AndroidManifest.xml:18:5-19
+MERGED from [com.google.android.gms:play-services-games:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/5ab18281e860e793f79a2ec7692b6b5f/AndroidManifest.xml:18:5-19
+MERGED from [com.google.android.gms:play-services-games:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/5ab18281e860e793f79a2ec7692b6b5f/AndroidManifest.xml:18:5-19
+MERGED from [com.google.android.gms:play-services-drive:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/51f0be2a6e8572e88cef5d86f63adacd/AndroidManifest.xml:18:5-19
+MERGED from [com.google.android.gms:play-services-drive:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/51f0be2a6e8572e88cef5d86f63adacd/AndroidManifest.xml:18:5-19
+MERGED from [com.google.android.gms:play-services-gcm:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/f2617306671c1c7e6f0a330dfd309fcb/AndroidManifest.xml:23:5-19
+MERGED from [com.google.android.gms:play-services-gcm:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/f2617306671c1c7e6f0a330dfd309fcb/AndroidManifest.xml:23:5-19
+MERGED from [com.google.firebase:firebase-appindexing:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/53708b8a6a636a0a371e493d06e5d9b8/AndroidManifest.xml:18:5-19
+MERGED from [com.google.firebase:firebase-appindexing:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/53708b8a6a636a0a371e493d06e5d9b8/AndroidManifest.xml:18:5-19
+MERGED from [com.google.android.gms:play-services-identity:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/bd8a0143bbc97d86056d62c893911de2/AndroidManifest.xml:18:5-19
+MERGED from [com.google.android.gms:play-services-identity:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/bd8a0143bbc97d86056d62c893911de2/AndroidManifest.xml:18:5-19
+MERGED from [com.google.android.gms:play-services-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8b02a3c0bd04a22a6ffaa0b52555f24a/AndroidManifest.xml:23:5-19
+MERGED from [com.google.android.gms:play-services-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8b02a3c0bd04a22a6ffaa0b52555f24a/AndroidManifest.xml:23:5-19
+MERGED from [com.google.android.gms:play-services-nearby:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/56673632e068ff690bbb1305cd6ca2a7/AndroidManifest.xml:5:5-19
+MERGED from [com.google.android.gms:play-services-nearby:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/56673632e068ff690bbb1305cd6ca2a7/AndroidManifest.xml:5:5-19
+MERGED from [com.google.android.gms:play-services-panorama:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/58fc922ff0467dbd7ab0ee132e5f621f/AndroidManifest.xml:18:5-19
+MERGED from [com.google.android.gms:play-services-panorama:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/58fc922ff0467dbd7ab0ee132e5f621f/AndroidManifest.xml:18:5-19
+MERGED from [com.google.android.gms:play-services-plus:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/1c3801044e1788d061fed54342a012ad/AndroidManifest.xml:18:5-19
+MERGED from [com.google.android.gms:play-services-plus:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/1c3801044e1788d061fed54342a012ad/AndroidManifest.xml:18:5-19
+MERGED from [com.google.android.gms:play-services-safetynet:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/a9400356935b19e7912822b103607093/AndroidManifest.xml:18:5-19
+MERGED from [com.google.android.gms:play-services-safetynet:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/a9400356935b19e7912822b103607093/AndroidManifest.xml:18:5-19
+MERGED from [com.google.android.gms:play-services-vision:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e197b136d5ce1c46056250dbd9e726a2/AndroidManifest.xml:4:5-19
+MERGED from [com.google.android.gms:play-services-vision:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e197b136d5ce1c46056250dbd9e726a2/AndroidManifest.xml:4:5-19
+MERGED from [com.google.android.gms:play-services-wearable:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/18a7ddae5ea689d75062f7c88443c882/AndroidManifest.xml:18:5-19
+MERGED from [com.google.android.gms:play-services-wearable:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/18a7ddae5ea689d75062f7c88443c882/AndroidManifest.xml:18:5-19
+MERGED from [com.google.android.gms:play-services-base:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/3a918894afd2ae90930b7ef7c26af06b/AndroidManifest.xml:18:5-20:19
+MERGED from [com.google.android.gms:play-services-base:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/3a918894afd2ae90930b7ef7c26af06b/AndroidManifest.xml:18:5-20:19
+MERGED from [com.google.firebase:firebase-crash:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c9ac33b03c8068d5ff8703d86bdc3366/AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.firebase:firebase-crash:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c9ac33b03c8068d5ff8703d86bdc3366/AndroidManifest.xml:22:5-23:19
+MERGED from [com.google.firebase:firebase-core:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/18bc393f05327b45fd329417daf7ce32/AndroidManifest.xml:5:5-20
+MERGED from [com.google.firebase:firebase-core:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/18bc393f05327b45fd329417daf7ce32/AndroidManifest.xml:5:5-20
+MERGED from [com.google.android.gms:play-services-tagmanager-api:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4f920fbb725f8751a5203adc2c36f393/AndroidManifest.xml:23:5-33:19
+MERGED from [com.google.android.gms:play-services-tagmanager-api:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4f920fbb725f8751a5203adc2c36f393/AndroidManifest.xml:23:5-33:19
+MERGED from [com.google.firebase:firebase-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2e62595c8a04f6278af42e925213501e/AndroidManifest.xml:24:5-33:19
+MERGED from [com.google.firebase:firebase-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2e62595c8a04f6278af42e925213501e/AndroidManifest.xml:24:5-33:19
+MERGED from [com.google.firebase:firebase-analytics-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c1c0a7e6bf4a2d783063c49838072d7e/AndroidManifest.xml:24:5-28:19
+MERGED from [com.google.firebase:firebase-analytics-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c1c0a7e6bf4a2d783063c49838072d7e/AndroidManifest.xml:24:5-28:19
+MERGED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:28:5-50:19
+MERGED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:28:5-50:19
+MERGED from [com.google.firebase:firebase-common:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/6224bebb51c51599149f1e0d38375a60/AndroidManifest.xml:4:5-7:19
+MERGED from [com.google.firebase:firebase-common:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/6224bebb51c51599149f1e0d38375a60/AndroidManifest.xml:4:5-7:19
+MERGED from [com.google.android.gms:play-services-gass:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/dbcd959c88b83871d7071e675d20327d/AndroidManifest.xml:4:5-19
+MERGED from [com.google.android.gms:play-services-gass:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/dbcd959c88b83871d7071e675d20327d/AndroidManifest.xml:4:5-19
+MERGED from [com.google.android.gms:play-services-tasks:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7aae49924ee9c2c89e029fc1a667f772/AndroidManifest.xml:4:5-19
+MERGED from [com.google.android.gms:play-services-tasks:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7aae49924ee9c2c89e029fc1a667f772/AndroidManifest.xml:4:5-19
+MERGED from [com.google.android.gms:play-services-basement:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/ee271f8ecd121b4194fd6cb1b46822b1/AndroidManifest.xml:19:5-21:19
+MERGED from [com.google.android.gms:play-services-basement:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/ee271f8ecd121b4194fd6cb1b46822b1/AndroidManifest.xml:19:5-21:19
+MERGED from [com.android.support:palette-v7:24.0.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/1f73f055286d3a779cf24f5661e74e8f/AndroidManifest.xml:22:5-23:19
+MERGED from [com.android.support:palette-v7:24.0.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/1f73f055286d3a779cf24f5661e74e8f/AndroidManifest.xml:22:5-23:19
+MERGED from [com.android.support:support-v4:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/24b004bc3065b52ed7cc7353fe9d6443/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-v4:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/24b004bc3065b52ed7cc7353fe9d6443/AndroidManifest.xml:29:5-20
+MERGED from [com.github.delight-im:Android-AdvancedWebView:v3.0.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/10c35d9d5c6ffa14da76ca5f182b7f8c/AndroidManifest.xml:9:5-20
+MERGED from [com.github.delight-im:Android-AdvancedWebView:v3.0.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/10c35d9d5c6ffa14da76ca5f182b7f8c/AndroidManifest.xml:9:5-20
+MERGED from [it.sephiroth.android.library.imagezoom:imagezoom:2.3.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8bf4a918a7e593bb9b3831b85bca0948/AndroidManifest.xml:11:5-20
+MERGED from [it.sephiroth.android.library.imagezoom:imagezoom:2.3.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8bf4a918a7e593bb9b3831b85bca0948/AndroidManifest.xml:11:5-20
+MERGED from [com.allenliu.badgeview:library:1.1.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/3985634fecfab3196721d9229e26891d/AndroidManifest.xml:11:5-14:19
+MERGED from [com.allenliu.badgeview:library:1.1.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/3985634fecfab3196721d9229e26891d/AndroidManifest.xml:11:5-14:19
+MERGED from [com.crashlytics.sdk.android:crashlytics:2.6.8] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/090484b8bc6e82f6774630dcef601769/AndroidManifest.xml:11:5-20
+MERGED from [com.crashlytics.sdk.android:crashlytics:2.6.8] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/090484b8bc6e82f6774630dcef601769/AndroidManifest.xml:11:5-20
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/6b2e30c9799a3f6ab8d554db39a6292d/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/6b2e30c9799a3f6ab8d554db39a6292d/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/bcd01d715379f0580f18d555e6115b2c/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/bcd01d715379f0580f18d555e6115b2c/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8cae4b619d4a978b3e108b8fc2599f78/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8cae4b619d4a978b3e108b8fc2599f78/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2cf8f914250931bb5f46acca4ca86cc9/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2cf8f914250931bb5f46acca4ca86cc9/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/cc62792b06c583823e1d38c10517f1c2/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/cc62792b06c583823e1d38c10517f1c2/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/97e9f8e4c00600659bf95204c0eb83b7/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/97e9f8e4c00600659bf95204c0eb83b7/AndroidManifest.xml:26:5-20
+MERGED from [com.android.support:support-compat:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4a48b99e6a70a4a63f3cf168a5f237e5/AndroidManifest.xml:29:5-20
+MERGED from [com.android.support:support-compat:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4a48b99e6a70a4a63f3cf168a5f237e5/AndroidManifest.xml:29:5-20
+MERGED from [com.crashlytics.sdk.android:beta:1.2.5] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/3b0d17e82331223e15c8c836b0688198/AndroidManifest.xml:11:5-20
+MERGED from [com.crashlytics.sdk.android:beta:1.2.5] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/3b0d17e82331223e15c8c836b0688198/AndroidManifest.xml:11:5-20
+MERGED from [com.crashlytics.sdk.android:crashlytics-core:2.3.17] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8b115baf79898faa47f49605e7418251/AndroidManifest.xml:54:5-20
+MERGED from [com.crashlytics.sdk.android:crashlytics-core:2.3.17] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8b115baf79898faa47f49605e7418251/AndroidManifest.xml:54:5-20
+MERGED from [com.crashlytics.sdk.android:answers:1.3.13] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/306c2e6d1a0a889c7f86910103a4b3ad/AndroidManifest.xml:11:5-20
+MERGED from [com.crashlytics.sdk.android:answers:1.3.13] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/306c2e6d1a0a889c7f86910103a4b3ad/AndroidManifest.xml:11:5-20
+MERGED from [io.fabric.sdk.android:fabric:1.3.17] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2babe64294afc0084112ada10b64e884/AndroidManifest.xml:31:5-20
+MERGED from [io.fabric.sdk.android:fabric:1.3.17] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2babe64294afc0084112ada10b64e884/AndroidManifest.xml:31:5-20
+	android:supportsRtl
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:49:9-35
+	android:label
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:46:9-41
+	android:hardwareAccelerated
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:44:9-43
+	android:largeHeap
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:47:9-33
+	android:icon
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:45:9-42
+		REJECTED from [com.pnikosis:materialish-progress:1.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/0f286786bd3ffb26f5765dbb678cad7b/AndroidManifest.xml:13:9-45
+	android:allowBackup
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:43:9-35
+		REJECTED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:25:9-35
+		REJECTED from [devlight.io:navigationtabbar:1.2.5] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b2454de7717018a243495d4589f37879/AndroidManifest.xml:24:9-35
+		REJECTED from [com.auron:permission-manage:1.1.6] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7af4b1f5985d0e12df7fd896ac5fd63e/AndroidManifest.xml:35:9-35
+		REJECTED from [com.github.vatsaldesai92:MyDynamicToastLibrary:1.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/05800ec161ab34520b304ab2ef939e4f/AndroidManifest.xml:12:9-35
+		REJECTED from [com.pnikosis:materialish-progress:1.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/0f286786bd3ffb26f5765dbb678cad7b/AndroidManifest.xml:12:9-35
+		REJECTED from [com.allenliu.badgeview:library:1.1.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/3985634fecfab3196721d9229e26891d/AndroidManifest.xml:12:9-35
+	android:theme
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:50:9-40
+	tools:replace
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:51:9-57
+	android:logo
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:48:9-42
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:42:9-55
+meta-data#com.google.firebase.messaging.default_notification_icon
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:63:9-65:53
+	android:resource
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:65:13-50
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:64:13-83
+meta-data#com.google.firebase.messaging.default_notification_color
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:67:9-69:53
+	android:resource
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:69:13-50
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:68:13-84
+meta-data#com.google.android.gms.version
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:70:9-72:69
+MERGED from [com.google.android.gms:play-services-basement:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/ee271f8ecd121b4194fd6cb1b46822b1/AndroidManifest.xml:20:9-121
+MERGED from [com.google.android.gms:play-services-basement:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/ee271f8ecd121b4194fd6cb1b46822b1/AndroidManifest.xml:20:9-121
+	android:value
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:72:13-66
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:71:13-58
+meta-data#com.google.android.geo.API_KEY
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:73:9-75:47
+	android:value
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:75:13-44
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:74:13-58
+activity#com.app.dusmile.activity.LoginActivity
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:77:9-79:52
+	android:screenOrientation
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:79:13-49
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:78:13-51
+activity#com.app.dusmile.activity.MainActivity
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:80:9-82:52
+	android:screenOrientation
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:82:13-49
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:81:13-50
+activity#com.app.dusmile.activity.DusmileBaseActivity
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:83:9-97:20
+	android:screenOrientation
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:85:13-49
+	android:windowSoftInputMode
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:86:13-52
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:84:13-57
+intent-filter#action:name:android.intent.action.PICK+category:name:android.intent.category.DEFAULT+category:name:android.intent.category.OPENABLE+data:mimeType:text/plain
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:88:13-95:29
+action#android.intent.action.PICK
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:89:17-69
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:89:25-66
+category#android.intent.category.DEFAULT
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:91:17-76
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:91:27-73
+category#android.intent.category.OPENABLE
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:92:17-77
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:92:27-74
+data
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:94:17-55
+	android:mimeType
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:94:23-52
+activity#com.app.dusmile.activity.SplashActivity
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:98:9-106:20
+	android:screenOrientation
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:100:13-49
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:99:13-52
+intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:101:13-105:29
+action#android.intent.action.MAIN
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:102:17-69
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:102:25-66
+category#android.intent.category.LAUNCHER
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:104:17-77
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:104:27-74
+activity#com.app.dusmile.activity.JobsActivity
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:107:9-111:55
+	android:screenOrientation
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:110:13-49
+	android:windowSoftInputMode
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:111:13-52
+	android:exported
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:109:13-36
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:108:13-50
+activity#com.app.dusmile.activity.ReportActivity
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:113:9-115:52
+	android:screenOrientation
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:115:13-49
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:114:13-52
+activity#com.app.dusmile.activity.ReportDetailsActivity
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:117:9-120:55
+	android:screenOrientation
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:119:13-49
+	android:windowSoftInputMode
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:120:13-52
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:118:13-59
+activity#com.app.dusmile.activity.ChangePasswordActivity
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:122:9-124:52
+	android:screenOrientation
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:124:13-49
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:123:13-60
+activity#com.app.dusmile.activity.MapActivity
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:126:9-129:52
+	android:screenOrientation
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:129:13-49
+	android:hardwareAccelerated
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:128:13-47
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:127:13-49
+activity#com.app.dusmile.activity.AllFormsActivity
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:131:9-135:70
+	android:screenOrientation
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:134:13-49
+	android:hardwareAccelerated
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:133:13-47
+	android:windowSoftInputMode
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:135:13-67
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:132:13-54
+receiver#com.app.dusmile.receiver.CheckConnectivityReceiver
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:137:9-148:20
+	android:enabled
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:139:13-35
+	android:exported
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:140:13-36
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:138:13-63
+intent-filter#action:name:android.intent.action.BOOT_COMPLETED+action:name:android.net.conn.CONNECTIVITY_CHANGE+action:name:android.net.wifi.WIFI_STATE_CHANGED
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:141:13-147:29
+action#android.net.conn.CONNECTIVITY_CHANGE
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:142:17-79
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:142:25-76
+action#android.net.wifi.WIFI_STATE_CHANGED
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:143:17-78
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:143:25-75
+action#android.intent.action.BOOT_COMPLETED
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:144:17-146:48
+	android:priority
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:146:21-45
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:145:21-72
+service#com.app.dusmile.service.SubmitOfflineJobHttpService
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:150:9-152:39
+	android:exported
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:152:13-36
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:151:13-64
+service#com.app.dusmile.service.UploadLogFileHttpService
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:153:9-155:39
+	android:exported
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:155:13-36
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:154:13-61
+activity#com.app.dusmile.activity.PendingUploadActivity
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:157:9-159:52
+	android:screenOrientation
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:159:13-49
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:158:13-59
+activity#com.app.dusmile.activity.UploadActivity
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:160:9-163:47
+	android:label
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:162:13-58
+	android:theme
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:163:13-44
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:161:13-52
+service#com.app.dusmile.firebase.FirebaseIDService
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:165:9-172:19
+	android:enabled
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:167:13-35
+	android:exported
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:168:13-36
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:166:13-55
+intent-filter#action:name:com.google.firebase.INSTANCE_ID_EVENT
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:169:13-171:29
+action#com.google.firebase.INSTANCE_ID_EVENT
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:170:17-80
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:170:25-77
+service#com.app.dusmile.firebase.MyFirebaseMessagingService
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:174:9-181:19
+	android:enabled
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:176:13-35
+	android:exported
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:177:13-36
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:175:13-64
+intent-filter#action:name:com.google.firebase.MESSAGING_EVENT
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:178:13-180:29
+action#com.google.firebase.MESSAGING_EVENT
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:179:17-78
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:179:25-75
+activity#com.app.dusmile.activity.TranslationActivity
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:183:9-66
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:183:19-63
+activity#com.app.dusmile.activity.SaveLocationActivity
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:184:9-67
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:184:19-64
+activity#com.app.dusmile.recording.RecordingMainActivity
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:185:9-69
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:185:19-66
+meta-data#io.fabric.ApiKey
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:187:9-189:72
+	android:value
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:189:13-69
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:188:13-44
+activity#com.app.dusmile.activity.LocationActivity
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:191:9-194:65
+	android:screenOrientation
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:193:13-49
+	android:theme
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:194:13-53
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:192:13-54
+uses-sdk
+INJECTED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml
+INJECTED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml
+MERGED from [com.android.support:multidex:1.0.2] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8c1cd01768f18f1f8f1af301ea0aade3/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:multidex:1.0.2] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8c1cd01768f18f1f8f1af301ea0aade3/AndroidManifest.xml:20:5-43
+MERGED from [:pdfBox] /Users/niketa.abnave/Desktop/suma/pdfBox/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:pdfBox] /Users/niketa.abnave/Desktop/suma/pdfBox/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:siren] /Users/niketa.abnave/Desktop/suma/siren/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:siren] /Users/niketa.abnave/Desktop/suma/siren/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-10:41
+MERGED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:8:5-10:41
+MERGED from [:dynamicform] /Users/niketa.abnave/Desktop/suma/dynamicform/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [:dynamicform] /Users/niketa.abnave/Desktop/suma/dynamicform/build/intermediates/library_manifest/debug/AndroidManifest.xml:7:5-9:41
+MERGED from [dev.dworks.libs:volleyplus:0.1.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e34f54db5cb55fa61880a7ffb71de10a/AndroidManifest.xml:7:5-43
+MERGED from [dev.dworks.libs:volleyplus:0.1.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e34f54db5cb55fa61880a7ffb71de10a/AndroidManifest.xml:7:5-43
+MERGED from [com.android.support:cardview-v7:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/77ef38d453c657cebf19fdc0d8500610/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:cardview-v7:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/77ef38d453c657cebf19fdc0d8500610/AndroidManifest.xml:20:5-43
+MERGED from [com.basgeekball:awesome-validation:2.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7b6196442bb4318d6dd188391f43889e/AndroidManifest.xml:7:5-9:41
+MERGED from [com.basgeekball:awesome-validation:2.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7b6196442bb4318d6dd188391f43889e/AndroidManifest.xml:7:5-9:41
+MERGED from [devlight.io:navigationtabbar:1.2.5] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b2454de7717018a243495d4589f37879/AndroidManifest.xml:19:5-21:41
+MERGED from [devlight.io:navigationtabbar:1.2.5] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b2454de7717018a243495d4589f37879/AndroidManifest.xml:19:5-21:41
+MERGED from [com.android.support:design:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c0577c08d19ba8168aeb6a3310d7592e/AndroidManifest.xml:21:5-23:62
+MERGED from [com.android.support:design:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c0577c08d19ba8168aeb6a3310d7592e/AndroidManifest.xml:21:5-23:62
+MERGED from [com.android.support:recyclerview-v7:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4cf6ce479f67a2ee3696d0d04643c644/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:recyclerview-v7:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4cf6ce479f67a2ee3696d0d04643c644/AndroidManifest.xml:20:5-43
+MERGED from [id.zelory:compressor:1.0.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/f9d96472d836537ea65fc8a14262d6a0/AndroidManifest.xml:8:5-10:41
+MERGED from [id.zelory:compressor:1.0.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/f9d96472d836537ea65fc8a14262d6a0/AndroidManifest.xml:8:5-10:41
+MERGED from [com.yarolegovich:lovely-dialog:1.0.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/f471cef9ef662ed764f0250c51b70f23/AndroidManifest.xml:7:5-9:41
+MERGED from [com.yarolegovich:lovely-dialog:1.0.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/f471cef9ef662ed764f0250c51b70f23/AndroidManifest.xml:7:5-9:41
+MERGED from [com.auron:permission-manage:1.1.6] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7af4b1f5985d0e12df7fd896ac5fd63e/AndroidManifest.xml:30:5-32:41
+MERGED from [com.auron:permission-manage:1.1.6] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7af4b1f5985d0e12df7fd896ac5fd63e/AndroidManifest.xml:30:5-32:41
+MERGED from [com.theartofdev.edmodo:android-image-cropper:2.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/01bdcefa9bf601ae718cfd614d644bc3/AndroidManifest.xml:8:5-10:41
+MERGED from [com.theartofdev.edmodo:android-image-cropper:2.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/01bdcefa9bf601ae718cfd614d644bc3/AndroidManifest.xml:8:5-10:41
+MERGED from [com.github.vatsaldesai92:MyDynamicToastLibrary:1.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/05800ec161ab34520b304ab2ef939e4f/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.vatsaldesai92:MyDynamicToastLibrary:1.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/05800ec161ab34520b304ab2ef939e4f/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.f0ris.sweetalert:library:1.5.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/a2016e055237608a29d27b1cd4ebab4d/AndroidManifest.xml:7:5-9:41
+MERGED from [com.github.f0ris.sweetalert:library:1.5.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/a2016e055237608a29d27b1cd4ebab4d/AndroidManifest.xml:7:5-9:41
+MERGED from [com.pnikosis:materialish-progress:1.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/0f286786bd3ffb26f5765dbb678cad7b/AndroidManifest.xml:7:5-9:41
+MERGED from [com.pnikosis:materialish-progress:1.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/0f286786bd3ffb26f5765dbb678cad7b/AndroidManifest.xml:7:5-9:41
+MERGED from [com.google.android.gms:play-services:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e25e2e4125c345278bd2d9fe8470e21a/AndroidManifest.xml:4:5-42
+MERGED from [com.google.android.gms:play-services:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e25e2e4125c345278bd2d9fe8470e21a/AndroidManifest.xml:4:5-42
+MERGED from [com.google.android.gms:play-services-cast-framework:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e5bc97b35ba5045c6de8bbd5f7c6a75f/AndroidManifest.xml:3:5-42
+MERGED from [com.google.android.gms:play-services-cast-framework:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e5bc97b35ba5045c6de8bbd5f7c6a75f/AndroidManifest.xml:3:5-42
+MERGED from [com.google.android.gms:play-services-cast:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/3b8df53641031f6bee9dda2a39b3b043/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-cast:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/3b8df53641031f6bee9dda2a39b3b043/AndroidManifest.xml:17:5-42
+MERGED from [com.android.support:mediarouter-v7:24.0.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/23578a76c6fa8e79e5d43fc1f3065c65/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:mediarouter-v7:24.0.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/23578a76c6fa8e79e5d43fc1f3065c65/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c5a6141a8057434fafd6992f0c10185f/AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c5a6141a8057434fafd6992f0c10185f/AndroidManifest.xml:21:5-23:78
+MERGED from [com.android.support:transition:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c364410ce31069ebd586e7d951f2d869/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:transition:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c364410ce31069ebd586e7d951f2d869/AndroidManifest.xml:20:5-44
+MERGED from [com.google.android.gms:play-services-awareness:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e63c37bd6ac94e6b2789ee69b1c4e2b8/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-awareness:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e63c37bd6ac94e6b2789ee69b1c4e2b8/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-places:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/a6d3587e3f35b85a7df65a90c2a0dca4/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-places:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/a6d3587e3f35b85a7df65a90c2a0dca4/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-wallet:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/6131f440401de50588e99ce1013944ba/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-wallet:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/6131f440401de50588e99ce1013944ba/AndroidManifest.xml:18:5-42
+MERGED from [com.google.android.gms:play-services-maps:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/502047e6c12aeb66c3c793b57a3cb2fc/AndroidManifest.xml:23:5-42
+MERGED from [com.google.android.gms:play-services-maps:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/502047e6c12aeb66c3c793b57a3cb2fc/AndroidManifest.xml:23:5-42
+MERGED from [com.google.android.gms:play-services-fitness:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8492ea14b7a861d336c20bbffcd68312/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-fitness:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8492ea14b7a861d336c20bbffcd68312/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-location:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/5b93267c87a7b249d9089659c7f525ef/AndroidManifest.xml:3:5-42
+MERGED from [com.google.android.gms:play-services-location:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/5b93267c87a7b249d9089659c7f525ef/AndroidManifest.xml:3:5-42
+MERGED from [com.google.firebase:firebase-messaging:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/759e9df41ed5d1426e122719b374b7b9/AndroidManifest.xml:17:5-42
+MERGED from [com.google.firebase:firebase-messaging:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/759e9df41ed5d1426e122719b374b7b9/AndroidManifest.xml:17:5-42
+MERGED from [com.google.firebase:firebase-database:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/91ceb58ca8bdaf0c5e47e8f489d2f0af/AndroidManifest.xml:3:5-42
+MERGED from [com.google.firebase:firebase-database:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/91ceb58ca8bdaf0c5e47e8f489d2f0af/AndroidManifest.xml:3:5-42
+MERGED from [com.google.firebase:firebase-auth:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/a2391baf458bd248cbe08c32f1a214a1/AndroidManifest.xml:17:5-42
+MERGED from [com.google.firebase:firebase-auth:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/a2391baf458bd248cbe08c32f1a214a1/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-ads:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7330965b9a9d81551ea7e32a7a419710/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-ads:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7330965b9a9d81551ea7e32a7a419710/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-ads-lite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28bd302c556cf20e8a3b75c07c7a6b89/AndroidManifest.xml:22:5-42
+MERGED from [com.google.android.gms:play-services-ads-lite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28bd302c556cf20e8a3b75c07c7a6b89/AndroidManifest.xml:22:5-42
+MERGED from [com.google.android.gms:play-services-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/18182559dc970287ca1f6cbc5eacb9ab/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/18182559dc970287ca1f6cbc5eacb9ab/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-tagmanager:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b81f3eeb648efd6021c8d9a2c6333967/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-tagmanager:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b81f3eeb648efd6021c8d9a2c6333967/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-tagmanager-v4-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/963b71663792fe18fbe39980d4e29823/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-tagmanager-v4-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/963b71663792fe18fbe39980d4e29823/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-analytics-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7538a7a557d08de5bdd3b1aeed9fe67d/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-analytics-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7538a7a557d08de5bdd3b1aeed9fe67d/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-appinvite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/1bb4fe331de240329ddeb91a493da49d/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-appinvite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/1bb4fe331de240329ddeb91a493da49d/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-auth:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28680d461bde5fe98a9fc311c6f00fa7/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-auth:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28680d461bde5fe98a9fc311c6f00fa7/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-auth-base:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/766d48214504fe181ee032b7a1165d6d/AndroidManifest.xml:4:5-42
+MERGED from [com.google.android.gms:play-services-auth-base:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/766d48214504fe181ee032b7a1165d6d/AndroidManifest.xml:4:5-42
+MERGED from [com.google.android.gms:play-services-clearcut:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/f2dd74d69072be5f327a82b2be30cb02/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-clearcut:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/f2dd74d69072be5f327a82b2be30cb02/AndroidManifest.xml:17:5-42
+MERGED from [com.google.firebase:firebase-config:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/03af8bc4f4b8430dc45bfb9417711ea2/AndroidManifest.xml:17:5-42
+MERGED from [com.google.firebase:firebase-config:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/03af8bc4f4b8430dc45bfb9417711ea2/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-games:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/5ab18281e860e793f79a2ec7692b6b5f/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-games:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/5ab18281e860e793f79a2ec7692b6b5f/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-drive:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/51f0be2a6e8572e88cef5d86f63adacd/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-drive:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/51f0be2a6e8572e88cef5d86f63adacd/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-gcm:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/f2617306671c1c7e6f0a330dfd309fcb/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-gcm:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/f2617306671c1c7e6f0a330dfd309fcb/AndroidManifest.xml:17:5-42
+MERGED from [com.google.firebase:firebase-appindexing:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/53708b8a6a636a0a371e493d06e5d9b8/AndroidManifest.xml:17:5-42
+MERGED from [com.google.firebase:firebase-appindexing:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/53708b8a6a636a0a371e493d06e5d9b8/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-identity:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/bd8a0143bbc97d86056d62c893911de2/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-identity:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/bd8a0143bbc97d86056d62c893911de2/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8b02a3c0bd04a22a6ffaa0b52555f24a/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8b02a3c0bd04a22a6ffaa0b52555f24a/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-instantapps:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b89ead6181428089ff3790b99674b209/AndroidManifest.xml:3:5-42
+MERGED from [com.google.android.gms:play-services-instantapps:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b89ead6181428089ff3790b99674b209/AndroidManifest.xml:3:5-42
+MERGED from [com.google.android.gms:play-services-nearby:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/56673632e068ff690bbb1305cd6ca2a7/AndroidManifest.xml:3:5-42
+MERGED from [com.google.android.gms:play-services-nearby:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/56673632e068ff690bbb1305cd6ca2a7/AndroidManifest.xml:3:5-42
+MERGED from [com.google.android.gms:play-services-panorama:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/58fc922ff0467dbd7ab0ee132e5f621f/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-panorama:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/58fc922ff0467dbd7ab0ee132e5f621f/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-plus:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/1c3801044e1788d061fed54342a012ad/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-plus:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/1c3801044e1788d061fed54342a012ad/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-safetynet:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/a9400356935b19e7912822b103607093/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-safetynet:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/a9400356935b19e7912822b103607093/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-vision:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e197b136d5ce1c46056250dbd9e726a2/AndroidManifest.xml:3:5-42
+MERGED from [com.google.android.gms:play-services-vision:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e197b136d5ce1c46056250dbd9e726a2/AndroidManifest.xml:3:5-42
+MERGED from [com.google.android.gms:play-services-wearable:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/18a7ddae5ea689d75062f7c88443c882/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-wearable:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/18a7ddae5ea689d75062f7c88443c882/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-base:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/3a918894afd2ae90930b7ef7c26af06b/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-base:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/3a918894afd2ae90930b7ef7c26af06b/AndroidManifest.xml:17:5-42
+MERGED from [com.google.firebase:firebase-crash:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c9ac33b03c8068d5ff8703d86bdc3366/AndroidManifest.xml:20:5-42
+MERGED from [com.google.firebase:firebase-crash:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c9ac33b03c8068d5ff8703d86bdc3366/AndroidManifest.xml:20:5-42
+MERGED from [com.google.firebase:firebase-database-connection:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/9d7e6df576c9f8d129030150fbc65991/AndroidManifest.xml:3:5-42
+MERGED from [com.google.firebase:firebase-database-connection:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/9d7e6df576c9f8d129030150fbc65991/AndroidManifest.xml:3:5-42
+MERGED from [com.google.firebase:firebase-core:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/18bc393f05327b45fd329417daf7ce32/AndroidManifest.xml:4:5-42
+MERGED from [com.google.firebase:firebase-core:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/18bc393f05327b45fd329417daf7ce32/AndroidManifest.xml:4:5-42
+MERGED from [com.google.android.gms:play-services-tagmanager-api:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4f920fbb725f8751a5203adc2c36f393/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-tagmanager-api:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4f920fbb725f8751a5203adc2c36f393/AndroidManifest.xml:17:5-42
+MERGED from [com.google.firebase:firebase-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2e62595c8a04f6278af42e925213501e/AndroidManifest.xml:17:5-42
+MERGED from [com.google.firebase:firebase-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2e62595c8a04f6278af42e925213501e/AndroidManifest.xml:17:5-42
+MERGED from [com.google.firebase:firebase-analytics-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c1c0a7e6bf4a2d783063c49838072d7e/AndroidManifest.xml:17:5-42
+MERGED from [com.google.firebase:firebase-analytics-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c1c0a7e6bf4a2d783063c49838072d7e/AndroidManifest.xml:17:5-42
+MERGED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:17:5-42
+MERGED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:17:5-42
+MERGED from [com.google.firebase:firebase-storage:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2f725d9a95f235a5d0221dd896e3cf0d/AndroidManifest.xml:3:5-42
+MERGED from [com.google.firebase:firebase-storage:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2f725d9a95f235a5d0221dd896e3cf0d/AndroidManifest.xml:3:5-42
+MERGED from [com.google.firebase:firebase-storage-common:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d240eb6c62ba1183629e33cb3d1aabee/AndroidManifest.xml:3:5-42
+MERGED from [com.google.firebase:firebase-storage-common:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d240eb6c62ba1183629e33cb3d1aabee/AndroidManifest.xml:3:5-42
+MERGED from [com.google.firebase:firebase-common:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/6224bebb51c51599149f1e0d38375a60/AndroidManifest.xml:3:5-42
+MERGED from [com.google.firebase:firebase-common:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/6224bebb51c51599149f1e0d38375a60/AndroidManifest.xml:3:5-42
+MERGED from [com.google.android.gms:play-services-gass:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/dbcd959c88b83871d7071e675d20327d/AndroidManifest.xml:3:5-42
+MERGED from [com.google.android.gms:play-services-gass:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/dbcd959c88b83871d7071e675d20327d/AndroidManifest.xml:3:5-42
+MERGED from [com.google.android.gms:play-services-tasks:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7aae49924ee9c2c89e029fc1a667f772/AndroidManifest.xml:3:5-42
+MERGED from [com.google.android.gms:play-services-tasks:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/7aae49924ee9c2c89e029fc1a667f772/AndroidManifest.xml:3:5-42
+MERGED from [com.google.android.gms:play-services-basement:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/ee271f8ecd121b4194fd6cb1b46822b1/AndroidManifest.xml:17:5-42
+MERGED from [com.google.android.gms:play-services-basement:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/ee271f8ecd121b4194fd6cb1b46822b1/AndroidManifest.xml:17:5-42
+MERGED from [com.android.support:palette-v7:24.0.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/1f73f055286d3a779cf24f5661e74e8f/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:palette-v7:24.0.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/1f73f055286d3a779cf24f5661e74e8f/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-v4:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/24b004bc3065b52ed7cc7353fe9d6443/AndroidManifest.xml:21:5-23:54
+MERGED from [com.android.support:support-v4:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/24b004bc3065b52ed7cc7353fe9d6443/AndroidManifest.xml:21:5-23:54
+MERGED from [com.github.delight-im:Android-AdvancedWebView:v3.0.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/10c35d9d5c6ffa14da76ca5f182b7f8c/AndroidManifest.xml:5:5-7:41
+MERGED from [com.github.delight-im:Android-AdvancedWebView:v3.0.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/10c35d9d5c6ffa14da76ca5f182b7f8c/AndroidManifest.xml:5:5-7:41
+MERGED from [it.sephiroth.android.library.imagezoom:imagezoom:2.3.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8bf4a918a7e593bb9b3831b85bca0948/AndroidManifest.xml:7:5-9:41
+MERGED from [it.sephiroth.android.library.imagezoom:imagezoom:2.3.0] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8bf4a918a7e593bb9b3831b85bca0948/AndroidManifest.xml:7:5-9:41
+MERGED from [com.allenliu.badgeview:library:1.1.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/3985634fecfab3196721d9229e26891d/AndroidManifest.xml:7:5-9:41
+MERGED from [com.allenliu.badgeview:library:1.1.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/3985634fecfab3196721d9229e26891d/AndroidManifest.xml:7:5-9:41
+MERGED from [net.cachapa.expandablelayout:expandablelayout:2.7] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d93878e68eaee7bff7485bad8ca3077c/AndroidManifest.xml:8:5-10:41
+MERGED from [net.cachapa.expandablelayout:expandablelayout:2.7] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d93878e68eaee7bff7485bad8ca3077c/AndroidManifest.xml:8:5-10:41
+MERGED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:7:5-9:41
+MERGED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:7:5-9:41
+MERGED from [com.crashlytics.sdk.android:crashlytics:2.6.8] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/090484b8bc6e82f6774630dcef601769/AndroidManifest.xml:7:5-43
+MERGED from [com.crashlytics.sdk.android:crashlytics:2.6.8] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/090484b8bc6e82f6774630dcef601769/AndroidManifest.xml:7:5-43
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/6b2e30c9799a3f6ab8d554db39a6292d/AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/6b2e30c9799a3f6ab8d554db39a6292d/AndroidManifest.xml:21:5-23:60
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/bcd01d715379f0580f18d555e6115b2c/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/bcd01d715379f0580f18d555e6115b2c/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8cae4b619d4a978b3e108b8fc2599f78/AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8cae4b619d4a978b3e108b8fc2599f78/AndroidManifest.xml:21:5-23:63
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2cf8f914250931bb5f46acca4ca86cc9/AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2cf8f914250931bb5f46acca4ca86cc9/AndroidManifest.xml:21:5-23:61
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/cc62792b06c583823e1d38c10517f1c2/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/cc62792b06c583823e1d38c10517f1c2/AndroidManifest.xml:20:5-44
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/97e9f8e4c00600659bf95204c0eb83b7/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/97e9f8e4c00600659bf95204c0eb83b7/AndroidManifest.xml:20:5-43
+MERGED from [com.android.support:support-compat:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4a48b99e6a70a4a63f3cf168a5f237e5/AndroidManifest.xml:21:5-23:58
+MERGED from [com.android.support:support-compat:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4a48b99e6a70a4a63f3cf168a5f237e5/AndroidManifest.xml:21:5-23:58
+MERGED from [com.crashlytics.sdk.android:beta:1.2.5] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/3b0d17e82331223e15c8c836b0688198/AndroidManifest.xml:7:5-43
+MERGED from [com.crashlytics.sdk.android:beta:1.2.5] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/3b0d17e82331223e15c8c836b0688198/AndroidManifest.xml:7:5-43
+MERGED from [com.crashlytics.sdk.android:crashlytics-core:2.3.17] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8b115baf79898faa47f49605e7418251/AndroidManifest.xml:50:5-43
+MERGED from [com.crashlytics.sdk.android:crashlytics-core:2.3.17] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8b115baf79898faa47f49605e7418251/AndroidManifest.xml:50:5-43
+MERGED from [com.crashlytics.sdk.android:answers:1.3.13] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/306c2e6d1a0a889c7f86910103a4b3ad/AndroidManifest.xml:7:5-43
+MERGED from [com.crashlytics.sdk.android:answers:1.3.13] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/306c2e6d1a0a889c7f86910103a4b3ad/AndroidManifest.xml:7:5-43
+MERGED from [io.fabric.sdk.android:fabric:1.3.17] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2babe64294afc0084112ada10b64e884/AndroidManifest.xml:27:5-43
+MERGED from [io.fabric.sdk.android:fabric:1.3.17] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2babe64294afc0084112ada10b64e884/AndroidManifest.xml:27:5-43
+INJECTED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml
+INJECTED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml
+	tools:overrideLibrary
+		ADDED from [com.android.support:design:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c0577c08d19ba8168aeb6a3310d7592e/AndroidManifest.xml:23:9-59
+	android:targetSdkVersion
+		INJECTED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml
+		INJECTED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml
+meta-data#android.support.FILE_PROVIDER_PATHS
+ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:58:13-60:53
+	android:resource
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:60:17-51
+	android:name
+		ADDED from /Users/niketa.abnave/Desktop/suma/app/src/main/AndroidManifest.xml:59:17-67
+uses-permission#android.permission.BIND_ACCESSIBILITY_SERVICE
+ADDED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:13:5-15:47
+	tools:ignore
+		ADDED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:15:9-44
+	android:name
+		ADDED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:14:9-69
+provider#android.support.v4.content.FileProvider
+ADDED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:28:9-36:20
+	android:grantUriPermissions
+		ADDED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:32:13-47
+	android:authorities
+		ADDED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:30:13-60
+	android:exported
+		ADDED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:31:13-37
+	android:name
+		ADDED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:29:13-67
+service#top.wuhaojie.installerlibrary.InstallAccessibilityService
+ADDED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:38:9-50:19
+	android:enabled
+		ADDED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:40:13-35
+	android:exported
+		ADDED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:41:13-36
+	android:permission
+		ADDED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:42:13-79
+	android:name
+		ADDED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:39:13-85
+intent-filter#action:name:android.accessibilityservice.AccessibilityService
+ADDED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:43:13-45:29
+action#android.accessibilityservice.AccessibilityService
+ADDED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:44:17-92
+	android:name
+		ADDED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:44:25-89
+meta-data#android.accessibilityservice
+ADDED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:47:13-49:72
+	android:resource
+		ADDED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:49:17-69
+	android:name
+		ADDED from [:autoinstall] /Users/niketa.abnave/Desktop/suma/autoinstall/build/intermediates/library_manifest/debug/AndroidManifest.xml:48:17-60
+meta-data#android.support.VERSION
+ADDED from [com.android.support:cardview-v7:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/77ef38d453c657cebf19fdc0d8500610/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:design:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c0577c08d19ba8168aeb6a3310d7592e/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:design:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c0577c08d19ba8168aeb6a3310d7592e/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:recyclerview-v7:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4cf6ce479f67a2ee3696d0d04643c644/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:recyclerview-v7:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4cf6ce479f67a2ee3696d0d04643c644/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c5a6141a8057434fafd6992f0c10185f/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:appcompat-v7:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c5a6141a8057434fafd6992f0c10185f/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:transition:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c364410ce31069ebd586e7d951f2d869/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:transition:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c364410ce31069ebd586e7d951f2d869/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-v4:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/24b004bc3065b52ed7cc7353fe9d6443/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-v4:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/24b004bc3065b52ed7cc7353fe9d6443/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/6b2e30c9799a3f6ab8d554db39a6292d/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-fragment:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/6b2e30c9799a3f6ab8d554db39a6292d/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/bcd01d715379f0580f18d555e6115b2c/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-ui:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/bcd01d715379f0580f18d555e6115b2c/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8cae4b619d4a978b3e108b8fc2599f78/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-media-compat:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8cae4b619d4a978b3e108b8fc2599f78/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2cf8f914250931bb5f46acca4ca86cc9/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-core-utils:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2cf8f914250931bb5f46acca4ca86cc9/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/cc62792b06c583823e1d38c10517f1c2/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:animated-vector-drawable:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/cc62792b06c583823e1d38c10517f1c2/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/97e9f8e4c00600659bf95204c0eb83b7/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-vector-drawable:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/97e9f8e4c00600659bf95204c0eb83b7/AndroidManifest.xml:22:5-24:34
+MERGED from [com.android.support:support-compat:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4a48b99e6a70a4a63f3cf168a5f237e5/AndroidManifest.xml:25:5-27:34
+MERGED from [com.android.support:support-compat:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4a48b99e6a70a4a63f3cf168a5f237e5/AndroidManifest.xml:25:5-27:34
+	android:value
+		ADDED from [com.android.support:cardview-v7:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/77ef38d453c657cebf19fdc0d8500610/AndroidManifest.xml:24:9-31
+	android:name
+		ADDED from [com.android.support:cardview-v7:25.3.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/77ef38d453c657cebf19fdc0d8500610/AndroidManifest.xml:23:9-47
+receiver#com.google.android.gms.cast.framework.media.MediaIntentReceiver
+ADDED from [com.google.android.gms:play-services-cast-framework:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e5bc97b35ba5045c6de8bbd5f7c6a75f/AndroidManifest.xml:5:9-99
+	android:name
+		ADDED from [com.google.android.gms:play-services-cast-framework:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e5bc97b35ba5045c6de8bbd5f7c6a75f/AndroidManifest.xml:5:19-97
+service#com.google.android.gms.cast.framework.media.MediaNotificationService
+ADDED from [com.google.android.gms:play-services-cast-framework:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e5bc97b35ba5045c6de8bbd5f7c6a75f/AndroidManifest.xml:6:9-103
+	android:name
+		ADDED from [com.google.android.gms:play-services-cast-framework:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e5bc97b35ba5045c6de8bbd5f7c6a75f/AndroidManifest.xml:6:18-101
+service#com.google.android.gms.cast.framework.ReconnectionService
+ADDED from [com.google.android.gms:play-services-cast-framework:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e5bc97b35ba5045c6de8bbd5f7c6a75f/AndroidManifest.xml:7:9-92
+	android:name
+		ADDED from [com.google.android.gms:play-services-cast-framework:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/e5bc97b35ba5045c6de8bbd5f7c6a75f/AndroidManifest.xml:7:18-90
+service#com.google.firebase.messaging.FirebaseMessagingService
+ADDED from [com.google.firebase:firebase-messaging:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/759e9df41ed5d1426e122719b374b7b9/AndroidManifest.xml:23:9-27:19
+	android:exported
+		ADDED from [com.google.firebase:firebase-messaging:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/759e9df41ed5d1426e122719b374b7b9/AndroidManifest.xml:23:88-111
+	android:name
+		ADDED from [com.google.firebase:firebase-messaging:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/759e9df41ed5d1426e122719b374b7b9/AndroidManifest.xml:23:18-87
+activity#com.google.android.gms.ads.AdActivity
+ADDED from [com.google.android.gms:play-services-ads-lite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28bd302c556cf20e8a3b75c07c7a6b89/AndroidManifest.xml:25:9-232
+	android:configChanges
+		ADDED from [com.google.android.gms:play-services-ads-lite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28bd302c556cf20e8a3b75c07c7a6b89/AndroidManifest.xml:25:72-181
+	android:theme
+		ADDED from [com.google.android.gms:play-services-ads-lite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28bd302c556cf20e8a3b75c07c7a6b89/AndroidManifest.xml:25:182-230
+	android:name
+		ADDED from [com.google.android.gms:play-services-ads-lite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28bd302c556cf20e8a3b75c07c7a6b89/AndroidManifest.xml:25:19-71
+activity#com.google.android.gms.ads.purchase.InAppPurchaseActivity
+ADDED from [com.google.android.gms:play-services-ads-lite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28bd302c556cf20e8a3b75c07c7a6b89/AndroidManifest.xml:26:9-131
+	android:theme
+		ADDED from [com.google.android.gms:play-services-ads-lite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28bd302c556cf20e8a3b75c07c7a6b89/AndroidManifest.xml:26:92-129
+	android:name
+		ADDED from [com.google.android.gms:play-services-ads-lite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28bd302c556cf20e8a3b75c07c7a6b89/AndroidManifest.xml:26:19-91
+activity#com.google.android.gms.appinvite.PreviewActivity
+ADDED from [com.google.android.gms:play-services-appinvite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/1bb4fe331de240329ddeb91a493da49d/AndroidManifest.xml:20:9-25:20
+	android:exported
+		ADDED from [com.google.android.gms:play-services-appinvite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/1bb4fe331de240329ddeb91a493da49d/AndroidManifest.xml:20:51-74
+	android:theme
+		ADDED from [com.google.android.gms:play-services-appinvite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/1bb4fe331de240329ddeb91a493da49d/AndroidManifest.xml:20:75-121
+	android:name
+		ADDED from [com.google.android.gms:play-services-appinvite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/1bb4fe331de240329ddeb91a493da49d/AndroidManifest.xml:20:19-50
+intent-filter#action:name:com.google.android.gms.appinvite.ACTION_PREVIEW+category:name:android.intent.category.DEFAULT
+ADDED from [com.google.android.gms:play-services-appinvite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/1bb4fe331de240329ddeb91a493da49d/AndroidManifest.xml:21:13-24:29
+action#com.google.android.gms.appinvite.ACTION_PREVIEW
+ADDED from [com.google.android.gms:play-services-appinvite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/1bb4fe331de240329ddeb91a493da49d/AndroidManifest.xml:22:17-89
+	android:name
+		ADDED from [com.google.android.gms:play-services-appinvite:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/1bb4fe331de240329ddeb91a493da49d/AndroidManifest.xml:22:25-87
+activity#com.google.android.gms.auth.api.signin.internal.SignInHubActivity
+ADDED from [com.google.android.gms:play-services-auth:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28680d461bde5fe98a9fc311c6f00fa7/AndroidManifest.xml:20:9-189
+	android:excludeFromRecents
+		ADDED from [com.google.android.gms:play-services-auth:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28680d461bde5fe98a9fc311c6f00fa7/AndroidManifest.xml:20:129-162
+	android:exported
+		ADDED from [com.google.android.gms:play-services-auth:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28680d461bde5fe98a9fc311c6f00fa7/AndroidManifest.xml:20:163-187
+	android:theme
+		ADDED from [com.google.android.gms:play-services-auth:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28680d461bde5fe98a9fc311c6f00fa7/AndroidManifest.xml:20:69-128
+	android:name
+		ADDED from [com.google.android.gms:play-services-auth:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28680d461bde5fe98a9fc311c6f00fa7/AndroidManifest.xml:20:19-68
+service#com.google.android.gms.auth.api.signin.RevocationBoundService
+ADDED from [com.google.android.gms:play-services-auth:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28680d461bde5fe98a9fc311c6f00fa7/AndroidManifest.xml:24:9-184
+	android:exported
+		ADDED from [com.google.android.gms:play-services-auth:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28680d461bde5fe98a9fc311c6f00fa7/AndroidManifest.xml:24:64-87
+	android:permission
+		ADDED from [com.google.android.gms:play-services-auth:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28680d461bde5fe98a9fc311c6f00fa7/AndroidManifest.xml:24:88-182
+	android:name
+		ADDED from [com.google.android.gms:play-services-auth:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/28680d461bde5fe98a9fc311c6f00fa7/AndroidManifest.xml:24:18-63
+uses-permission#com.google.android.c2dm.permission.RECEIVE
+ADDED from [com.google.android.gms:play-services-gcm:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/f2617306671c1c7e6f0a330dfd309fcb/AndroidManifest.xml:20:5-81
+MERGED from [com.google.android.gms:play-services-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8b02a3c0bd04a22a6ffaa0b52555f24a/AndroidManifest.xml:20:5-81
+MERGED from [com.google.android.gms:play-services-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/8b02a3c0bd04a22a6ffaa0b52555f24a/AndroidManifest.xml:20:5-81
+MERGED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:22:5-81
+MERGED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:22:5-81
+	android:name
+		ADDED from [com.google.android.gms:play-services-gcm:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/f2617306671c1c7e6f0a330dfd309fcb/AndroidManifest.xml:20:22-79
+activity#com.google.android.gms.common.api.GoogleApiActivity
+ADDED from [com.google.android.gms:play-services-base:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/3a918894afd2ae90930b7ef7c26af06b/AndroidManifest.xml:19:9-172
+	android:exported
+		ADDED from [com.google.android.gms:play-services-base:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/3a918894afd2ae90930b7ef7c26af06b/AndroidManifest.xml:19:146-170
+	android:theme
+		ADDED from [com.google.android.gms:play-services-base:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/3a918894afd2ae90930b7ef7c26af06b/AndroidManifest.xml:19:86-145
+	android:name
+		ADDED from [com.google.android.gms:play-services-base:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/3a918894afd2ae90930b7ef7c26af06b/AndroidManifest.xml:19:19-85
+service#com.google.android.gms.tagmanager.TagManagerService
+ADDED from [com.google.android.gms:play-services-tagmanager-api:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4f920fbb725f8751a5203adc2c36f393/AndroidManifest.xml:24:9-134
+	android:enabled
+		ADDED from [com.google.android.gms:play-services-tagmanager-api:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4f920fbb725f8751a5203adc2c36f393/AndroidManifest.xml:24:110-132
+	android:exported
+		ADDED from [com.google.android.gms:play-services-tagmanager-api:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4f920fbb725f8751a5203adc2c36f393/AndroidManifest.xml:24:85-109
+	android:name
+		ADDED from [com.google.android.gms:play-services-tagmanager-api:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4f920fbb725f8751a5203adc2c36f393/AndroidManifest.xml:24:18-84
+activity#com.google.android.gms.tagmanager.TagManagerPreviewActivity
+ADDED from [com.google.android.gms:play-services-tagmanager-api:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4f920fbb725f8751a5203adc2c36f393/AndroidManifest.xml:25:9-32:20
+	android:noHistory
+		ADDED from [com.google.android.gms:play-services-tagmanager-api:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4f920fbb725f8751a5203adc2c36f393/AndroidManifest.xml:25:94-118
+	android:name
+		ADDED from [com.google.android.gms:play-services-tagmanager-api:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4f920fbb725f8751a5203adc2c36f393/AndroidManifest.xml:25:19-93
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:scheme:tagmanager.c.${applicationId}
+ADDED from [com.google.android.gms:play-services-tagmanager-api:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4f920fbb725f8751a5203adc2c36f393/AndroidManifest.xml:26:13-31:29
+intent-filter#action:name:android.intent.action.VIEW+category:name:android.intent.category.BROWSABLE+category:name:android.intent.category.DEFAULT+data:scheme:tagmanager.c.com.app.dusmile
+ADDED from [com.google.android.gms:play-services-tagmanager-api:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4f920fbb725f8751a5203adc2c36f393/AndroidManifest.xml:26:13-31:29
+action#android.intent.action.VIEW
+ADDED from [com.google.android.gms:play-services-tagmanager-api:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4f920fbb725f8751a5203adc2c36f393/AndroidManifest.xml:28:17-68
+	android:name
+		ADDED from [com.google.android.gms:play-services-tagmanager-api:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4f920fbb725f8751a5203adc2c36f393/AndroidManifest.xml:28:25-66
+category#android.intent.category.BROWSABLE
+ADDED from [com.google.android.gms:play-services-tagmanager-api:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4f920fbb725f8751a5203adc2c36f393/AndroidManifest.xml:30:17-77
+	android:name
+		ADDED from [com.google.android.gms:play-services-tagmanager-api:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/4f920fbb725f8751a5203adc2c36f393/AndroidManifest.xml:30:27-75
+receiver#com.google.android.gms.measurement.AppMeasurementReceiver
+ADDED from [com.google.firebase:firebase-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2e62595c8a04f6278af42e925213501e/AndroidManifest.xml:25:7-26:18
+MERGED from [com.google.firebase:firebase-analytics-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c1c0a7e6bf4a2d783063c49838072d7e/AndroidManifest.xml:25:7-26:18
+MERGED from [com.google.firebase:firebase-analytics-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c1c0a7e6bf4a2d783063c49838072d7e/AndroidManifest.xml:25:7-26:18
+	android:enabled
+		ADDED from [com.google.firebase:firebase-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2e62595c8a04f6278af42e925213501e/AndroidManifest.xml:25:90-112
+	android:exported
+		ADDED from [com.google.firebase:firebase-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2e62595c8a04f6278af42e925213501e/AndroidManifest.xml:25:113-137
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2e62595c8a04f6278af42e925213501e/AndroidManifest.xml:25:17-89
+receiver#com.google.android.gms.measurement.AppMeasurementInstallReferrerReceiver
+ADDED from [com.google.firebase:firebase-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2e62595c8a04f6278af42e925213501e/AndroidManifest.xml:27:7-31:18
+	android:enabled
+		ADDED from [com.google.firebase:firebase-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2e62595c8a04f6278af42e925213501e/AndroidManifest.xml:27:162-184
+	android:permission
+		ADDED from [com.google.firebase:firebase-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2e62595c8a04f6278af42e925213501e/AndroidManifest.xml:27:105-161
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2e62595c8a04f6278af42e925213501e/AndroidManifest.xml:27:17-104
+intent-filter#action:name:com.android.vending.INSTALL_REFERRER
+ADDED from [com.google.firebase:firebase-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2e62595c8a04f6278af42e925213501e/AndroidManifest.xml:28:11-30:27
+action#com.android.vending.INSTALL_REFERRER
+ADDED from [com.google.firebase:firebase-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2e62595c8a04f6278af42e925213501e/AndroidManifest.xml:29:15-76
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2e62595c8a04f6278af42e925213501e/AndroidManifest.xml:29:23-74
+service#com.google.android.gms.measurement.AppMeasurementService
+ADDED from [com.google.firebase:firebase-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2e62595c8a04f6278af42e925213501e/AndroidManifest.xml:32:7-137
+MERGED from [com.google.firebase:firebase-analytics-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c1c0a7e6bf4a2d783063c49838072d7e/AndroidManifest.xml:27:7-137
+MERGED from [com.google.firebase:firebase-analytics-impl:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/c1c0a7e6bf4a2d783063c49838072d7e/AndroidManifest.xml:27:7-137
+	android:enabled
+		ADDED from [com.google.firebase:firebase-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2e62595c8a04f6278af42e925213501e/AndroidManifest.xml:32:88-110
+	android:exported
+		ADDED from [com.google.firebase:firebase-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2e62595c8a04f6278af42e925213501e/AndroidManifest.xml:32:111-135
+	android:name
+		ADDED from [com.google.firebase:firebase-analytics:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/2e62595c8a04f6278af42e925213501e/AndroidManifest.xml:32:16-87
+permission#${applicationId}.permission.C2D_MESSAGE
+ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:24:5-109
+	android:protectionLevel
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:24:72-107
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:24:17-71
+permission#com.app.dusmile.permission.C2D_MESSAGE
+ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:24:5-109
+	android:protectionLevel
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:24:72-107
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:24:17-71
+uses-permission#${applicationId}.permission.C2D_MESSAGE
+ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:26:5-78
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:26:22-76
+uses-permission#com.app.dusmile.permission.C2D_MESSAGE
+ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:26:5-78
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:26:22-76
+receiver#com.google.firebase.iid.FirebaseInstanceIdReceiver
+ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:30:9-36:20
+	android:exported
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:30:85-108
+	android:permission
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:30:109-169
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:30:19-84
+intent-filter#action:name:com.google.android.c2dm.intent.RECEIVE+action:name:com.google.android.c2dm.intent.REGISTRATION+category:name:${applicationId}
+ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:31:13-35:29
+intent-filter#action:name:com.google.android.c2dm.intent.RECEIVE+action:name:com.google.android.c2dm.intent.REGISTRATION+category:name:com.app.dusmile
+ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:31:13-35:29
+action#com.google.android.c2dm.intent.RECEIVE
+ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:32:17-80
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:32:25-78
+action#com.google.android.c2dm.intent.REGISTRATION
+ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:33:17-85
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:33:25-83
+category#${applicationId}
+ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:34:17-60
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:34:27-58
+category#com.app.dusmile
+ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:34:17-60
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:34:27-58
+receiver#com.google.firebase.iid.FirebaseInstanceIdInternalReceiver
+ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:40:9-119
+	android:exported
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:40:93-117
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:40:19-92
+service#com.google.firebase.iid.FirebaseInstanceIdService
+ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:44:9-48:19
+	android:exported
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:44:83-106
+	android:name
+		ADDED from [com.google.firebase:firebase-iid:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/d666f669eee8dd3b65eb8e5b10d01b0b/AndroidManifest.xml:44:18-82
+provider#com.google.firebase.provider.FirebaseInitProvider
+ADDED from [com.google.firebase:firebase-common:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/6224bebb51c51599149f1e0d38375a60/AndroidManifest.xml:6:9-194
+	android:authorities
+		ADDED from [com.google.firebase:firebase-common:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/6224bebb51c51599149f1e0d38375a60/AndroidManifest.xml:6:19-78
+	android:exported
+		ADDED from [com.google.firebase:firebase-common:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/6224bebb51c51599149f1e0d38375a60/AndroidManifest.xml:6:144-168
+	android:initOrder
+		ADDED from [com.google.firebase:firebase-common:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/6224bebb51c51599149f1e0d38375a60/AndroidManifest.xml:6:169-192
+	android:name
+		ADDED from [com.google.firebase:firebase-common:10.0.1] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/6224bebb51c51599149f1e0d38375a60/AndroidManifest.xml:6:79-143
+supports-screens
+ADDED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:11:5-14:40
+	android:largeScreens
+		ADDED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:13:9-36
+	android:normalScreens
+		ADDED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:14:9-37
+	android:anyDensity
+		ADDED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:12:9-34
+uses-permission#android.permission.ACCESS_WIFI_STATE
+ADDED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:18:5-76
+	android:name
+		ADDED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:18:22-73
+uses-feature#android.hardware.location.network
+ADDED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:24:5-26:36
+	android:required
+		ADDED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:26:9-33
+	android:name
+		ADDED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:25:9-57
+uses-feature#android.hardware.location.gps
+ADDED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:27:5-29:36
+	android:required
+		ADDED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:29:9-33
+	android:name
+		ADDED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:28:9-53
+uses-feature#android.hardware.telephony
+ADDED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:30:5-32:36
+	android:required
+		ADDED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:32:9-33
+	android:name
+		ADDED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:31:9-50
+uses-feature#android.hardware.wifi
+ADDED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:33:5-35:36
+	android:required
+		ADDED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:35:9-33
+	android:name
+		ADDED from [org.osmdroid:osmdroid-android:5.6.4] /Users/niketa.abnave/.gradle/caches/transforms-2/files-2.1/b37c59b0b282c5930ef870cccd9c6927/AndroidManifest.xml:34:9-45

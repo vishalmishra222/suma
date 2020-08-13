@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="next_time">Hurrengo batean</string>
+    <string name="skip_this_version">Bertsio honetatik jauzi egin</string>
+    <string name="update">Eguneratu</string>
+    <string formatted="false" name="update_alert_message">%s-ren bertsio berria erabilgarri dago. Mesedez, eguneratu %s bertsiora.</string>
+    <string name="update_available">Eguneratzea erabilgarri</string>
+</resources>

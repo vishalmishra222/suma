@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:ns1="http://schemas.android.com/tools">
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <dimen name="button_height">48dp</dimen>
+    <dimen name="half_margin">4dp</dimen>
+    <string name="fallback_app_name" ns1:ignore="MissingTranslation">application</string>
+    <string name="next_time">Next time</string>
+    <string name="skip_this_version">Skip this version</string>
+    <string name="update">Update</string>
+    <string name="update_alert_message" ns1:ignore="StringFormatCount">A new version of %1$s is available. Please update to version %2$s now.</string>
+    <string name="update_available">Update available</string>
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+</resources>
