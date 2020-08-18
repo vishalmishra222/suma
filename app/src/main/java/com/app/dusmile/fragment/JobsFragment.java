@@ -58,9 +58,11 @@ import com.app.dusmile.database.OfflineAssignedJobsDB;
 import com.app.dusmile.database.SubCategoryDB;
 import com.app.dusmile.database.helper.DBHelper;
 import com.app.dusmile.interfaces.BtnClickListener;
+import com.app.dusmile.model.AssignedJobsResources;
 import com.app.dusmile.model.AvailableJobsDataModel;
 import com.app.dusmile.model.HoldJobResponseModel;
 import com.app.dusmile.model.JobDetailsResponse;
+import com.app.dusmile.model.LoginResponse;
 import com.app.dusmile.preferences.Const;
 import com.app.dusmile.preferences.UserPreference;
 import com.app.dusmile.utils.IOUtils;
@@ -114,6 +116,7 @@ public class JobsFragment extends Fragment {
     private JSONArray reportHeadersUIArray;
     JSONArray filterJsonArray;
     JSONArray cardHeadersKeyArray;
+    JSONObject resourceJsonObj;
     private Toast toast;
     private List<String> formNameList = new ArrayList<>();
     private List<List<String>> exportData = new ArrayList<>();
@@ -253,9 +256,7 @@ public class JobsFragment extends Fragment {
     }
 
     public void getAvailableJobs(String url) {
-
         IOUtils.startLoading(mContext, "Loading......");
-
         try {
             IOUtils.appendLog(Tag + " : " + IOUtils.getCurrentTimeStamp() + " API " + url);
             new HttpVolleyRequest(mContext, url, listenerJobs);
@@ -263,7 +264,6 @@ public class JobsFragment extends Fragment {
             IOUtils.stopLoading();
             e.printStackTrace();
         }
-
     }
 
     MyListener listenerJobs = new MyListener() {
@@ -284,7 +284,8 @@ public class JobsFragment extends Fragment {
                         reportHeadersArray = jsonObject.getJSONArray("reportHeaders");
                         reportHeadersUIArray = jsonObject.getJSONArray("reportHeadersKeys");
                         cardHeadersKeyArray = jsonObject.getJSONArray("cardHeadersKeys");
-                        getJobDataApi(jsonObject);
+                        resourceJsonObj = jsonObject.getJSONObject("resources");
+                        getJobDataApi(jsonObject,resourceJsonObj);
                     }
                 }
             } catch (Exception e) {
@@ -343,7 +344,6 @@ public class JobsFragment extends Fragment {
                 // ...
             }
         }));
-
     }
 
     private void searchJobListener() {
@@ -1671,16 +1671,12 @@ public class JobsFragment extends Fragment {
 
 
     public void storeOfflineAssignedJobs(String url) {
-
-        // IOUtils.startLoading(mContext, "Loading......");
-
         try {
             IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + url);
             new HttpVolleyRequest(mContext, url, listenerAssignedJobs);
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     MyListener listenerAssignedJobs = new MyListener() {
@@ -1808,7 +1804,8 @@ public class JobsFragment extends Fragment {
                         reportHeadersArray = jsonObject.getJSONArray("reportHeaders");
                         reportHeadersUIArray = jsonObject.getJSONArray("reportHeadersKeys");
                         cardHeadersKeyArray = jsonObject.getJSONArray("cardHeadersKeys");
-                        getJobDataApi(jsonObject);
+                        resourceJsonObj = jsonObject.getJSONObject("resources");
+                        getJobDataApi(jsonObject,resourceJsonObj);
                     }
                 }
             } catch (Exception e) {
@@ -1852,13 +1849,16 @@ public class JobsFragment extends Fragment {
         }
     };
 
-    private void getJobDataApi(JSONObject jsonObject) {
+    private void getJobDataApi(JSONObject jsonObject,JSONObject resources) {
         IOUtils.startLoading(mContext, "Loading......");
         try {
             JSONObject reportHeaderKeys = jsonObject.getJSONObject("reportHeaderKeys");
+            gson = new Gson();
+            AssignedJobsResources assignedJobsResources = gson.fromJson(String.valueOf(resources), AssignedJobsResources.class);
             JSONObject jsonObject1 = new JSONObject();
+            String URL = new Const().BASE_URL + assignedJobsResources.getDataApi();
             jsonObject1.put("reportHeaderKeys", reportHeaderKeys);
-            new HttpVolleyRequest(mContext, jsonObject1, new Const().GET_JOB_DATA, listenerReporData);
+            new HttpVolleyRequest(mContext, jsonObject1, URL, listenerReporData);
             // reportDataArray = jsonObject.getJSONArray("reportData");
         } catch (JSONException e) {
             e.printStackTrace();
@@ -1880,7 +1880,6 @@ public class JobsFragment extends Fragment {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.length() > 0) {
                         Log.d("DUSMILE", response);
-                        //reportDataArray = new JSONArray();
                         reportDataArray = jsonObject.getJSONArray("reportData");
                         if (AppConstant.isAssinedJobs) {
                             DBHelper dbHelper = DBHelper.getInstance(mContext);
