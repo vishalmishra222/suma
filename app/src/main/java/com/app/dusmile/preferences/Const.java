@@ -9,7 +9,7 @@ import com.app.dusmile.application.DusmileApplication;
  * Created by sumasoft on 25/01/17.
  */
 public class Const {
-     public static final String BASE_URL = "http://dusmile.sumasoft.com/Dusmile/";
+    // public static final String BASE_URL = "http://dusmile.sumasoft.com/Dusmile/";
     //public static final String BASE_URL = "http://192.168.222.41:8080/Dusmile/";//Shraddha's local
      //public static final String BASE_URL = "http://demockross.sumasoft.com:8080/Dusmile/";//Mohit local
     //public static final String BASE_URL = "http://192.168.222.54:8080/Dusmile/";
@@ -18,7 +18,7 @@ public class Const {
     // public static final String BASE_URL = "http://192.168.222.54:8080/Dusmile/";//Ankita
    // public static final String BASE_URL = "http://192.168.43.242:8080/Dusmile/";
     //public static final String BASE_URL = "http://192.168.43.15:8080/Dusmile/";//samiksha local
-   // public static final String BASE_URL = "http://demockross.sumasoft.com/Dusmile/";//MOHIT
+    public static final String BASE_URL = "http://demockross.sumasoft.com:9090/Dusmile/";//MOHIT
     //public static final String BASE_URL = "http://49.248.24.148/Dusmile/";//public
      public static final String ALTERNATE_BASE_IP = "http://demockross.sumasoft.com/Dusmile/";//mohit
    // public static final String BASE_URL = "http://192.168.111.226:8080/Dusmile/";//UAT
