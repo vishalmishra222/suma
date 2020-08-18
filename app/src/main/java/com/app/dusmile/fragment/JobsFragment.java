@@ -1859,7 +1859,6 @@ public class JobsFragment extends Fragment {
             String URL = new Const().BASE_URL + assignedJobsResources.getDataApi();
             jsonObject1.put("reportHeaderKeys", reportHeaderKeys);
             new HttpVolleyRequest(mContext, jsonObject1, URL, listenerReporData);
-            // reportDataArray = jsonObject.getJSONArray("reportData");
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -1891,10 +1890,8 @@ public class JobsFragment extends Fragment {
                         }
                         if (reportDataArray != null) {
                             if (reportDataArray.length() > 0) {
-                                // exportBtn.setVisibility(View.VISIBLE);
                                 setAdapter(reportHeadersArray, reportDataArray, reportHeadersUIArray, cardHeadersKeyArray);
                             } else {
-                                // exportBtn.setVisibility(View.GONE);
                                 MyDynamicToast.informationMessage(mContext, "No Data Available");
                             }
                         }
