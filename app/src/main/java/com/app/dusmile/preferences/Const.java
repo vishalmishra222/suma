@@ -31,9 +31,11 @@ public class Const {
 
     public String REQUEST_AVAILABLE_JOBS = BASE_URL + "getAvailableJobs";
 
-    public String GET_REPORT_METADATA = BASE_URL + "workflow/WEMI_FI/reportmetadata/JR4";
+    public String GET_ASSIGNED_REPORT_METADATA = BASE_URL + "workflow/WEMI_FI/reportmetadata/JR4";
 
-    public String GET_JOB_DATA = BASE_URL + "workflow/WEMI_FI/reportdata/JR4";
+    public String GET_COMPLETED_REPORT_METADATA = BASE_URL + "workflow/WEMI_FI/reportmetadata/JR6";
+
+    public String GET_PENDING_WITH_BRANCH_REPORT_METADATA = BASE_URL + "workflow/WEMI_FI/reportmetadata/JR21";
 
     public String REQUEST_JOB_DETAILS = BASE_URL + "getJobDetails";
 
