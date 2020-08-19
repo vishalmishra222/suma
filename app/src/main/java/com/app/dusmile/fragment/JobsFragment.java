@@ -58,11 +58,10 @@ import com.app.dusmile.database.OfflineAssignedJobsDB;
 import com.app.dusmile.database.SubCategoryDB;
 import com.app.dusmile.database.helper.DBHelper;
 import com.app.dusmile.interfaces.BtnClickListener;
-import com.app.dusmile.model.AssignedJobsResources;
+import com.app.dusmile.model.JobsResources;
 import com.app.dusmile.model.AvailableJobsDataModel;
 import com.app.dusmile.model.HoldJobResponseModel;
 import com.app.dusmile.model.JobDetailsResponse;
-import com.app.dusmile.model.LoginResponse;
 import com.app.dusmile.preferences.Const;
 import com.app.dusmile.preferences.UserPreference;
 import com.app.dusmile.utils.IOUtils;
@@ -70,7 +69,6 @@ import com.app.dusmile.utils.RecyclerItemClickListener;
 import com.desai.vatsal.mydynamictoast.MyCustomToast;
 import com.desai.vatsal.mydynamictoast.MyDynamicToast;
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 
 import org.apache.commons.lang3.time.DateUtils;
 import org.json.JSONArray;
@@ -179,20 +177,16 @@ public class JobsFragment extends Fragment {
                 genericAdapter.refresh(reportDataArray);
                 // genericAdapter.notifyDataSetChanged();
             }
-            assignUrl();
             if (IOUtils.isInternetPresent(mContext)) {
                 UpdateJobStatus.jobIdList.clear();
-                if (AppConstant.isAvilableJobs) {
-                    getAvailableJobs(URL);
-                    getActivity().setTitle(getString(R.string.avialble_jobs));
-                } else if (AppConstant.isAssinedJobs) {
-                    // getAvailableJobs(AURL);
-                    String url = new Const().GET_REPORT_METADATA;
-                    getReportMetaData(url);
+                if (AppConstant.isAssinedJobs) {
+                    String url = new Const().GET_ASSIGNED_REPORT_METADATA;
+                    getAssignedJobs(url);
                     getActivity().setTitle(getString(R.string.assigned_jobs));
                 } else {
                     dateFilter.setVisibility(View.VISIBLE);
-                    getCompletedJobs(CURL);
+                    String url = new Const().GET_COMPLETED_REPORT_METADATA;
+                    getCompletedJobs(url);
                     getActivity().setTitle(getString(R.string.completed_jobs));
                 }
             } else {
@@ -254,80 +248,6 @@ public class JobsFragment extends Fragment {
         txtToDate.setText(currentTime);
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
     }
-
-    public void getAvailableJobs(String url) {
-        IOUtils.startLoading(mContext, "Loading......");
-        try {
-            IOUtils.appendLog(Tag + " : " + IOUtils.getCurrentTimeStamp() + " API " + url);
-            new HttpVolleyRequest(mContext, url, listenerJobs);
-        } catch (Exception e) {
-            IOUtils.stopLoading();
-            e.printStackTrace();
-        }
-    }
-
-    MyListener listenerJobs = new MyListener() {
-
-        @Override
-        public void success(Object obj) throws JSONException {
-            try {
-                IOUtils.stopLoading();
-                if (obj != null) {
-                    String response = obj.toString();
-                    JSONObject jsonObject = new JSONObject(response);
-                    if (jsonObject.length() > 0) {
-                        Log.d("DUSMILE", response);
-                        reportHeadersArray = new JSONArray();
-                        reportDataArray = new JSONArray();
-                        reportHeadersUIArray = new JSONArray();
-                        cardHeadersKeyArray = new JSONArray();
-                        reportHeadersArray = jsonObject.getJSONArray("reportHeaders");
-                        reportHeadersUIArray = jsonObject.getJSONArray("reportHeadersKeys");
-                        cardHeadersKeyArray = jsonObject.getJSONArray("cardHeadersKeys");
-                        resourceJsonObj = jsonObject.getJSONObject("resources");
-                        getJobDataApi(jsonObject,resourceJsonObj);
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                MyDynamicToast.errorMessage(mContext, "Unexpected Response");
-            }
-
-        }
-
-        @Override
-        public void success(Object obj, JSONObject jsonReqObject) throws JSONException {
-
-        }
-
-        @Override
-        public void failure(VolleyError volleyError) {
-            try {
-                IOUtils.stopLoading();
-                if (volleyError != null) {
-                    String url = getURL();
-                    String responseBody = new String(volleyError.networkResponse.data, "utf-8");
-                    JSONObject jsonObject = new JSONObject(responseBody);
-                    String success = jsonObject.getString("success");
-                    if (success.equals("false")) {
-                        String message = jsonObject.getString("message");
-                        MyDynamicToast.informationMessage(mContext, message);
-                    } else {
-                        MyDynamicToast.warningMessage(mContext, "Unable to Connect");
-                        IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + url + "\nRESPONSE " + volleyError.getMessage());
-                        if (volleyError.networkResponse != null && volleyError.networkResponse.statusCode == 800) {
-                            IOUtils.sendUserToLogin(mContext, getActivity());
-                        }
-                    }
-                } else {
-                    MyDynamicToast.errorMessage(mContext, "Server Error !!");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                MyDynamicToast.errorMessage(mContext, "Server Error !!");
-            }
-        }
-    };
 
     public void setAdapter(JSONArray reportHeadersArray, JSONArray reportDataArray, JSONArray reportHeadersUIArray, JSONArray cardHeadersKeyArray) {
         genericAdapter = new GenericAdapter(mContext, reportHeadersArray, reportDataArray, reportHeadersUIArray, cardHeadersKeyArray, btnClickListener);
@@ -1000,7 +920,7 @@ public class JobsFragment extends Fragment {
         IOUtils.startLoading(mContext, "Loading......");
 
         try {
-            String startD, endD;
+          /*  String startD, endD;
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String currentTime = sdf.format(new Date());
             String startDate = (String) txtFromDate.getText();
@@ -1018,10 +938,9 @@ public class JobsFragment extends Fragment {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("startDate", startD);
             jsonObject.put("endDate", endD);
-            jsonObject.put("FOSExecutiveID", UserPreference.getUserRecord(mContext).getUserID());
-            // jsonObject.put("process_queue_id", "107");
+            jsonObject.put("FOSExecutiveID", UserPreference.getUserRecord(mContext).getUserID());*/
             IOUtils.appendLog(Tag + " : " + IOUtils.getCurrentTimeStamp() + " API " + url);
-            new HttpVolleyRequest(mContext, jsonObject, url, completedlistenerJobs);
+            new HttpVolleyRequest(mContext, url, completedlistenerJobs);
         } catch (Exception e) {
             IOUtils.stopLoading();
             e.printStackTrace();
@@ -1036,46 +955,19 @@ public class JobsFragment extends Fragment {
             try {
                 IOUtils.stopLoading();
                 if (obj != null) {
-                    String url = getURL();
                     String response = obj.toString();
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.length() > 0) {
                         Log.d("DUSMILE", response);
-
-                        /*gson = new Gson();
-                        AvailableJobsDataModel availableJobsModel = gson.fromJson(response, AvailableJobsDataModel.class);*/
-                        boolean status = jsonObject.getBoolean("success");
-                        if (status == true) {
-                            IOUtils.appendLog(Tag + " : " + IOUtils.getCurrentTimeStamp() + " API " + url + "\nRESPONSE " + String.valueOf(status));
-                            reportHeadersArray = new JSONArray();
-                            reportDataArray = new JSONArray();
-                            reportHeadersUIArray = new JSONArray();
-                            cardHeadersKeyArray = new JSONArray();
-                            reportHeadersArray = jsonObject.getJSONArray("reportHeaders");
-                            reportDataArray = jsonObject.getJSONArray("reportData");
-                            reportHeadersUIArray = jsonObject.getJSONArray("reportHeadersKeys");
-                            cardHeadersKeyArray = jsonObject.getJSONArray("cardHeadersKeys");
-                            if (AppConstant.isAssinedJobs) {
-                                DBHelper dbHelper = DBHelper.getInstance(mContext);
-                                OfflineAssignedJobsDB.removeOfflineAssignedJobs(dbHelper);
-                                OfflineAssignedJobs offlineAssignedJobs = new OfflineAssignedJobs();
-                                offlineAssignedJobs.setOffline_assigned_jobs_json(response);
-                                OfflineAssignedJobsDB.addOfflineAssignedJobsEntry(offlineAssignedJobs, dbHelper);
-                                UserPreference.writeInteger(mContext, UserPreference.ASSIGNED_CNT, reportDataArray.length());
-                            }
-                            if (reportDataArray != null) {
-                                if (reportDataArray.length() > 0) {
-                                    // exportBtn.setVisibility(View.VISIBLE);
-                                    setAdapter(reportHeadersArray, reportDataArray, reportHeadersUIArray, cardHeadersKeyArray);
-                                } else {
-                                    // exportBtn.setVisibility(View.GONE);
-                                    MyDynamicToast.informationMessage(mContext, "No Data Available");
-                                }
-                            }
-                        } else {
-                            String message = jsonObject.getString("message");
-                            MyDynamicToast.informationMessage(mContext, message);
-                        }
+                        reportHeadersArray = new JSONArray();
+                        reportHeadersUIArray = new JSONArray();
+                        cardHeadersKeyArray = new JSONArray();
+                        reportDataArray = new JSONArray();
+                        reportHeadersArray = jsonObject.getJSONArray("reportHeaders");
+                        reportHeadersUIArray = jsonObject.getJSONArray("reportHeadersKeys");
+                        cardHeadersKeyArray = jsonObject.getJSONArray("cardHeadersKeys");
+                        resourceJsonObj = jsonObject.getJSONObject("resources");
+                        getJobDataApi(jsonObject, resourceJsonObj);
                     }
                 }
             } catch (Exception e) {
@@ -1167,12 +1059,9 @@ public class JobsFragment extends Fragment {
     };
 
     public void checkJobIsAssignedOrNot(String jobId, String processQId, String templateName, String nbfcName) {
-
         IOUtils.startLoading(mContext, "Please wait......");
-
         JSONObject jsonObject = new JSONObject();
         try {
-
             jsonObject.put("process_queue_id", processQId);
             jsonObject.put("job_id", jobId);
             jsonObject.put("JobType", templateName);
@@ -1773,7 +1662,7 @@ public class JobsFragment extends Fragment {
         }
     }
 
-    public void getReportMetaData(String url) {
+    public void getAssignedJobs(String url) {
 
         IOUtils.startLoading(mContext, "Loading......");
         try {
@@ -1805,7 +1694,7 @@ public class JobsFragment extends Fragment {
                         reportHeadersUIArray = jsonObject.getJSONArray("reportHeadersKeys");
                         cardHeadersKeyArray = jsonObject.getJSONArray("cardHeadersKeys");
                         resourceJsonObj = jsonObject.getJSONObject("resources");
-                        getJobDataApi(jsonObject,resourceJsonObj);
+                        getJobDataApi(jsonObject, resourceJsonObj);
                     }
                 }
             } catch (Exception e) {
@@ -1849,14 +1738,14 @@ public class JobsFragment extends Fragment {
         }
     };
 
-    private void getJobDataApi(JSONObject jsonObject,JSONObject resources) {
+    private void getJobDataApi(JSONObject jsonObject, JSONObject resources) {
         IOUtils.startLoading(mContext, "Loading......");
         try {
             JSONObject reportHeaderKeys = jsonObject.getJSONObject("reportHeaderKeys");
             gson = new Gson();
-            AssignedJobsResources assignedJobsResources = gson.fromJson(String.valueOf(resources), AssignedJobsResources.class);
+            JobsResources jobsResources = gson.fromJson(String.valueOf(resources), JobsResources.class);
             JSONObject jsonObject1 = new JSONObject();
-            String URL = new Const().BASE_URL + assignedJobsResources.getDataApi();
+            String URL = new Const().BASE_URL + jobsResources.getDataApi();
             jsonObject1.put("reportHeaderKeys", reportHeaderKeys);
             new HttpVolleyRequest(mContext, jsonObject1, URL, listenerReporData);
         } catch (JSONException e) {

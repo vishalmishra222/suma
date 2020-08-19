@@ -26,20 +26,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.error.VolleyError;
+import com.app.dusmile.DBModel.OfflineAssignedJobs;
 import com.app.dusmile.DBModel.SubCategory;
 import com.app.dusmile.R;
 import com.app.dusmile.activity.ReportDetailsActivity;
 import com.app.dusmile.adapter.ReportDetailsAdapter;
 import com.app.dusmile.connection.HttpVolleyRequest;
 import com.app.dusmile.connection.MyListener;
+import com.app.dusmile.constant.AppConstant;
 import com.app.dusmile.database.LoginTemplateDB;
+import com.app.dusmile.database.OfflineAssignedJobsDB;
 import com.app.dusmile.database.SubCategoryDB;
 import com.app.dusmile.database.helper.DBHelper;
+import com.app.dusmile.model.JobsResources;
 import com.app.dusmile.preferences.Const;
 import com.app.dusmile.preferences.UserPreference;
 import com.app.dusmile.utils.IOUtils;
 import com.app.dusmile.utils.RecyclerItemClickListener;
 import com.desai.vatsal.mydynamictoast.MyDynamicToast;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -78,7 +83,9 @@ public class ReportDetailsFragment extends Fragment {
     private JSONArray reportDataArray;
     private JSONArray reportHeadersUIArray;
     private JSONArray cardHeadersKeyArray;
+    JSONObject resourceJsonObj;
     private Button exportBtn;
+    private Gson gson;
     JSONArray filterJsonArray;
     JSONArray exportJsonArray = new JSONArray();
 
@@ -124,7 +131,8 @@ public class ReportDetailsFragment extends Fragment {
 
         if (IOUtils.isInternetPresent(mContext)) {
             assignUrl();
-            getReportDetails(date);
+            String url = new Const().GET_PENDING_WITH_BRANCH_REPORT_METADATA;
+            getReportDetails(url);
         } else {
             IOUtils.showErrorMessage(mContext, "No internet connection");
         }
@@ -166,7 +174,7 @@ public class ReportDetailsFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
     }
 
-    public void getReportDetails(String date) {
+    public void getReportDetails(String url) {
 
         IOUtils.startLoading(mContext, "Loading......");
 
@@ -199,50 +207,34 @@ public class ReportDetailsFragment extends Fragment {
             e.printStackTrace();
         }
         IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + PURL + "\nREQUEST " + criteriajsonObject.toString());
-        new HttpVolleyRequest(mContext, criteriajsonObject, PURL, listenerJobs);
+        new HttpVolleyRequest(mContext, url, listenerJobs);
     }
 
     MyListener listenerJobs = new MyListener() {
         @Override
         public void success(Object obj) throws JSONException {
-            //showProgress(false);
+
         }
 
         @Override
         public void success(Object obj, JSONObject jsonReqObject) throws JSONException {
             try {
-
                 IOUtils.stopLoading();
                 if (obj != null) {
                     String response = obj.toString();
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.length() > 0) {
                         Log.d("DUSMILE", response);
-                        if (jsonObject.getBoolean("success") == true) {
-                            //IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_REPORT_DETAILS + "\nRESPONSE " + true);
-                            reportHeadersArray = jsonObject.getJSONArray("reportHeaders");
-                            reportDataArray = jsonObject.getJSONArray("reportData");
-                            reportHeadersUIArray = jsonObject.getJSONArray("reportHeadersKeys");
-                            cardHeadersKeyArray = jsonObject.getJSONArray("cardHeadersKeys");
-                            if (reportDataArray != null) {
-                                if (reportDataArray.length() > 0) {
-                                    // exportBtn.setVisibility(View.VISIBLE);
-                                    setAdapter(reportHeadersArray, reportDataArray, reportHeadersUIArray, cardHeadersKeyArray);
-                                } else {
-                                    // exportBtn.setVisibility(View.GONE);
-                                    MyDynamicToast.informationMessage(mContext, "No Data Available");
-                                }
-                            }
-                        } else {
-                            // IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_REPORT_DETAILS + "\nRESPONSE " + false);
-                            String message = jsonObject.getString("message");
-                            MyDynamicToast.informationMessage(mContext, message);
-                        }
-                    } else {
-                        MyDynamicToast.errorMessage(mContext, "Unexpected Response");
+                        reportHeadersArray = new JSONArray();
+                        reportHeadersUIArray = new JSONArray();
+                        cardHeadersKeyArray = new JSONArray();
+                        reportDataArray = new JSONArray();
+                        reportHeadersArray = jsonObject.getJSONArray("reportHeaders");
+                        reportHeadersUIArray = jsonObject.getJSONArray("reportHeadersKeys");
+                        cardHeadersKeyArray = jsonObject.getJSONArray("cardHeadersKeys");
+                        resourceJsonObj = jsonObject.getJSONObject("resources");
+                        getJobDataApi(jsonObject, resourceJsonObj);
                     }
-                } else {
-                    MyDynamicToast.errorMessage(mContext, "Unexpected Response");
                 }
             } catch (Exception e) {
                 // IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_REPORT_DETAILS + "\nRESPONSE " + e.getMessage());
@@ -741,4 +733,73 @@ public class ReportDetailsFragment extends Fragment {
 
     }
 
+    private void getJobDataApi(JSONObject jsonObject, JSONObject resources) {
+        IOUtils.startLoading(mContext, "Loading......");
+        try {
+            JSONObject reportHeaderKeys = jsonObject.getJSONObject("reportHeaderKeys");
+            gson = new Gson();
+            JobsResources jobsResources = gson.fromJson(String.valueOf(resources), JobsResources.class);
+            JSONObject jsonObject1 = new JSONObject();
+            String URL = new Const().BASE_URL + jobsResources.getDataApi();
+            jsonObject1.put("reportHeaderKeys", reportHeaderKeys);
+            new HttpVolleyRequest(mContext, jsonObject1, URL, listenerReporData);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    MyListener listenerReporData = new MyListener() {
+
+        @Override
+        public void success(Object obj) throws JSONException {
+        }
+
+        @Override
+        public void success(Object obj, JSONObject jsonReqObject) throws JSONException {
+            try {
+                IOUtils.stopLoading();
+                if (obj != null) {
+                    String response = obj.toString();
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.length() > 0) {
+                        Log.d("DUSMILE", response);
+                        reportDataArray = jsonObject.getJSONArray("reportData");
+                        if (AppConstant.isAssinedJobs) {
+                            DBHelper dbHelper = DBHelper.getInstance(mContext);
+                            OfflineAssignedJobsDB.removeOfflineAssignedJobs(dbHelper);
+                            OfflineAssignedJobs offlineAssignedJobs = new OfflineAssignedJobs();
+                            offlineAssignedJobs.setOffline_assigned_jobs_json(response);
+                            OfflineAssignedJobsDB.addOfflineAssignedJobsEntry(offlineAssignedJobs, dbHelper);
+                            UserPreference.writeInteger(mContext, UserPreference.ASSIGNED_CNT, reportDataArray.length());
+                        }
+                        if (reportDataArray != null) {
+                            if (reportDataArray.length() > 0) {
+                                setAdapter(reportHeadersArray, reportDataArray, reportHeadersUIArray, cardHeadersKeyArray);
+                            } else {
+                                MyDynamicToast.informationMessage(mContext, "No Data Available");
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                MyDynamicToast.errorMessage(mContext, "Unexpected Response");
+            }
+        }
+
+        @Override
+        public void failure(VolleyError volleyError) {
+            try {
+                IOUtils.stopLoading();
+                if (volleyError != null) {
+                    MyDynamicToast.errorMessage(mContext, volleyError.getLocalizedMessage());
+                } else {
+                    MyDynamicToast.errorMessage(mContext, "Server Error !!");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                MyDynamicToast.errorMessage(mContext, "Server Error !!");
+            }
+        }
+    };
 }
