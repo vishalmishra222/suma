@@ -82,6 +82,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -177,16 +178,17 @@ public class JobsFragment extends Fragment {
                 genericAdapter.refresh(reportDataArray);
                 // genericAdapter.notifyDataSetChanged();
             }
+            assignUrl();
             if (IOUtils.isInternetPresent(mContext)) {
                 UpdateJobStatus.jobIdList.clear();
                 if (AppConstant.isAssinedJobs) {
                     String url = new Const().GET_ASSIGNED_REPORT_METADATA;
-                    getAssignedJobs(url);
+                    getAssignedJobs(AURL);
                     getActivity().setTitle(getString(R.string.assigned_jobs));
                 } else {
                     dateFilter.setVisibility(View.VISIBLE);
                     String url = new Const().GET_COMPLETED_REPORT_METADATA;
-                    getCompletedJobs(url);
+                    getCompletedJobs(CURL);
                     getActivity().setTitle(getString(R.string.completed_jobs));
                 }
             } else {
@@ -451,7 +453,7 @@ public class JobsFragment extends Fragment {
                                         // genericAdapter.notifyDataSetChanged();
                                     }
                                     UpdateJobStatus.jobIdList.clear();
-                                    getCompletedJobs(new Const().REQUEST_GET_COMPLETED_JOBS + "/" + UserPreference.readString(mContext, UserPreference.USER_INT_ID, ""));
+                                    getCompletedJobs(CURL);
                                     getActivity().setTitle(getString(R.string.completed_jobs));
                                 }
                             }, mYear, mMonth, mDay);
@@ -1754,6 +1756,97 @@ public class JobsFragment extends Fragment {
     }
 
     MyListener listenerReporData = new MyListener() {
+
+        @Override
+        public void success(Object obj) throws JSONException {
+        }
+
+        @Override
+        public void success(Object obj, JSONObject jsonReqObject) throws JSONException {
+            try {
+                IOUtils.stopLoading();
+                if (obj != null) {
+                    String response = obj.toString();
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.length() > 0) {
+                        Log.d("DUSMILE", response);
+                        reportDataArray = jsonObject.getJSONArray("reportData");
+                        if (AppConstant.isAssinedJobs) {
+                            DBHelper dbHelper = DBHelper.getInstance(mContext);
+                            OfflineAssignedJobsDB.removeOfflineAssignedJobs(dbHelper);
+                            OfflineAssignedJobs offlineAssignedJobs = new OfflineAssignedJobs();
+                            offlineAssignedJobs.setOffline_assigned_jobs_json(response);
+                            OfflineAssignedJobsDB.addOfflineAssignedJobsEntry(offlineAssignedJobs, dbHelper);
+                            UserPreference.writeInteger(mContext, UserPreference.ASSIGNED_CNT, reportDataArray.length());
+                        }
+                        if (reportDataArray != null) {
+                            if (reportDataArray.length() > 0) {
+                                setAdapter(reportHeadersArray, reportDataArray, reportHeadersUIArray, cardHeadersKeyArray);
+                            } else {
+                                MyDynamicToast.informationMessage(mContext, "No Data Available");
+                            }
+                        }
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                MyDynamicToast.errorMessage(mContext, "Unexpected Response");
+            }
+        }
+
+        @Override
+        public void failure(VolleyError volleyError) {
+            try {
+                IOUtils.stopLoading();
+                if (volleyError != null) {
+                    MyDynamicToast.errorMessage(mContext, volleyError.getLocalizedMessage());
+                } else {
+                    MyDynamicToast.errorMessage(mContext, "Server Error !!");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                MyDynamicToast.errorMessage(mContext, "Server Error !!");
+            }
+        }
+    };
+
+    private void getCompletedJobDataApi(JSONObject jsonObject, JSONObject resources) {
+        IOUtils.startLoading(mContext, "Loading......");
+        try {
+            HashMap<String, String> hmap = new HashMap<String, String>();
+            String startD, endD;
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            String currentTime = sdf.format(new Date());
+            String startDate = (String) txtFromDate.getText();
+            String endDate = (String) txtToDate.getText();
+            if (startDate != null) {
+                startD = startDate;
+            } else {
+                startD = currentTime;
+            }
+            if (endDate != null) {
+                endD = endDate;
+            } else {
+                endD = currentTime;
+            }
+            hmap.put("startDate", startD);
+            hmap.put("endDate", endD);
+            hmap.put("FOSExecutiveID", UserPreference.getUserRecord(mContext).getUserID());
+
+            JSONObject reportHeaderKeys = jsonObject.getJSONObject("reportHeaderKeys");
+            gson = new Gson();
+            JobsResources jobsResources = gson.fromJson(String.valueOf(resources), JobsResources.class);
+            JSONObject jsonObject1 = new JSONObject();
+            String URL = new Const().BASE_URL + jobsResources.getDataApi();
+            jsonObject1.put("reportHeaderKeys", reportHeaderKeys);
+            jsonObject1.put("queryCriteria",hmap);
+            new HttpVolleyRequest(mContext, jsonObject1, URL, listenerCompleted);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    MyListener listenerCompleted = new MyListener() {
 
         @Override
         public void success(Object obj) throws JSONException {

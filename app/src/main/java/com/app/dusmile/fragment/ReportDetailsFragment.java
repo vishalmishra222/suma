@@ -132,7 +132,7 @@ public class ReportDetailsFragment extends Fragment {
         if (IOUtils.isInternetPresent(mContext)) {
             assignUrl();
             String url = new Const().GET_PENDING_WITH_BRANCH_REPORT_METADATA;
-            getReportDetails(url);
+            getReportDetails(PURL);
         } else {
             IOUtils.showErrorMessage(mContext, "No internet connection");
         }
@@ -206,14 +206,36 @@ public class ReportDetailsFragment extends Fragment {
             IOUtils.stopLoading();
             e.printStackTrace();
         }
-        IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + PURL + "\nREQUEST " + criteriajsonObject.toString());
+       // IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + PURL + "\nREQUEST " + criteriajsonObject.toString());
         new HttpVolleyRequest(mContext, url, listenerJobs);
     }
 
     MyListener listenerJobs = new MyListener() {
         @Override
         public void success(Object obj) throws JSONException {
-
+            try {
+                IOUtils.stopLoading();
+                if (obj != null) {
+                    String response = obj.toString();
+                    JSONObject jsonObject = new JSONObject(response);
+                    if (jsonObject.length() > 0) {
+                        Log.d("DUSMILE", response);
+                        reportHeadersArray = new JSONArray();
+                        reportHeadersUIArray = new JSONArray();
+                        cardHeadersKeyArray = new JSONArray();
+                        reportDataArray = new JSONArray();
+                        reportHeadersArray = jsonObject.getJSONArray("reportHeaders");
+                        reportHeadersUIArray = jsonObject.getJSONArray("reportHeadersKeys");
+                        cardHeadersKeyArray = jsonObject.getJSONArray("cardHeadersKeys");
+                        resourceJsonObj = jsonObject.getJSONObject("resources");
+                        getJobDataApi(jsonObject, resourceJsonObj);
+                    }
+                }
+            } catch (Exception e) {
+                // IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_REPORT_DETAILS + "\nRESPONSE " + e.getMessage());
+                e.printStackTrace();
+                MyDynamicToast.errorMessage(mContext, "Unexpected Response");
+            }
         }
 
         @Override
