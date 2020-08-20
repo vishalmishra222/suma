@@ -402,7 +402,7 @@ public class JobsFragment extends Fragment {
                                         // genericAdapter.notifyDataSetChanged();
                                     }
                                     UpdateJobStatus.jobIdList.clear();
-                                    getCompletedJobs(new Const().REQUEST_GET_COMPLETED_JOBS + "/" + UserPreference.readString(mContext, UserPreference.USER_INT_ID, ""));
+                                    getCompletedJobs(CURL);
                                     getActivity().setTitle(getString(R.string.completed_jobs));
                                 }
                             }, mYear, mMonth, mDay);
@@ -464,271 +464,8 @@ public class JobsFragment extends Fragment {
     }
 
     private void onExportButtonClicked() {
-       /*// exportBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-              showExportChoiceDialog();
-            }
-        });*/
+
     }
-
-   /* private void showExportChoiceDialog()
-    {
-        final String a[] = {"CSV","EXCEL"};
-        new LovelyChoiceDialog(getActivity())
-                .setTopColorRes(R.color.clrLoginButton)
-                .setTitle(R.string.app_name)
-                .setIcon(R.drawable.suma48)
-                .setMessage(R.string.export_message)
-                .setItems(a, new LovelyChoiceDialog.OnItemSelectedListener<String>() {
-                    @Override
-                    public void onItemSelected(int position, String item) {
-                       switch (item)
-                       {
-                           case "CSV":
-                                new doExportWork().execute(item);
-                               break;
-                           case "EXCEL":
-                               new doExportWork().execute(item);
-                               break;
-                           default:
-                               new doExportWork().execute("CSV");
-                               break;
-                       }
-                    }
-                })
-                .show();
-    }
-*/
-
-  /*  public class doExportWork extends AsyncTask<String,Void,Boolean>
-    {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            IOUtils.startLoadingPleaseWait(mContext);
-        }
-
-        @Override
-        protected Boolean doInBackground(String... params) {
-            boolean success = false;
-            try {
-
-                if (params[0].equalsIgnoreCase("CSV")) {
-                    success = exportReportListToCSV();
-                } else {
-                    success = exportReportListToExcel();
-                }
-            }
-            catch (Exception e)
-            {
-                success = false;
-            }
-            return success;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            super.onPostExecute(result);
-            IOUtils.stopLoading();
-            if(result == true)
-            {
-                IOUtils.showSuccessMessage(mContext,getString(R.string.app_name),"File Exported Successfully. Please check location InternalStorage/DusMile");
-            }
-            else
-            {
-                IOUtils.showWarningMessage(mContext,"File Export Failed");
-            }
-
-        }
-    }*/
-
-   /* private boolean exportReportListToCSV()
-    {
-        IOUtils.appendLog(Tag+" "+IOUtils.getCurrentTimeStamp()+" Exporting Reports to CSV ");
-        CSVWriter writer = null;
-        String fileName = "";
-        boolean result = false;
-        try
-        {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.US);
-            final Calendar myCalendar = Calendar.getInstance();
-            List<String> headers = new ArrayList<>();
-            List<List<String>> Data = new ArrayList<>();
-            for(String header : reportHeaders)
-            {
-                if(header.contains("Location")||header.contains("View")||header.contains("Perform Job")){}
-                else {headers.add(header);
-                }
-            }
-            if(filteredList!=null&& searchEditText.getText().toString().length()>0 && filteredList.size()>0)
-            {
-                exportData = filteredList;
-            }
-            else
-            {
-                exportData = reportData;
-            }
-            for(int i = 0 ;i<exportData.size();i++)
-            {
-                List<String> data = new ArrayList<>();
-                for(int j=0;j<exportData.get(i).size();j++){
-                    if(exportData.get(i).get(j).contains("<img src=")||exportData.get(i).get(j).contains("<a href=")){}
-
-                    else {
-                        data.add(exportData.get(i).get(j));
-                    }
-                }
-                Data.add(data);
-            }
-            if(AppConstant.isAvilableJobs) {
-               fileName = "AvailableJobsReportData";
-            }
-            else if(AppConstant.isAssinedJobs)
-            {
-                  fileName = "AssignedJobsReportData";
-            }
-            else
-            {
-                fileName = "CompletedJobsReportData";
-            }
-            fileName = fileName.concat(sdf.format(myCalendar.getTime()))+".csv".trim();
-            File sdCard = Environment.getExternalStorageDirectory();
-            File directory = new File(sdCard.getAbsolutePath() + "/Dusmile/CSV");
-            //create directory if not exist
-            if(!directory.isDirectory()){
-                directory.mkdirs();
-            }
-
-            File file = new File(directory, fileName);
-            writer = new CSVWriter(new FileWriter(file), ',');
-            String[] headersData = new String[headers.size()];
-            headersData = headers.toArray(headersData);
-            writer.writeNext(headersData);
-            for(int i = 0 ; i <Data.size();i++)
-            {
-                List<String> dataList = Data.get(i);
-                String[] Reportdata = new String[Data.get(i).size()];
-                Reportdata = dataList.toArray(Reportdata);
-                writer.writeNext(Reportdata);
-            }
-            writer.close();
-            result = true;
-            IOUtils.appendLog(Tag+" "+IOUtils.getCurrentTimeStamp()+" Exported Reports to CSV");
-        }
-        catch (Exception e)
-        {
-            result = false;
-        }
-        return  result;
-    }*/
-
-
-   /* public boolean exportReportListToExcel(){
-        boolean result = false;
-        IOUtils.appendLog(Tag+" "+IOUtils.getCurrentTimeStamp()+" Exporting Reports to Excel ");
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.US);
-            final Calendar myCalendar = Calendar.getInstance();
-            String fileName = "";
-            File directory = null;
-            File sdCard = Environment.getExternalStorageDirectory();
-            if(AppConstant.isAvilableJobs) {
-                fileName = "AvailableJobsReportData";
-            }
-            else if(AppConstant.isAssinedJobs)
-            {
-                fileName = "AssignedJobsReportData";
-            }
-            else
-            {
-                fileName = "CompletedJobsReportData";
-            }
-            fileName = fileName.concat(sdf.format(myCalendar.getTime()))+".xls".trim();
-            directory = new File(sdCard.getAbsolutePath() + "/Dusmile/EXCEL");
-
-            int val = 0;
-            //create directory if not exist
-            if (!directory.isDirectory()) {
-                directory.mkdirs();
-            }
-
-            List<String> headers = new ArrayList<>();
-            List<List<String>> Data = new ArrayList<>();
-
-            headers.clear();
-            for (String s : reportHeaders) {
-                if (s.contains("Location") || s.contains("View") || s.contains("Perform Job")) {
-                } else {
-                    headers.add(s);
-                }
-            }
-
-                if(filteredList!=null&& searchEditText.getText().toString().length()>0 && filteredList.size()>0)
-                {
-                    exportData = filteredList;
-                }
-               else
-                {
-                    exportData = reportData;
-                }
-
-            for (int i = 0; i < exportData.size(); i++) {
-                List<String> data = new ArrayList<>();
-                for (int j = 0; j < exportData.get(i).size(); j++) {
-                    if (exportData.get(i).get(j).contains("<img src=") || exportData.get(i).get(j).contains("<a href=")) {
-                    } else {
-                        data.add(exportData.get(i).get(j));
-                    }
-
-                }
-                Data.add(data);
-
-            }
-
-
-            //file path
-            File file = new File(directory, fileName);
-            Workbook workbook = new HSSFWorkbook();
-            Sheet studentsSheet = workbook.createSheet("Report Data");
-            int rowIndex = 0;
-            Row row = studentsSheet.createRow(rowIndex);
-            for (int i = 0; i < headers.size(); i++) {
-                row.createCell(i).setCellValue(headers.get(i));
-            }
-            for (int i = 0; i < Data.size(); i++) {
-                val++;
-                Row row1 = studentsSheet.createRow(val);
-                for (int j = 0; j < Data.get(i).size(); j++) {
-
-                    row1.createCell(j).setCellValue(Data.get(i).get(j));
-                }
-            }
-            try {
-                FileOutputStream fos = new FileOutputStream(file);
-                workbook.write(fos);
-                fos.close();
-                result = true;
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                result =false;
-            } catch (IOException e) {
-                e.printStackTrace();
-                result = false;
-            }
-        }
-        catch (Exception e)
-        {
-           e.printStackTrace();
-            result = false;
-        }
-        IOUtils.appendLog(Tag+" "+IOUtils.getCurrentTimeStamp()+" Exported Reports to Excel");
-       return  result;
-
-    }*/
-
 
     @Override
     public void onDetach() {
@@ -922,32 +659,12 @@ public class JobsFragment extends Fragment {
         IOUtils.startLoading(mContext, "Loading......");
 
         try {
-          /*  String startD, endD;
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            String currentTime = sdf.format(new Date());
-            String startDate = (String) txtFromDate.getText();
-            String endDate = (String) txtToDate.getText();
-            if (startDate != null) {
-                startD = startDate;
-            } else {
-                startD = currentTime;
-            }
-            if (endDate != null) {
-                endD = endDate;
-            } else {
-                endD = currentTime;
-            }
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("startDate", startD);
-            jsonObject.put("endDate", endD);
-            jsonObject.put("FOSExecutiveID", UserPreference.getUserRecord(mContext).getUserID());*/
             IOUtils.appendLog(Tag + " : " + IOUtils.getCurrentTimeStamp() + " API " + url);
             new HttpVolleyRequest(mContext, url, completedlistenerJobs);
         } catch (Exception e) {
             IOUtils.stopLoading();
             e.printStackTrace();
         }
-
     }
 
     MyListener completedlistenerJobs = new MyListener() {
@@ -969,7 +686,7 @@ public class JobsFragment extends Fragment {
                         reportHeadersUIArray = jsonObject.getJSONArray("reportHeadersKeys");
                         cardHeadersKeyArray = jsonObject.getJSONArray("cardHeadersKeys");
                         resourceJsonObj = jsonObject.getJSONObject("resources");
-                        getJobDataApi(jsonObject, resourceJsonObj);
+                        getCompletedJobDataApi(jsonObject, resourceJsonObj);
                     }
                 }
             } catch (Exception e) {
@@ -1813,7 +1530,7 @@ public class JobsFragment extends Fragment {
     private void getCompletedJobDataApi(JSONObject jsonObject, JSONObject resources) {
         IOUtils.startLoading(mContext, "Loading......");
         try {
-            HashMap<String, String> hmap = new HashMap<String, String>();
+            JSONObject dateFilterJson = new JSONObject();
             String startD, endD;
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             String currentTime = sdf.format(new Date());
@@ -1829,17 +1546,17 @@ public class JobsFragment extends Fragment {
             } else {
                 endD = currentTime;
             }
-            hmap.put("startDate", startD);
-            hmap.put("endDate", endD);
-            hmap.put("FOSExecutiveID", UserPreference.getUserRecord(mContext).getUserID());
+            dateFilterJson.put("startDate", startD);
+            dateFilterJson.put("endDate", endD);
+            dateFilterJson.put("FOSExecutiveID", UserPreference.getUserRecord(mContext).getUserID());
 
-            JSONObject reportHeaderKeys = jsonObject.getJSONObject("reportHeaderKeys");
+            JSONObject reportHeaderKeysJson = jsonObject.getJSONObject("reportHeaderKeys");
             gson = new Gson();
             JobsResources jobsResources = gson.fromJson(String.valueOf(resources), JobsResources.class);
             JSONObject jsonObject1 = new JSONObject();
             String URL = new Const().BASE_URL + jobsResources.getDataApi();
-            jsonObject1.put("reportHeaderKeys", reportHeaderKeys);
-            jsonObject1.put("queryCriteria",hmap);
+            jsonObject1.put("reportHeaderKeys", reportHeaderKeysJson);
+            jsonObject1.put("queryCriteria",dateFilterJson);
             new HttpVolleyRequest(mContext, jsonObject1, URL, listenerCompleted);
         } catch (JSONException e) {
             e.printStackTrace();

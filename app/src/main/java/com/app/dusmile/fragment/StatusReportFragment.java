@@ -130,9 +130,10 @@ public class StatusReportFragment extends Fragment {
     public void getReportsFilters() {
         IOUtils.startLoading(getActivity(), "Loading.....");
         try {
-            JSONObject jsonObject = new JSONObject();
-            jsonObject.put("FOSExecutiveID", UserPreference.getUserRecord(mContext).getUserID());
-            new HttpVolleyRequest(getActivity(), jsonObject, PURL, listenerReportFilters);
+            //JSONObject jsonObject = new JSONObject();
+            String url = new Const().GET_PENDING_WITH_BRANCH_REPORT_METADATA;
+           // jsonObject.put("FOSExecutiveID", UserPreference.getUserRecord(mContext).getUserID());
+            new HttpVolleyRequest(getActivity(),url, listenerReportFilters);
         } catch (Exception e) {
             e.printStackTrace();
         }
