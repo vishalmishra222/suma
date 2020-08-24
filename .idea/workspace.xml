@@ -84,8 +84,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/preferences/Const.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="25" column="70" lean-forward="true" selection-start-line="25" selection-start-column="70" selection-end-line="25" selection-end-column="70" />
+            <state relative-caret-position="198">
+              <caret line="22" column="91" selection-start-line="22" selection-start-column="91" selection-end-line="22" selection-end-column="91" />
             </state>
           </provider>
         </entry>
@@ -112,7 +112,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/JobsFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="305">
-              <caret line="1274" column="20" lean-forward="true" selection-start-line="1274" selection-start-column="20" selection-end-line="1274" selection-end-column="20" />
+              <caret line="1274" column="20" selection-start-line="1274" selection-start-column="20" selection-end-line="1274" selection-end-column="20" />
               <folding>
                 <element signature="e#4662#4663#0" expanded="true" />
                 <element signature="e#4685#4686#0" expanded="true" />
@@ -985,7 +985,7 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/JobsFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="305">
-          <caret line="1274" column="20" lean-forward="true" selection-start-line="1274" selection-start-column="20" selection-end-line="1274" selection-end-column="20" />
+          <caret line="1274" column="20" selection-start-line="1274" selection-start-column="20" selection-end-line="1274" selection-end-column="20" />
           <folding>
             <element signature="e#4662#4663#0" expanded="true" />
             <element signature="e#4685#4686#0" expanded="true" />
@@ -1005,8 +1005,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/preferences/Const.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="25" column="70" lean-forward="true" selection-start-line="25" selection-start-column="70" selection-end-line="25" selection-end-column="70" />
+        <state relative-caret-position="198">
+          <caret line="22" column="91" selection-start-line="22" selection-start-column="91" selection-end-line="22" selection-end-column="91" />
         </state>
       </provider>
     </entry>
