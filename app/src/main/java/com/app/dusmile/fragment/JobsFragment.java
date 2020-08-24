@@ -210,7 +210,7 @@ public class JobsFragment extends Fragment {
             if (jobClicked.equalsIgnoreCase("Completed Jobs")) {
                 String act = subCategoryMenuList.get(i).getAction();
                 String st = act.substring(1, act.length());
-                String replaceString = st.replace("serId", usrId);
+                String replaceString = st.replace("userId", usrId);
                 CURL = new Const().URL + replaceString;
             }
         }
