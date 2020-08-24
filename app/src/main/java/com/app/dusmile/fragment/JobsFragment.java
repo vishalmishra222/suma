@@ -205,13 +205,13 @@ public class JobsFragment extends Fragment {
                 String act = subCategoryMenuList.get(i).getAction();
                 String st = act.substring(1, act.length());
                 String replaceString = st.replace("userId", usrId);
-                AURL = new Const().URL + replaceString;
+                AURL = new Const().BASE_URL + replaceString;
             }
             if (jobClicked.equalsIgnoreCase("Completed Jobs")) {
                 String act = subCategoryMenuList.get(i).getAction();
                 String st = act.substring(1, act.length());
                 String replaceString = st.replace("userId", usrId);
-                CURL = new Const().URL + replaceString;
+                CURL = new Const().BASE_URL + replaceString;
             }
         }
     }
@@ -1181,8 +1181,9 @@ public class JobsFragment extends Fragment {
             JSONObject reportHeaderKeys = jsonObject.getJSONObject("reportHeaderKeys");
             gson = new Gson();
             JobsResources jobsResources = gson.fromJson(String.valueOf(resources), JobsResources.class);
+            String removeSlash = jobsResources.getDataApi().substring(1);
+            String URL = new Const().BASE_URL + removeSlash;
             JSONObject jsonObject1 = new JSONObject();
-            String URL = new Const().BASE_URL + jobsResources.getDataApi();
             jsonObject1.put("reportHeaderKeys", reportHeaderKeys);
             new HttpVolleyRequest(mContext, jsonObject1, URL, listenerReporData);
         } catch (JSONException e) {
@@ -1271,8 +1272,9 @@ public class JobsFragment extends Fragment {
             JSONObject reportHeaderKeysJson = jsonObject.getJSONObject("reportHeaderKeys");
             gson = new Gson();
             JobsResources jobsResources = gson.fromJson(String.valueOf(resources), JobsResources.class);
+            String removeSlash = jobsResources.getDataApi().substring(1);
+            String URL = new Const().BASE_URL + removeSlash;
             JSONObject jsonObject1 = new JSONObject();
-            String URL = new Const().BASE_URL + jobsResources.getDataApi();
             jsonObject1.put("reportHeaderKeys", reportHeaderKeysJson);
             jsonObject1.put("queryCriteria", dateFilterJson);
             new HttpVolleyRequest(mContext, jsonObject1, URL, listenerCompleted);

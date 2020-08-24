@@ -23,7 +23,7 @@ public class Const {
      public static final String ALTERNATE_BASE_IP = "http://demockross.sumasoft.com/Dusmile/";//mohit
    // public static final String BASE_URL = "http://192.168.111.226:8080/Dusmile/";//UAT
 
-    public String URL = "http://demockross.sumasoft.com:9090/Dusmile";
+    public String URL = BASE_URL;
 
     public String REQUEST_LOGIN1 = BASE_URL + "login";
 

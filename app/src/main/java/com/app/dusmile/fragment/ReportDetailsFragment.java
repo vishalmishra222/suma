@@ -148,7 +148,7 @@ public class ReportDetailsFragment extends Fragment {
                 String act = subCategoryMenuList.get(i).getAction();
                 String st = act.substring(1, act.length());
                 String replaceString = st.replace("userId", usrId);
-                PURL = new Const().URL + replaceString;
+                PURL = new Const().BASE_URL + replaceString;
             }
         }
     }
@@ -422,8 +422,9 @@ public class ReportDetailsFragment extends Fragment {
             JSONObject reportHeaderKeys = jsonObject.getJSONObject("reportHeaderKeys");
             gson = new Gson();
             JobsResources jobsResources = gson.fromJson(String.valueOf(resources), JobsResources.class);
+            String removeSlash = jobsResources.getDataApi().substring(1);
+            String URL = new Const().BASE_URL + removeSlash;
             JSONObject jsonObject1 = new JSONObject();
-            String URL = new Const().BASE_URL + jobsResources.getDataApi();
             jsonObject1.put("reportHeaderKeys", reportHeaderKeys);
             new HttpVolleyRequest(mContext, jsonObject1, URL, listenerReporData);
         } catch (JSONException e) {
