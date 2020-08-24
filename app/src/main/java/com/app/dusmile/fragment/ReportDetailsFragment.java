@@ -56,26 +56,24 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-
 /**
  * Created by suma on 03/02/17.
  */
 
 public class ReportDetailsFragment extends Fragment {
-
     private Context mContext;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private ReportDetailsAdapter reportDetailsAdapter;
     private EditText searchEditText;
     private Button cancelButton;
-    public static FragmentTransaction fragmentTransaction;
+    public FragmentTransaction fragmentTransaction;
     private Toast toast;
     private List<SubCategory> subCategoryMenuList;
-    private static String PURL = null;
+    private String PURL = null;
     private DBHelper dbHelper;
-    private static TextView tv_msg;
-    private static LinearLayout parent_layout;
+    private TextView tv_msg;
+    private LinearLayout parent_layout;
     private SwipeRefreshLayout swipeRefreshLayout;
     private View toastRoot;
     private String Tag = "ReportDetailsFragment";
@@ -181,24 +179,7 @@ public class ReportDetailsFragment extends Fragment {
         JSONObject criteriajsonObject = new JSONObject();
 
         try {
-            // criteriajsonObject.put("startDate", date);
-            // criteriajsonObject.put("endDate", date);
-            // criteriajsonObject.put("FOSExecutiveID", UserPreference.getUserRecord(mContext).getUserID());
-            // jsonObject.put("reportName", "Status Report");
-            // jsonObject.put("redirectPage", "displayReport");
-            //jsonObject.put("database", Const.DATABASE_NAME);
-            // SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            // String currentTime = sdf.format(new Date());
-            // criteriajsonObject.put("startDate", currentTime);
-            // criteriajsonObject.put("endDate", currentTime);
             criteriajsonObject.put("FOSExecutiveID", UserPreference.getUserRecord(mContext).getUserID());
-            // criteriajsonObject.put("process_queue_id", "103");
-            //Here Add Firebase LogEvent
-            //  Bundle bundle = new Bundle();
-            // bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, jsonObject.toString());
-
-            // DssApp.getFirebaseAnalytics().logEvent(FirebaseAnalytics.Event.LOGIN, bundle);
-
         } catch (JSONException e) {
             IOUtils.stopLoading();
             e.printStackTrace();
@@ -206,7 +187,6 @@ public class ReportDetailsFragment extends Fragment {
             IOUtils.stopLoading();
             e.printStackTrace();
         }
-       // IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + PURL + "\nREQUEST " + criteriajsonObject.toString());
         new HttpVolleyRequest(mContext, url, listenerJobs);
     }
 
@@ -232,7 +212,6 @@ public class ReportDetailsFragment extends Fragment {
                     }
                 }
             } catch (Exception e) {
-                // IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_REPORT_DETAILS + "\nRESPONSE " + e.getMessage());
                 e.printStackTrace();
                 MyDynamicToast.errorMessage(mContext, "Unexpected Response");
             }
@@ -259,7 +238,6 @@ public class ReportDetailsFragment extends Fragment {
                     }
                 }
             } catch (Exception e) {
-                // IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_REPORT_DETAILS + "\nRESPONSE " + e.getMessage());
                 e.printStackTrace();
                 MyDynamicToast.errorMessage(mContext, "Unexpected Response");
             }
@@ -270,7 +248,6 @@ public class ReportDetailsFragment extends Fragment {
             try {
                 IOUtils.stopLoading();
                 if (volleyError != null) {
-                    // IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_REPORT_DETAILS + "\nRESPONSE " + volleyError.getMessage());
                     MyDynamicToast.warningMessage(mContext, "Unable to connect");
                     if (volleyError.networkResponse.statusCode == 800) {
                         IOUtils.sendUserToLogin(mContext, getActivity());
@@ -279,7 +256,6 @@ public class ReportDetailsFragment extends Fragment {
                     MyDynamicToast.errorMessage(mContext, "Server Error !!");
                 }
             } catch (Exception e) {
-                // IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_REPORT_DETAILS + "\nRESPONSE " + e.getMessage());
                 e.printStackTrace();
                 MyDynamicToast.errorMessage(mContext, "Server Error !!");
             }
@@ -333,12 +309,10 @@ public class ReportDetailsFragment extends Fragment {
 
                         if (filterJsonArray != null) {
                             if (filterJsonArray.length() == 0) {
-                                // exportBtn.setVisibility(View.GONE);
                                 showAToast("No Matching Records Found");
                             } else {
                                 //exportBtn.setVisibility(View.VISIBLE);
                             }
-                            // reportDetailsAdapter.refresh(filterJsonArray);
                             reportDetailsAdapter = new ReportDetailsAdapter(mContext, reportHeadersArray, filterJsonArray, reportHeadersUIArray, cardHeadersKeyArray);
                             recyclerView.setAdapter(reportDetailsAdapter);
 
@@ -349,14 +323,11 @@ public class ReportDetailsFragment extends Fragment {
                             cancelButton.setVisibility(View.GONE);
                             if (reportDataArray != null) {
                                 if (reportDataArray.length() == 0) {
-                                    // exportBtn.setVisibility(View.GONE);
                                     showAToast("No Data Available");
                                 } else {
-                                    // exportBtn.setVisibility(View.VISIBLE);
                                 }
                                 reportDetailsAdapter = new ReportDetailsAdapter(mContext, reportHeadersArray, reportDataArray, reportHeadersUIArray, cardHeadersKeyArray);
                                 recyclerView.setAdapter(reportDetailsAdapter);
-
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -381,14 +352,11 @@ public class ReportDetailsFragment extends Fragment {
                     cancelButton.setVisibility(View.GONE);
                     if (reportDataArray != null) {
                         if (reportDataArray.length() == 0) {
-                            //  exportBtn.setVisibility(View.GONE);
                             showAToast("No Data Available");
                         } else {
-                            // exportBtn.setVisibility(View.VISIBLE);
                         }
                         reportDetailsAdapter = new ReportDetailsAdapter(mContext, reportHeadersArray, reportDataArray, reportHeadersUIArray, cardHeadersKeyArray);
                         recyclerView.setAdapter(reportDetailsAdapter);
-
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -404,16 +372,10 @@ public class ReportDetailsFragment extends Fragment {
 
 
     private void showAToast(String message) {
-
         try {
             if (toast != null) {
                 toast.cancel();
             }
-           /* toast = Toast.makeText(mContext, message, Toast.LENGTH_SHORT);
-            TextView toastMessage = (TextView) toast.getView().findViewById(android.R.id.message);
-            toastMessage.setTextColor(Color.WHITE);
-            toastMessage.setBackgroundColor(Color.RED);
-            toast.show();*/
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             toastRoot = inflater.inflate(R.layout.my_toast, null);
             ImageView iv_left_icon = (ImageView) toastRoot.findViewById(R.id.iv_left_icon);
@@ -424,8 +386,6 @@ public class ReportDetailsFragment extends Fragment {
             tv_msg.setText(message);
             tv_msg.setTextColor(Color.WHITE);
             tv_msg.setTextSize(16);
-
-//        parent_layout.setBackgroundDrawable(createToastBackground(context, parent_layout));
             parent_layout.setBackgroundResource(R.drawable.error_msg_back);
 
             toast = new Toast(mContext);
@@ -439,302 +399,6 @@ public class ReportDetailsFragment extends Fragment {
 
     }
 
-
-    private void onExportButtonClicked() {
-      /*  exportBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                showExportChoiceDialog();
-            }
-        });*/
-    }
-
-   /* private void showExportChoiceDialog()
-    {
-        IOUtils.appendLog(Tag+" "+IOUtils.getCurrentTimeStamp()+" "+"Showing export reports menus");
-        final String a[] = {"CSV","EXCEL"};
-        new LovelyChoiceDialog(getActivity())
-                .setTopColorRes(R.color.clrLoginButton)
-                .setTitle(R.string.app_name)
-                .setIcon(R.drawable.suma48)
-                .setMessage(R.string.export_message)
-                .setItems(a, new LovelyChoiceDialog.OnItemSelectedListener<String>() {
-                    @Override
-                    public void onItemSelected(int position, String item) {
-                        switch (item)
-                        {
-                            case "CSV":
-                                new doExportWork().execute(item);
-                                break;
-                            case "EXCEL":
-                                new doExportWork().execute(item);
-                                break;
-                            default:
-                                new doExportWork().execute("CSV");
-                                break;
-                        }
-                    }
-                })
-                .show();
-    }*/
-
-
-    /*public class doExportWork extends AsyncTask<String,Void,Boolean>
-    {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-
-            IOUtils.startLoadingPleaseWait(mContext);
-        }
-
-        @Override
-        protected Boolean doInBackground(String... params) {
-            boolean success = false;
-            try {
-
-                if (params[0].equalsIgnoreCase("CSV")) {
-                    success = exportReportListToCSV();
-                } else {
-                    success = exportReportListToExcel();
-                }
-            }
-            catch (Exception e)
-            {
-                success = false;
-            }
-            return success;
-        }
-
-        @Override
-        protected void onPostExecute(Boolean result) {
-            super.onPostExecute(result);
-            IOUtils.stopLoading();
-            if(result == true)
-            {
-                IOUtils.showSuccessMessage(mContext,getString(R.string.app_name),"File Exported Successfully. Please check location InternalStorage/DusMile");
-            }
-            else
-            {
-                IOUtils.showWarningMessage(mContext,"File Export Failed");
-            }
-
-        }
-    }*/
-
-    /*private boolean exportReportListToCSV()
-    {
-        IOUtils.appendLog(Tag+" "+IOUtils.getCurrentTimeStamp()+" Exporting Reports to CSV ");
-        CSVWriter writer = null;
-        String fileName = "";
-        boolean result = false;
-        try
-        {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.US);
-            final Calendar myCalendar = Calendar.getInstance();
-            List<String> headers = new ArrayList<>();
-            List<List<String>> Data = new ArrayList<>();
-            for(int i =0;i<reportHeadersArray.length();i++)
-            {
-                if(reportHeadersArray.get(i).toString().contains("Location")||reportHeadersArray.get(i).toString().contains("View")||reportHeadersArray.get(i).toString().contains("Perform Job")){}
-                else {headers.add(reportHeadersArray.get(i).toString());
-                }
-            }
-            if(filterJsonArray!=null&& searchEditText.getText().toString().length()>0 && filterJsonArray.length()>0)
-            {
-                exportJsonArray = filterJsonArray;
-            }
-            else
-            {
-                exportJsonArray = reportDataArray;
-            }
-            for(int j=0;j<exportJsonArray.length();j++) {
-                List<String> data = new ArrayList<>();
-                for (int k = 0; k < reportHeadersUIArray.length(); k++) {
-                    JSONObject headersUIJsonObject = reportHeadersUIArray.getJSONObject(k);
-                    String uiField = headersUIJsonObject.getString("data");
-                    JSONObject jsonObject = exportJsonArray.getJSONObject(j);
-                    if (uiField != null && uiField.contains(".")) {
-                        try {
-                            String fieldDataArray[] = uiField.split("\\.");
-                            String fieldDataVal = fieldDataArray[0];
-                            JSONObject dataJsonObject = jsonObject.getJSONObject(fieldDataVal);
-                            JSONObject applicationJsonObject = dataJsonObject.getJSONObject(fieldDataArray[(fieldDataArray.length) - (fieldDataArray.length - 1)]);
-                            String fieldFinalVal = applicationJsonObject.getString(fieldDataArray[fieldDataArray.length - 1]);
-                            Log.i("MYDATA", fieldFinalVal);
-                            data.add(fieldFinalVal);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            data.add("");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            data.add("");
-                        }
-                    } else {
-                        try {
-                            String fieldFinalVal = jsonObject.getString(uiField);
-                            Log.i("MYDATA", fieldFinalVal);
-                            data.add(fieldFinalVal);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            data.add("");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            data.add("");
-                        }
-                    }
-                }
-                Data.add(data);
-            }
-
-            fileName = "Report".concat(sdf.format(myCalendar.getTime()))+".csv".trim();
-            File sdCard = Environment.getExternalStorageDirectory();
-            File directory = new File(sdCard.getAbsolutePath() + "/Dusmile/CSV");
-            //create directory if not exist
-            if(!directory.isDirectory()){
-                directory.mkdirs();
-            }
-
-            File file = new File(directory, fileName);
-            writer = new CSVWriter(new FileWriter(file), ',');
-            String[] headersData = new String[headers.size()];
-            headersData = headers.toArray(headersData);
-            writer.writeNext(headersData);
-            for(int i = 0 ; i <Data.size();i++)
-            {
-                List<String> dataList = Data.get(i);
-                String[] Reportdata = new String[Data.get(i).size()];
-                Reportdata = dataList.toArray(Reportdata);
-                writer.writeNext(Reportdata);
-            }
-            writer.close();
-            result = true;
-        }
-        catch (Exception e)
-        {
-            result = false;
-        }
-        return  result;
-    }
-
-
-    public boolean exportReportListToExcel(){
-        IOUtils.appendLog(Tag+" "+IOUtils.getCurrentTimeStamp()+" Exporting Reports to Excel ");
-        boolean result = false;
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.US);
-            final Calendar myCalendar = Calendar.getInstance();
-            String fileName = "";
-            File directory = null;
-            File sdCard = Environment.getExternalStorageDirectory();
-            fileName = "Report".concat(sdf.format(myCalendar.getTime()))+".xls".trim();
-            directory = new File(sdCard.getAbsolutePath() + "/Dusmile/EXCEL");
-
-            int val = 0;
-            //create directory if not exist
-            if (!directory.isDirectory()) {
-                directory.mkdirs();
-            }
-
-            List<String> headers = new ArrayList<>();
-            List<List<String>> Data = new ArrayList<>();
-
-            headers.clear();
-            for (int i=0;i<reportHeadersArray.length();i++) {
-                if (reportHeadersArray.get(i).toString().contains("Location") || reportHeadersArray.get(i).toString().contains("View") || reportHeadersArray.get(i).toString().contains("Perform Job")) {
-                } else {
-                    headers.add(reportHeadersArray.get(i).toString());
-                }
-            }
-
-            if(filterJsonArray!=null&& searchEditText.getText().toString().length()>0 && filterJsonArray.length()>0)
-            {
-                exportJsonArray = filterJsonArray;
-            }
-            else
-            {
-                exportJsonArray = reportDataArray;
-            }
-
-            for(int j=0;j<exportJsonArray.length();j++) {
-                List<String> data = new ArrayList<>();
-                for (int k = 0; k < reportHeadersUIArray.length(); k++) {
-                    JSONObject headersUIJsonObject = reportHeadersUIArray.getJSONObject(k);
-                    String uiField = headersUIJsonObject.getString("data");
-                    JSONObject jsonObject = exportJsonArray.getJSONObject(j);
-                    if (uiField != null && uiField.contains(".")) {
-                        try {
-                            String fieldDataArray[] = uiField.split("\\.");
-                            String fieldDataVal = fieldDataArray[0];
-                            JSONObject dataJsonObject = jsonObject.getJSONObject(fieldDataVal);
-                            JSONObject applicationJsonObject = dataJsonObject.getJSONObject(fieldDataArray[(fieldDataArray.length) - (fieldDataArray.length - 1)]);
-                            String fieldFinalVal = applicationJsonObject.getString(fieldDataArray[fieldDataArray.length - 1]);
-                            Log.i("MYDATA", fieldFinalVal);
-                            data.add(fieldFinalVal);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            data.add("");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            data.add("");
-                        }
-                    } else {
-                        try {
-                            String fieldFinalVal = jsonObject.getString(uiField);
-                            Log.i("MYDATA", fieldFinalVal);
-                            data.add(fieldFinalVal);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            data.add("");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            data.add("");
-                        }
-                    }
-                }
-                Data.add(data);
-            }
-
-            //file path
-            File file = new File(directory, fileName);
-            Workbook workbook = new HSSFWorkbook();
-            Sheet studentsSheet = workbook.createSheet("Report Data");
-            int rowIndex = 0;
-            Row row = studentsSheet.createRow(rowIndex);
-            for (int i = 0; i < headers.size(); i++) {
-                row.createCell(i).setCellValue(headers.get(i));
-            }
-            for (int i = 0; i < Data.size(); i++) {
-                val++;
-                Row row1 = studentsSheet.createRow(val);
-                for (int j = 0; j < Data.get(i).size(); j++) {
-
-                    row1.createCell(j).setCellValue(Data.get(i).get(j));
-                }
-            }
-            try {
-                FileOutputStream fos = new FileOutputStream(file);
-                workbook.write(fos);
-                fos.close();
-                result = true;
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-                result =false;
-            } catch (IOException e) {
-                e.printStackTrace();
-                result = false;
-            }
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-            result = false;
-        }
-        return  result;
-
-    }*/
-
     private void swipeRefreshListener() {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -746,13 +410,10 @@ public class ReportDetailsFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
-        // Configure the refreshing colors
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
-
-
     }
 
     private void getJobDataApi(JSONObject jsonObject, JSONObject resources) {

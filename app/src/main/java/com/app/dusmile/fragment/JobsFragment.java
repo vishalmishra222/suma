@@ -92,17 +92,14 @@ import java.util.Locale;
  */
 
 public class JobsFragment extends Fragment {
-    private static String URL = null;
-    private static String AURL = null;
-    private static String CURL = null;
-    MyCustomToast myCustomToast;
-    private View layout = null;
+    private String AURL = null;
+    private String CURL = null;
     private Context mContext;
     private List<SubCategory> subCategoryMenuList;
     private RecyclerView recyclerView;
     private Gson gson;
-    private static TextView tv_msg;
-    private static LinearLayout parent_layout;
+    private TextView tv_msg;
+    private LinearLayout parent_layout;
     private View toastRoot;
     private RecyclerView.LayoutManager mLayoutManager;
     private GenericAdapter genericAdapter;
@@ -117,9 +114,6 @@ public class JobsFragment extends Fragment {
     JSONArray cardHeadersKeyArray;
     JSONObject resourceJsonObj;
     private Toast toast;
-    private List<String> formNameList = new ArrayList<>();
-    private List<List<String>> exportData = new ArrayList<>();
-    List<AvailableJobsDataModel.ReportDatum> filteredList;
     private String job_id, cityName, pincode, applicationFormNo, jobStartTime, totalAssignedTime, mobileNo, address, coApplicantArray;
     String hasCoApplicant;
     private int mYear, mMonth, mDay;
@@ -129,8 +123,7 @@ public class JobsFragment extends Fragment {
     private DBHelper dbHelper;
     private SwipeRefreshLayout swipeRefreshLayout;
     private String Tag = "JobsFragment";
-    String holdReasonsList[] = {"Door Locked", "Person not at home", "Bike failed"};
-    public static FragmentTransaction fragmentTransaction;
+    public FragmentTransaction fragmentTransaction;
 
     public JobsFragment() {
         super();
@@ -147,20 +140,16 @@ public class JobsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.jobs_fragment, container, false);
         this.findViews(rootView);
-        // startDate = getArguments().getString("startDate");
-        // endDate = getArguments().getString("endDate");
         fragmentTransaction = getChildFragmentManager().beginTransaction();
         mLayoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(mLayoutManager);
         Activity activity = this.getActivity();
         mContext = activity;
-
         dbHelper = DBHelper.getInstance(mContext);
         this.searchJobListener();
         this.onCancelButtonClicked();
         this.fromDateClick();
         this.fromToClick();
-        //this.swipeRefreshListener();
         return rootView;
     }
 
@@ -176,18 +165,15 @@ public class JobsFragment extends Fragment {
                 reportDataArray = new JSONArray();
                 cardHeadersKeyArray = new JSONArray();
                 genericAdapter.refresh(reportDataArray);
-                // genericAdapter.notifyDataSetChanged();
             }
             assignUrl();
             if (IOUtils.isInternetPresent(mContext)) {
                 UpdateJobStatus.jobIdList.clear();
                 if (AppConstant.isAssinedJobs) {
-                    String url = new Const().GET_ASSIGNED_REPORT_METADATA;
                     getAssignedJobs(AURL);
                     getActivity().setTitle(getString(R.string.assigned_jobs));
                 } else {
                     dateFilter.setVisibility(View.VISIBLE);
-                    String url = new Const().GET_COMPLETED_REPORT_METADATA;
                     getCompletedJobs(CURL);
                     getActivity().setTitle(getString(R.string.completed_jobs));
                 }
@@ -197,8 +183,8 @@ public class JobsFragment extends Fragment {
                     showOfflineAssignedJobs();
                 } else {
                     IOUtils.showErrorMessage(mContext, "No internet connection");
-                    if (AppConstant.isAvilableJobs) {
-                        getActivity().setTitle(getString(R.string.avialble_jobs));
+                    if (AppConstant.isAssinedJobs) {
+                        getActivity().setTitle(getString(R.string.assigned_jobs));
                     } else if (AppConstant.isCompletedJobs) {
                         getActivity().setTitle(getString(R.string.completed_jobs));
                     }
@@ -263,7 +249,6 @@ public class JobsFragment extends Fragment {
 
             @Override
             public void onItemLongClick(View view, int position) {
-                // ...
             }
         }));
     }
@@ -296,30 +281,19 @@ public class JobsFragment extends Fragment {
 
                         if (filterJsonArray != null) {
                             if (filterJsonArray.length() == 0) {
-                                // exportBtn.setVisibility(View.GONE);
                                 showAToast("No Matching Records Found");
                             } else {
-                                //exportBtn.setVisibility(View.VISIBLE);
                             }
-                            // reportDetailsAdapter.refresh(filterJsonArray);
                             genericAdapter = new GenericAdapter(mContext, reportHeadersArray, filterJsonArray, reportHeadersUIArray, cardHeadersKeyArray, btnClickListener);
                             recyclerView.setAdapter(genericAdapter);
-
                         }
 
                     } else {
                         try {
                             cancelButton.setVisibility(View.GONE);
                             if (reportDataArray != null) {
-                                if (reportDataArray.length() == 0) {
-                                    // exportBtn.setVisibility(View.GONE);
-                                    //showAToast("No Data Available");
-                                } else {
-                                    // exportBtn.setVisibility(View.VISIBLE);
-                                }
                                 genericAdapter = new GenericAdapter(mContext, reportHeadersArray, reportDataArray, reportHeadersUIArray, cardHeadersKeyArray, btnClickListener);
                                 recyclerView.setAdapter(genericAdapter);
-
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -344,15 +318,8 @@ public class JobsFragment extends Fragment {
                     searchEditText.setText("");
                     cancelButton.setVisibility(View.GONE);
                     if (reportDataArray != null) {
-                        if (reportDataArray.length() == 0) {
-                            //  exportBtn.setVisibility(View.GONE);
-                            // showAToast("No Data Available");
-                        } else {
-                            // exportBtn.setVisibility(View.VISIBLE);
-                        }
                         genericAdapter = new GenericAdapter(mContext, reportHeadersArray, reportDataArray, reportHeadersUIArray, cardHeadersKeyArray, btnClickListener);
                         recyclerView.setAdapter(genericAdapter);
-
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -366,13 +333,10 @@ public class JobsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (v == txtFromDate) {
-
-                    // Get Current Date
                     final Calendar c = Calendar.getInstance();
                     mYear = c.get(Calendar.YEAR);
                     mMonth = c.get(Calendar.MONTH);
                     mDay = c.get(Calendar.DAY_OF_MONTH);
-
 
                     DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
                             new DatePickerDialog.OnDateSetListener() {
@@ -399,7 +363,6 @@ public class JobsFragment extends Fragment {
                                         reportDataArray = new JSONArray();
                                         cardHeadersKeyArray = new JSONArray();
                                         genericAdapter.refresh(reportDataArray);
-                                        // genericAdapter.notifyDataSetChanged();
                                     }
                                     UpdateJobStatus.jobIdList.clear();
                                     getCompletedJobs(CURL);
@@ -417,13 +380,10 @@ public class JobsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (v == txtToDate) {
-
-                    // Get Current Date
                     final Calendar c = Calendar.getInstance();
                     mYear = c.get(Calendar.YEAR);
                     mMonth = c.get(Calendar.MONTH);
                     mDay = c.get(Calendar.DAY_OF_MONTH);
-
 
                     DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(),
                             new DatePickerDialog.OnDateSetListener() {
@@ -450,7 +410,6 @@ public class JobsFragment extends Fragment {
                                         reportDataArray = new JSONArray();
                                         cardHeadersKeyArray = new JSONArray();
                                         genericAdapter.refresh(reportDataArray);
-                                        // genericAdapter.notifyDataSetChanged();
                                     }
                                     UpdateJobStatus.jobIdList.clear();
                                     getCompletedJobs(CURL);
@@ -463,19 +422,13 @@ public class JobsFragment extends Fragment {
         });
     }
 
-    private void onExportButtonClicked() {
-
-    }
-
     @Override
     public void onDetach() {
         super.onDetach();
-
         try {
             Field childFragmentManager = Fragment.class.getDeclaredField("mChildFragmentManager");
             childFragmentManager.setAccessible(true);
             childFragmentManager.set(this, null);
-
         } catch (NoSuchFieldException e) {
             throw new RuntimeException(e);
         } catch (IllegalAccessException e) {
@@ -549,11 +502,6 @@ public class JobsFragment extends Fragment {
                 if (jsonObject.has("ApplicantOrCoApplicant")) {
                     hasCoApplicant = jsonObject.getString("ApplicantOrCoApplicant");
                 }
-                if (IOUtils.isInternetPresent(mContext)) {
-                    checkJobIsAssignedOrNot(job_id, "102", templateName, new Const().DATABASE_NAME);
-                } else {
-                    IOUtils.showErrorMessage(mContext, "No internet connection");
-                }
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -595,7 +543,6 @@ public class JobsFragment extends Fragment {
                 if (jsonObject.has("CoApplicantSubprocesses")) {
                     coApplicantArray = jsonObject.getString("CoApplicantSubprocesses");
                 }
-                //coApplicantArray = coApplicantArray.replaceAll("^\\[|]$", "");
 
                 String jobStatus = jsonObject.getString("status");
                 AppConstant.formPosition = 0;
@@ -615,17 +562,6 @@ public class JobsFragment extends Fragment {
                     } else {
                         String type = templateName;
                         getUpdatedTemplate(type + "/" + productName);
-                       /* switch (type) {
-                            case "Residence":
-                                getUpdatedTemplate("Residence");
-                                break;
-                            case "Office":
-                                getUpdatedTemplate("Office");
-                                break;
-                            case "ResidenceAndOffice":
-                                getUpdatedTemplate("ResidenceAndOffice");
-                                break;
-                        }*/
                     }
                 }
             } catch (Exception e) {
@@ -641,11 +577,7 @@ public class JobsFragment extends Fragment {
 
         @Override
         public void holdListener(String date, String reason, String jobID, String nbfcName) {
-            if (IOUtils.isInternetPresent(mContext)) {
-                holdJob(reason, jobID, nbfcName, date);
-            } else {
-                MyDynamicToast.errorMessage(mContext, "Please check your internet connection");
-            }
+
         }
 
         @Override
@@ -655,9 +587,7 @@ public class JobsFragment extends Fragment {
     };
 
     public void getCompletedJobs(String url) {
-
         IOUtils.startLoading(mContext, "Loading......");
-
         try {
             IOUtils.appendLog(Tag + " : " + IOUtils.getCurrentTimeStamp() + " API " + url);
             new HttpVolleyRequest(mContext, url, completedlistenerJobs);
@@ -705,9 +635,6 @@ public class JobsFragment extends Fragment {
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.length() > 0) {
                         Log.d("DUSMILE", response);
-
-                        /*gson = new Gson();
-                        AvailableJobsDataModel availableJobsModel = gson.fromJson(response, AvailableJobsDataModel.class);*/
                         boolean status = jsonObject.getBoolean("success");
                         if (status == true) {
                             IOUtils.appendLog(Tag + " : " + IOUtils.getCurrentTimeStamp() + " API " + url + "\nRESPONSE " + String.valueOf(status));
@@ -729,10 +656,8 @@ public class JobsFragment extends Fragment {
                             }
                             if (reportDataArray != null) {
                                 if (reportDataArray.length() > 0) {
-                                    // exportBtn.setVisibility(View.VISIBLE);
                                     setAdapter(reportHeadersArray, reportDataArray, reportHeadersUIArray, cardHeadersKeyArray);
                                 } else {
-                                    // exportBtn.setVisibility(View.GONE);
                                     MyDynamicToast.informationMessage(mContext, "No Data Available");
                                 }
                             }
@@ -777,125 +702,15 @@ public class JobsFragment extends Fragment {
         }
     };
 
-    public void checkJobIsAssignedOrNot(String jobId, String processQId, String templateName, String nbfcName) {
-        IOUtils.startLoading(mContext, "Please wait......");
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("process_queue_id", processQId);
-            jsonObject.put("job_id", jobId);
-            jsonObject.put("JobType", templateName);
-            jsonObject.put("NBFCName", nbfcName);
-        } catch (JSONException e) {
-            IOUtils.stopLoading();
-            e.printStackTrace();
-        } catch (Exception e) {
-            IOUtils.stopLoading();
-            e.printStackTrace();
-        }
-        IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_CHECK_ASSIGNED_JOBS + "\nREQUEST " + jsonObject.toString());
-        new HttpVolleyRequest(mContext, jsonObject, new Const().REQUEST_CHECK_ASSIGNED_JOBS, listenerCheckJobAssigned);
-    }
-
-    MyListener listenerCheckJobAssigned = new MyListener() {
-        @Override
-        public void success(Object obj) throws JSONException {
-            //showProgress(false);
-
-        }
-
-        @Override
-        public void success(Object obj, JSONObject jsonReqObject) throws JSONException {
-            try {
-
-                IOUtils.stopLoading();
-                if (obj != null) {
-                    String response = obj.toString();
-                    JSONObject jsonObject = new JSONObject(response);
-                    if (jsonObject.length() > 0) {
-                        Log.d("DUSMILE", response);
-                        checkAssignedResp = response;
-                        Gson gson = new Gson();
-                        JobDetailsResponse jobDetailsResponse = gson.fromJson(response.trim(), JobDetailsResponse.class);
-                        jobDetailsResponseGlobal = jobDetailsResponse;
-                        IOUtils.appendLog(Tag + " : " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_CHECK_ASSIGNED_JOBS + "\nRESPONSE " + jobDetailsResponse.getSuccess().toString());
-                        if (jobDetailsResponse.getRedirect() == true && jobDetailsResponse.getSuccess() == true) {
-                            //deleting entries from assigned table is job is deassigned by admin
-                            deleteJobDetailsIfJobDeAssigned(job_id);
-                            //handle template version
-                            handleResponseToCheckVersion(response, jobDetailsResponse, null);
-
-                            //store offline data
-                            storeOfflineAssignedJobs(new Const().REQUEST_GET_ASSIGNED_JOBS + "/" + UserPreference.readString(mContext, UserPreference.USER_ID, ""));
-                            MyDynamicToast.informationMessage(mContext, "Job Accepted Successfully");
-                            latestVersion = jobDetailsResponse.getLatestVersion();
-                            ClientTemplate clientTemplate = ClientTemplateDB.getSingleClientTemplateAccVerionNo(dbHelper, templateName, nbfcName, UserPreference.getLanguage(mContext), latestVersion);
-                            String clientTemplateId = clientTemplate.getID();
-                            String clientTemplateVersion = clientTemplate.getVersion();
-                            isAvailable = true;
-                            if (!TextUtils.isEmpty(clientTemplateId)) {
-                                TemplateOperations.getFormsFromDBAndInsertIntoMenus(Integer.parseInt(clientTemplateId), mContext);
-                                sendToAllFormActivity(isAvailable, response);
-                                AppConstant.isAvilableJobs = true;
-                                AppConstant.isAssinedJobs = false;
-                                AppConstant.isCompletedJobs = false;
-                                onResume();
-                            } else {
-                                getUpdatedTemplate("Residence");
-                            }
-
-                        } else {
-                            showJobAlreadyAssignedDialog();
-                        }
-                    } else {
-                        MyDynamicToast.errorMessage(mContext, "Unexpected Response");
-                    }
-
-                } else {
-                    MyDynamicToast.errorMessage(mContext, "Unexpected Response");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                MyDynamicToast.errorMessage(mContext, "Unexpected Response");
-            }
-        }
-
-        @Override
-        public void failure(VolleyError volleyError) {
-            try {
-                IOUtils.stopLoading();
-                if (volleyError != null) {
-                    IOUtils.appendLog(Tag + " : " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_CHECK_ASSIGNED_JOBS + "\nRESPONSE " + volleyError.getMessage());
-                    MyDynamicToast.warningMessage(mContext, "Unable to connect");
-                    if (volleyError.networkResponse != null && volleyError.networkResponse.statusCode == 800) {
-                        IOUtils.sendUserToLogin(mContext, getActivity());
-                    }
-                } else {
-                    MyDynamicToast.errorMessage(mContext, "Server Error !!");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                MyDynamicToast.errorMessage(mContext, "Server Error !!");
-                IOUtils.appendLog(Tag + " : " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_CHECK_ASSIGNED_JOBS + "\nRESPONSE " + e.getMessage());
-            }
-        }
-    };
-
-
     private void showJobAlreadyAssignedDialog() {
         IOUtils.showWarningMessage(getActivity(), getResources().getString(R.string.job_already_assigned));
     }
 
     private void showAToast(String message) {
-
         try {
             if (toast != null) {
                 toast.cancel();
             }
-           /* toast = Toast.makeText(mContext, message, Toast.LENGTH_SHORT);
-            TextView toastMessage = (TextView) toast.getView().findViewById(android.R.id.message);
-            toastMessage.setTextColor(Color.WHITE);
-            toastMessage.setBackgroundColor(Color.RED);
-            toast.show();*/
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             toastRoot = inflater.inflate(R.layout.my_toast, null);
             ImageView iv_left_icon = (ImageView) toastRoot.findViewById(R.id.iv_left_icon);
@@ -906,10 +721,7 @@ public class JobsFragment extends Fragment {
             tv_msg.setText(message);
             tv_msg.setTextColor(Color.WHITE);
             tv_msg.setTextSize(16);
-
-//        parent_layout.setBackgroundDrawable(createToastBackground(context, parent_layout));
             parent_layout.setBackgroundResource(R.drawable.error_msg_back);
-
             toast = new Toast(mContext);
             toast.setView(toastRoot);
             toast.setDuration(Toast.LENGTH_SHORT);
@@ -917,8 +729,6 @@ public class JobsFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-
     }
 
     public String removeSpaceFromUrl(String url) {
@@ -1041,83 +851,6 @@ public class JobsFragment extends Fragment {
     }
 
 
-    public void holdJob(String holdReason, String jobId, String nbfcName, String nextDate) {
-        IOUtils.startLoading(getActivity(), "Please wait.....");
-        IOUtils.appendLog(Tag + " : " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_HOLD_JOB + "/" + jobId);
-        JSONObject jsonObject = new JSONObject();
-        try {
-            JSONObject jobData = new JSONObject();
-            jobData.put("holdreason", holdReason);
-            jobData.put("nextAppDate", nextDate);
-            jsonObject.put("jobData", jobData);
-            jsonObject.put("NBFCName", nbfcName);
-        } catch (JSONException e) {
-            IOUtils.stopLoading();
-            e.printStackTrace();
-        } catch (Exception e) {
-            IOUtils.stopLoading();
-            e.printStackTrace();
-        }
-        new HttpVolleyRequest(mContext, jsonObject, new Const().REQUEST_HOLD_JOB + "/" + jobId, listenerdeAssignJob);
-    }
-
-    MyListener listenerdeAssignJob = new MyListener() {
-        @Override
-        public void success(Object obj) throws JSONException {
-
-        }
-
-        @RequiresApi(api = Build.VERSION_CODES.M)
-        @Override
-        public void success(Object obj, JSONObject jsonObject) throws JSONException {
-
-            if (obj != null) {
-                String holdJobResponse = obj.toString();
-                JSONObject holdjsonObject = new JSONObject(holdJobResponse);
-                if (holdjsonObject.length() > 0) {
-                    try {
-                        gson = new Gson();
-                        HoldJobResponseModel holdJobResponseModel = gson.fromJson(holdJobResponse, HoldJobResponseModel.class);
-                        IOUtils.appendLog(Tag + " : " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_HOLD_JOB + "  " + holdJobResponseModel.getSuccess());
-                        if (holdJobResponseModel.getSuccess() == true) {
-                            MyDynamicToast.successMessage(mContext, "Job is put on hold successfully");
-                            getActivity().overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-                            getActivity().finish();
-                        } else {
-                            MyDynamicToast.successMessage(mContext, "Job Hold Failed");
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                } else {
-                    MyDynamicToast.successMessage(mContext, "Something went wrong");
-                }
-            }
-            IOUtils.stopLoading();
-        }
-
-        @Override
-        public void failure(VolleyError volleyError) {
-            try {
-                IOUtils.stopLoading();
-                if (volleyError != null) {
-                    IOUtils.appendLog(Tag + " : " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_HOLD_JOB + "\nRESPONSE " + volleyError.getMessage().toString());
-                    MyDynamicToast.warningMessage(mContext, "Unable to connect");
-                    if (volleyError.networkResponse != null && volleyError.networkResponse.statusCode == 800) {
-                        IOUtils.sendUserToLogin(mContext, getActivity());
-                    }
-                } else {
-                    MyDynamicToast.errorMessage(mContext, "Server Error !!");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                MyDynamicToast.errorMessage(mContext, "Server Error !!");
-            }
-
-        }
-    };
-
-
     private void swipeRefreshListener() {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -1129,7 +862,7 @@ public class JobsFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
-        // Configure the refreshing colors
+
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
@@ -1170,10 +903,8 @@ public class JobsFragment extends Fragment {
                             cardHeadersKeyArray = jsonObject.getJSONArray("cardHeadersKeys");
                             if (reportDataArray != null) {
                                 if (reportDataArray.length() > 0) {
-                                    // exportBtn.setVisibility(View.VISIBLE);
                                     setAdapter(reportHeadersArray, reportDataArray, reportHeadersUIArray, cardHeadersKeyArray);
                                 } else {
-                                    // exportBtn.setVisibility(View.GONE);
                                     MyDynamicToast.informationMessage(mContext, "No Data Available");
                                 }
                             }
@@ -1195,8 +926,6 @@ public class JobsFragment extends Fragment {
 
 
     private void handleResponseToCheckVersion(String response, JobDetailsResponse jobDetailsResponse, ProgressDialog assignJobProgressBar) {
-
-        //check version no with database version no
         try {
             String applicant_Json = "";
             JSONObject jsonObject = new JSONObject(response);
@@ -1215,12 +944,11 @@ public class JobsFragment extends Fragment {
             ClientTemplate clientTemplate = ClientTemplateDB.getSingleClientTemplateAccVerionNo(dbHelper, templateName, nbfcName, app_language, response_version_no);
             String clientTemplateVersion = clientTemplate.getVersion();
             if (clientTemplate.getID() != null) {
-                //do not update template use this template to render form
                 addEntryInDB(app_language, jobDetailsResponse, clientTemplate.getIs_deprecated(), applicant_Json);
                 IOUtils.stopLoading();
             } else {
                 if (!TextUtils.isEmpty(clientTemplateVersion)) {
-                    getUpdatedTemplate(String.valueOf(clientTemplateVersion).toString());
+                    getUpdatedTemplate(clientTemplateVersion);
                 } else {
                     getUpdatedTemplate("Residence");
                 }
@@ -1234,9 +962,7 @@ public class JobsFragment extends Fragment {
         AssignedJobs assignedJob = AssignedJobsDB.getJobsByJobId(dbHelper, jobDetailsResponse.getJOBID());
         if (AllFormsActivity.isAccept == true || assignedJob.getAssigned_jobId() == null) {
             ClientTemplate clientTemplate = ClientTemplateDB.getSingleClientTemplateByTemplateNameClientLanguage(dbHelper, templateName, nbfcName, app_language, isDeprecatedFlag);
-            //insert entry into assigned jobs table to maintain assigned jobs
             insertIntoAssignedJobs(clientTemplate.getID(), jobDetailsResponse.getJOBID(), applicant_Json);
-
         }
     }
 
@@ -1249,7 +975,6 @@ public class JobsFragment extends Fragment {
         AssignedJobs assignedJobsExisting = AssignedJobsDB.getJobsByJobId(dbHelper, jobID);
         if (assignedJobsExisting.getID() == null) {
 
-            //String applicantJson = gson.toJson(applicant);
             SimpleDateFormat formatter = null;
             if (creationTime.contains("/")) {
                 formatter = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss", Locale.US);
@@ -1292,21 +1017,15 @@ public class JobsFragment extends Fragment {
         @Override
         public void success(Object obj) throws JSONException {
             try {
-                // IOUtils.stopLoading();
                 if (obj != null) {
                     String url = getURL();
                     String response = obj.toString();
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.length() > 0) {
                         Log.d("DUSMILE", response);
-
-                        /*gson = new Gson();
-                        AvailableJobsDataModel availableJobsModel = gson.fromJson(response, AvailableJobsDataModel.class);*/
                         boolean status = jsonObject.getBoolean("success");
                         if (status == true) {
-
                             IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + url + "\nRESPONSE " + String.valueOf(status));
-
                             JSONArray reportHeadersArray = jsonObject.getJSONArray("reportHeaders");
                             JSONArray reportDataArray = jsonObject.getJSONArray("reportData");
                             JSONArray reportHeadersUIArray = jsonObject.getJSONArray("reportHeadersKeys");
@@ -1316,7 +1035,6 @@ public class JobsFragment extends Fragment {
                             offlineAssignedJobs.setOffline_assigned_jobs_json(response);
                             OfflineAssignedJobsDB.addOfflineAssignedJobsEntry(offlineAssignedJobs, dbHelper);
                             UserPreference.writeInteger(mContext, UserPreference.ASSIGNED_CNT, reportDataArray.length());
-
                         }
                     }
                 }
@@ -1556,7 +1274,7 @@ public class JobsFragment extends Fragment {
             JSONObject jsonObject1 = new JSONObject();
             String URL = new Const().BASE_URL + jobsResources.getDataApi();
             jsonObject1.put("reportHeaderKeys", reportHeaderKeysJson);
-            jsonObject1.put("queryCriteria",dateFilterJson);
+            jsonObject1.put("queryCriteria", dateFilterJson);
             new HttpVolleyRequest(mContext, jsonObject1, URL, listenerCompleted);
         } catch (JSONException e) {
             e.printStackTrace();
