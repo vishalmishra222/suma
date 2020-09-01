@@ -37,6 +37,7 @@ import com.app.dusmile.database.LoginTemplateDB;
 import com.app.dusmile.gps.GPSTracker;
 import com.app.dusmile.model.LoginResponse;
 import com.app.dusmile.model.MenuDetails;
+import com.app.dusmile.model.MenuListResponse;
 import com.app.dusmile.model.PushNotificationResponse;
 import com.app.dusmile.preferences.Const;
 import com.app.dusmile.preferences.FirebasePreference;
@@ -68,6 +69,7 @@ public class LoginActivity extends ActivityManagePermission {
     private TextView appVersion;
     Dialog gpsDialog;
     private DBHelper dbHelper;
+    private Gson gson;
     private String emailTo;
     //List<MenuDetails.GroupToCategoryToSubCategory> groupToCategoryToSubCategoriesList = new ArrayList<>();
     List<MenuDetails.GroupToCategoryToSubCategory.SubCategory> subCategoriesList = new ArrayList<MenuDetails.GroupToCategoryToSubCategory.SubCategory>();
@@ -146,6 +148,63 @@ public class LoginActivity extends ActivityManagePermission {
         }
         return true;
     }
+
+    public void getMenuDetailsApi() {
+        IOUtils.startLoading(mContext, "Authenticating....User");
+        IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().GET_MENU_DETAILS);
+        new HttpVolleyRequest(mContext, new Const().GET_MENU_DETAILS, listenerMenu);
+    }
+
+    MyListener listenerMenu = new MyListener() {
+        @Override
+        public void success(Object obj) throws JSONException {
+            IOUtils.stopLoading();
+            if (obj != null) {
+                try {
+                    String response = obj.toString();
+                    JSONObject responseJson = new JSONObject(response);
+                    IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().GET_MENU_DETAILS + "\nResponse" + response.toString());
+                    if (responseJson.length() > 0) {
+                        Log.d(Const.TAG, response);
+                        gson = new Gson();
+                        MenuListResponse menuListResponse = gson.fromJson(response, MenuListResponse.class);
+                        String jsonStringImages = "";
+                        String firebaseToken = DusmileApplication.getFirebaseToken();
+                        List<MenuListResponse.WorkflowMenuList> jsonMenuList = menuListResponse.getWorkflowMenuList();
+                        UserPreference.saveCategoryData(mContext, gson.toJson(menuListResponse.getWorkflowMenuList()));
+                        saveMenusInDB(jsonMenuList, jsonStringImages);
+                        doFirebaseApiCall(UserPreference.readString(mContext, UserPreference.USER_NAME, ""), firebaseToken);
+                    } else {
+                        IOUtils.stopLoading();
+                        MyDynamicToast.errorMessage(LoginActivity.this, "Unexpected response");
+                    }
+                } catch (Exception e) {
+                    IOUtils.stopLoading();
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void success(Object obj, JSONObject jsonReqObject) throws JSONException {
+
+        }
+
+        @Override
+        public void failure(VolleyError volleyError) {
+            try {
+                IOUtils.stopLoading();
+                if (volleyError != null && volleyError.networkResponse != null) {
+                    String responseBody = new String(volleyError.networkResponse.data, "utf-8");
+                    int statusCode = volleyError.networkResponse.statusCode;
+                    Log.i("Status Code", "" + statusCode);
+                }
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().GET_MENU_DETAILS + "\nRESPONSE" + volleyError.getMessage());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
 
     public void doFirebaseApiCall(String uname, String token) {
 
@@ -246,7 +305,6 @@ public class LoginActivity extends ActivityManagePermission {
         new HttpVolleyRequest(mContext, jsonObject, new Const().REQUEST_LOGIN1, listenerLogin, "true");
     }
 
-    private Gson gson;
     MyListener listenerLogin = new MyListener() {
         @Override
         public void success(Object obj) throws JSONException {
@@ -255,8 +313,6 @@ public class LoginActivity extends ActivityManagePermission {
 
         @Override
         public void success(Object obj, JSONObject jsonReqObject) throws JSONException {
-
-            //IOUtils.stopLoading();
             if (obj != null) {
                 try {
                     String response = obj.toString();
@@ -267,17 +323,9 @@ public class LoginActivity extends ActivityManagePermission {
                         LoginResponse loginResponse = gson.fromJson(response, LoginResponse.class);
                         IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_LOGIN1 + "\nRESPONSE" + loginResponse.getSuccess());
                         if (loginResponse.getSuccess().equals("success")) {
-                            List<LoginResponse.MenuList> jsonMenuList = loginResponse.getLoggedInUser().getMenuList();
-                            String jsonStringImages = "";
-                            String firebaseToken = DusmileApplication.getFirebaseToken();
                             UserPreference.saveUserPrefs(mContext, new RecordUser(), loginResponse.getLoggedInUser().getUsername(), loginResponse.getLoggedInUser().getToken(), String.valueOf(loginResponse.getLoggedInUser().getUserId()), loginResponse.getLoggedInUser().getUserId().toString(), "");
-                            UserPreference.saveCategoryData(mContext, gson.toJson(loginResponse.getLoggedInUser().getMenuList()));
-                            saveMenusInDB(jsonMenuList, jsonStringImages);
-                            List<Integer> updatedTemplateVersionList = new ArrayList<>();
                             writeNewUser(UserPreference.readString(getApplicationContext(), UserPreference.USER_ID, ""), UserPreference.readString(getApplicationContext(), UserPreference.USER_NAME, ""), UserPreference.readString(getApplicationContext(), FirebasePreference.getTokenID(getApplicationContext()), ""), "", "");
-                            doFirebaseApiCall(loginResponse.getLoggedInUser().getUsername(), firebaseToken);
-                            //update template received status
-                            // ConfirmTemplateUpdate.sendTemplateUpdateStatusToserver(mContext);
+                            getMenuDetailsApi();
                         } else {
                             IOUtils.stopLoading();
                             MyDynamicToast.errorMessage(LoginActivity.this, "wrong username or password");
@@ -370,7 +418,8 @@ public class LoginActivity extends ActivityManagePermission {
     }
 
 
-    private void saveMenusInDB(List<LoginResponse.MenuList> jsonMenuDetails, String jsonStringImages) {
+    private void saveMenusInDB(List<MenuListResponse.WorkflowMenuList> jsonMenuDetails, String
+            jsonStringImages) {
         try {
             LoginTemplateDB.deleteLoginTemplate(dbHelper);
             CategoryDB.deleteCategoryTable(dbHelper);
@@ -416,7 +465,8 @@ public class LoginActivity extends ActivityManagePermission {
         }
     }
 
-    private void writeNewUser(String userId, String name, String email, String tokenId, String userProgress) {
+    private void writeNewUser(String userId, String name, String email, String
+            tokenId, String userProgress) {
         User user = new User(name, email, tokenId, userProgress);
         firebaseDatabase.child("users").child(userId).setValue(user);
 

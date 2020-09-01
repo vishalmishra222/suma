@@ -17,10 +17,10 @@ public class Const {
     //public static final String BASE_URL = "http://192.168.222.156:8080/Dusmile/";//samiksha
     // public static final String BASE_URL = "http://192.168.222.54:8080/Dusmile/";//Ankita
    // public static final String BASE_URL = "http://192.168.43.242:8080/Dusmile/";
-    //public static final String BASE_URL = "http://192.168.43.15:8080/Dusmile/";//samiksha local
-    public static final String BASE_URL = "http://demockross.sumasoft.com:9090/Dusmile/";//MOHIT
+    public static final String BASE_URL = "http://192.168.43.216/Dusmile/";//samiksha local
+   // public static final String BASE_URL = "http://demockross.sumasoft.com:9090/Dusmile/";//MOHIT
     //public static final String BASE_URL = "http://49.248.24.148/Dusmile/";//public
-     public static final String ALTERNATE_BASE_IP = "http://demockross.sumasoft.com/Dusmile/";//mohit
+     public static final String ALTERNATE_BASE_IP = "http://demockross.sumasoft.com:9090/Dusmile/";//mohit
    // public static final String BASE_URL = "http://192.168.111.226:8080/Dusmile/";//UAT
 
     public String URL = BASE_URL;
@@ -28,6 +28,8 @@ public class Const {
     public String REQUEST_LOGIN1 = BASE_URL + "login";
 
     public String REQUEST_FIREBASE = BASE_URL + "pushNotification/storeToken";
+
+    public String GET_MENU_DETAILS = BASE_URL + "workflow/default/menu";
     
     public String REQUEST_AVAILABLE_JOBS = BASE_URL + "getAvailableJobs";
 
