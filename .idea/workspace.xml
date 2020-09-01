@@ -17,8 +17,7 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.6.4/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/JobsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/JobsFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/ReportDetailsFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/ReportDetailsFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/app/dusmile/connection/HttpVolleyRequest.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/app/dusmile/connection/HttpVolleyRequest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/app/dusmile/preferences/Const.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/app/dusmile/preferences/Const.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -82,11 +81,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/preferences/Const.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="25" column="33" lean-forward="true" selection-start-line="25" selection-start-column="33" selection-end-line="25" selection-end-column="33" />
+            <state relative-caret-position="198">
+              <caret line="22" column="67" selection-start-line="22" selection-start-column="67" selection-end-line="22" selection-end-column="67" />
             </state>
           </provider>
         </entry>
@@ -104,7 +103,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/ReportDetailsFragment.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="367">
-              <caret line="149" column="67" lean-forward="true" selection-start-line="149" selection-start-column="67" selection-end-line="149" selection-end-column="67" />
+              <caret line="149" column="67" selection-start-line="149" selection-start-column="67" selection-end-line="149" selection-end-column="67" />
               <folding>
                 <element signature="e#3138#3139#0" expanded="true" />
                 <element signature="e#3161#3162#0" expanded="true" />
@@ -122,8 +121,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/JobsFragment.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="211" column="59" lean-forward="true" selection-start-line="211" selection-start-column="59" selection-end-line="211" selection-end-column="59" />
+            <state relative-caret-position="173">
+              <caret line="198" selection-start-line="198" selection-end-line="198" />
               <folding>
                 <element signature="e#4662#4663#0" expanded="true" />
                 <element signature="e#4685#4686#0" expanded="true" />
@@ -143,6 +142,42 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/common/ConfirmTemplateUpdate.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="181">
+              <caret line="46" selection-start-line="46" selection-end-line="46" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/AllFormsFragment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="327">
+              <caret line="1466" selection-start-line="1466" selection-end-line="1466" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/common/UpdateJobStatus.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="217">
+              <caret line="53" selection-start-line="53" selection-end-line="53" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/connection/HttpVolleyRequest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="217">
+              <caret line="321" column="37" lean-forward="true" selection-start-line="321" selection-start-column="37" selection-end-line="321" selection-end-column="37" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/adapter/GenericAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="173">
@@ -151,6 +186,15 @@
                 <element signature="e#11428#11429#0" expanded="true" />
                 <element signature="e#11475#11476#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/view/DatabaseUI.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="173">
+              <caret line="176" selection-start-line="176" selection-end-line="176" />
             </state>
           </provider>
         </entry>
@@ -175,10 +219,11 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/ReportDetailsFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/JobsFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/app/dusmile/preferences/Const.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/app/dusmile/connection/HttpVolleyRequest.java" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" extendedState="1">
     <option name="y" value="25" />
     <option name="width" value="1909" />
     <option name="height" value="987" />
@@ -224,6 +269,24 @@
               <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
               <item name="dusmile" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="suma" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="dusmile" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="suma" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="com" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="dusmile" type="462c0819:PsiDirectoryNode" />
+              <item name="connection" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="suma" type="1abcf292:AndroidViewProjectNode" />
@@ -440,7 +503,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="25" width="1909" height="987" extended-state="0" />
+    <frame x="0" y="25" width="1909" height="987" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
@@ -531,18 +594,6 @@
           <line>692</line>
           <properties />
           <option name="timeStamp" value="45" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/JobsFragment.java</url>
-          <line>527</line>
-          <properties />
-          <option name="timeStamp" value="50" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/JobsFragment.java</url>
-          <line>532</line>
-          <properties />
-          <option name="timeStamp" value="51" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/JobsFragment.java</url>
@@ -648,21 +699,9 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/AllFormsFragment.java</url>
-          <line>513</line>
-          <properties />
-          <option name="timeStamp" value="188" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/AllFormsFragment.java</url>
           <line>852</line>
           <properties />
           <option name="timeStamp" value="194" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/AllFormsFragment.java</url>
-          <line>882</line>
-          <properties />
-          <option name="timeStamp" value="195" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/AllFormsFragment.java</url>
@@ -687,18 +726,6 @@
           <line>233</line>
           <properties />
           <option name="timeStamp" value="200" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/AllFormsFragment.java</url>
-          <line>720</line>
-          <properties />
-          <option name="timeStamp" value="201" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/AllFormsFragment.java</url>
-          <line>721</line>
-          <properties />
-          <option name="timeStamp" value="208" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/JobsFragment.java</url>
@@ -750,39 +777,9 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/view/DatabaseUI.java</url>
-          <line>153</line>
-          <properties />
-          <option name="timeStamp" value="246" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/view/DatabaseUI.java</url>
-          <line>156</line>
-          <properties />
-          <option name="timeStamp" value="247" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/view/DatabaseUI.java</url>
-          <line>166</line>
-          <properties />
-          <option name="timeStamp" value="248" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/view/DatabaseUI.java</url>
-          <line>165</line>
-          <properties />
-          <option name="timeStamp" value="249" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/view/DatabaseUI.java</url>
           <line>170</line>
           <properties />
           <option name="timeStamp" value="250" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/view/DatabaseUI.java</url>
-          <line>176</line>
-          <properties />
-          <option name="timeStamp" value="251" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/JobsFragment.java</url>
@@ -813,54 +810,6 @@
           <line>215</line>
           <properties />
           <option name="timeStamp" value="260" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/adapter/GenericAdapter.java</url>
-          <line>210</line>
-          <properties />
-          <option name="timeStamp" value="261" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/adapter/GenericAdapter.java</url>
-          <line>199</line>
-          <properties />
-          <option name="timeStamp" value="262" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/view/DatabaseUI.java</url>
-          <line>208</line>
-          <properties />
-          <option name="timeStamp" value="263" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/view/DatabaseUI.java</url>
-          <line>210</line>
-          <properties />
-          <option name="timeStamp" value="264" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/view/DatabaseUI.java</url>
-          <line>229</line>
-          <properties />
-          <option name="timeStamp" value="265" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/view/DatabaseUI.java</url>
-          <line>228</line>
-          <properties />
-          <option name="timeStamp" value="266" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/view/DatabaseUI.java</url>
-          <line>231</line>
-          <properties />
-          <option name="timeStamp" value="267" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/view/DatabaseUI.java</url>
-          <line>230</line>
-          <properties />
-          <option name="timeStamp" value="268" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/StatusReportFragment.java</url>
@@ -1018,21 +967,115 @@
           <properties />
           <option name="timeStamp" value="302" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/connection/HttpVolleyRequest.java</url>
+          <line>72</line>
+          <properties />
+          <option name="timeStamp" value="303" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/AllFormsFragment.java</url>
+          <line>1462</line>
+          <properties />
+          <option name="timeStamp" value="304" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/AllFormsFragment.java</url>
+          <line>1459</line>
+          <properties />
+          <option name="timeStamp" value="305" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/AllFormsFragment.java</url>
+          <line>1463</line>
+          <properties />
+          <option name="timeStamp" value="306" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/AllFormsFragment.java</url>
+          <line>1466</line>
+          <properties />
+          <option name="timeStamp" value="307" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/common/UpdateJobStatus.java</url>
+          <line>64</line>
+          <properties />
+          <option name="timeStamp" value="309" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/common/UpdateJobStatus.java</url>
+          <line>59</line>
+          <properties />
+          <option name="timeStamp" value="310" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/common/UpdateJobStatus.java</url>
+          <line>60</line>
+          <properties />
+          <option name="timeStamp" value="312" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/common/UpdateJobStatus.java</url>
+          <line>53</line>
+          <properties />
+          <option name="timeStamp" value="314" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/common/UpdateJobStatus.java</url>
+          <line>51</line>
+          <properties />
+          <option name="timeStamp" value="315" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/connection/HttpVolleyRequest.java</url>
+          <line>158</line>
+          <properties />
+          <option name="timeStamp" value="316" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/connection/HttpVolleyRequest.java</url>
+          <line>161</line>
+          <properties />
+          <option name="timeStamp" value="317" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/connection/HttpVolleyRequest.java</url>
+          <line>310</line>
+          <properties />
+          <option name="timeStamp" value="318" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/connection/HttpVolleyRequest.java</url>
+          <line>319</line>
+          <properties />
+          <option name="timeStamp" value="319" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/view/DatabaseUI.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="22">
-          <caret line="203" column="17" lean-forward="true" selection-start-line="203" selection-start-column="17" selection-end-line="203" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/StatusReportFragment.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="22">
           <caret line="128" selection-start-line="128" selection-end-line="128" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/ReportDetailsFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="367">
+          <caret line="149" column="67" selection-start-line="149" selection-start-column="67" selection-end-line="149" selection-end-column="67" />
+          <folding>
+            <element signature="e#3138#3139#0" expanded="true" />
+            <element signature="e#3161#3162#0" expanded="true" />
+            <element signature="e#3230#3231#0" expanded="true" />
+            <element signature="e#3280#3281#0" expanded="true" />
+            <element signature="e#5887#5888#0" expanded="true" />
+            <element signature="e#5924#5925#0" expanded="true" />
+            <element signature="e#14951#14952#0" expanded="true" />
+            <element signature="e#14983#14984#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1047,27 +1090,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/ReportDetailsFragment.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/view/DatabaseUI.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
-          <caret line="149" column="67" lean-forward="true" selection-start-line="149" selection-start-column="67" selection-end-line="149" selection-end-column="67" />
-          <folding>
-            <element signature="e#3138#3139#0" expanded="true" />
-            <element signature="e#3161#3162#0" expanded="true" />
-            <element signature="e#3230#3231#0" expanded="true" />
-            <element signature="e#3280#3281#0" expanded="true" />
-            <element signature="e#5887#5888#0" expanded="true" />
-            <element signature="e#5924#5925#0" expanded="true" />
-            <element signature="e#14951#14952#0" expanded="true" />
-            <element signature="e#14983#14984#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="173">
+          <caret line="176" selection-start-line="176" selection-end-line="176" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/common/ConfirmTemplateUpdate.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="181">
+          <caret line="46" selection-start-line="46" selection-end-line="46" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/JobsFragment.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="211" column="59" lean-forward="true" selection-start-line="211" selection-start-column="59" selection-end-line="211" selection-end-column="59" />
+        <state relative-caret-position="173">
+          <caret line="198" selection-start-line="198" selection-end-line="198" />
           <folding>
             <element signature="e#4662#4663#0" expanded="true" />
             <element signature="e#4685#4686#0" expanded="true" />
@@ -1087,8 +1127,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/preferences/Const.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="25" column="33" lean-forward="true" selection-start-line="25" selection-start-column="33" selection-end-line="25" selection-end-column="33" />
+        <state relative-caret-position="198">
+          <caret line="22" column="67" selection-start-line="22" selection-start-column="67" selection-end-line="22" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/fragment/AllFormsFragment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="327">
+          <caret line="1466" selection-start-line="1466" selection-end-line="1466" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/common/UpdateJobStatus.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="53" selection-start-line="53" selection-end-line="53" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/app/dusmile/connection/HttpVolleyRequest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="321" column="37" lean-forward="true" selection-start-line="321" selection-start-column="37" selection-end-line="321" selection-end-column="37" />
         </state>
       </provider>
     </entry>
