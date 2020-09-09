@@ -23,11 +23,9 @@ import android.widget.TextView;
 
 import com.app.dusmile.DBModel.AssignedJobs;
 import com.app.dusmile.R;
-import com.app.dusmile.activity.LoginActivity;
 import com.app.dusmile.constant.AppConstant;
 import com.app.dusmile.database.AssignedJobsDB;
 import com.app.dusmile.database.helper.DBHelper;
-import com.app.dusmile.fragment.MenuItemFragment;
 import com.app.dusmile.interfaces.BtnClickListener;
 import com.app.dusmile.view.DatabaseUI;
 import com.desai.vatsal.mydynamictoast.MyDynamicToast;
@@ -37,7 +35,6 @@ import net.cachapa.expandablelayout.ExpandableLayout;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GenericAdapter extends RecyclerView.Adapter<GenericAdapter.Holder> {
