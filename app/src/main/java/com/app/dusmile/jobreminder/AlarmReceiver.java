@@ -1,5 +1,7 @@
 package com.app.dusmile.jobreminder;
 
+import android.app.Activity;
+import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -9,11 +11,13 @@ import android.media.RingtoneManager;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
 import android.text.TextUtils;
+import android.widget.Toast;
 
 import com.app.dusmile.DBModel.AssignedJobs;
 import com.app.dusmile.DBModel.AssignedJobsStatus;
 import com.app.dusmile.R;
 import com.app.dusmile.activity.JobsActivity;
+import com.app.dusmile.activity.LoginActivity;
 import com.app.dusmile.activity.SplashActivity;
 import com.app.dusmile.constant.AppConstant;
 import com.app.dusmile.database.AssignedJobsDB;
@@ -23,6 +27,7 @@ import com.app.dusmile.preferences.RecordUser;
 import com.app.dusmile.preferences.UserPreference;
 import com.app.dusmile.utils.IOUtils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 

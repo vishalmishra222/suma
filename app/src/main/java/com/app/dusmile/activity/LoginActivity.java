@@ -37,6 +37,7 @@ import com.app.dusmile.database.LoginTemplateDB;
 import com.app.dusmile.gps.GPSTracker;
 import com.app.dusmile.model.LoginResponse;
 import com.app.dusmile.model.MenuDetails;
+import com.app.dusmile.model.MenuListResponse;
 import com.app.dusmile.model.PushNotificationResponse;
 import com.app.dusmile.preferences.Const;
 import com.app.dusmile.preferences.FirebasePreference;
@@ -68,6 +69,7 @@ public class LoginActivity extends ActivityManagePermission {
     private TextView appVersion;
     Dialog gpsDialog;
     private DBHelper dbHelper;
+    private Gson gson;
     private String emailTo;
     //List<MenuDetails.GroupToCategoryToSubCategory> groupToCategoryToSubCategoriesList = new ArrayList<>();
     List<MenuDetails.GroupToCategoryToSubCategory.SubCategory> subCategoriesList = new ArrayList<MenuDetails.GroupToCategoryToSubCategory.SubCategory>();
@@ -147,7 +149,64 @@ public class LoginActivity extends ActivityManagePermission {
         return true;
     }
 
-    public void doFirebaseApiCall(String uname,String token){
+    public void getMenuDetailsApi() {
+        IOUtils.startLoading(mContext, "Authenticating....User");
+        IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().GET_MENU_DETAILS);
+        new HttpVolleyRequest(mContext, new Const().GET_MENU_DETAILS, listenerMenu);
+    }
+
+    MyListener listenerMenu = new MyListener() {
+        @Override
+        public void success(Object obj) throws JSONException {
+            IOUtils.stopLoading();
+            if (obj != null) {
+                try {
+                    String response = obj.toString();
+                    JSONObject responseJson = new JSONObject(response);
+                    IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().GET_MENU_DETAILS + "\nResponse" + response.toString());
+                    if (responseJson.length() > 0) {
+                        Log.d(Const.TAG, response);
+                        gson = new Gson();
+                        MenuListResponse menuListResponse = gson.fromJson(response, MenuListResponse.class);
+                        String jsonStringImages = "";
+                        String firebaseToken = DusmileApplication.getFirebaseToken();
+                        List<MenuListResponse.WorkflowMenuList> jsonMenuList = menuListResponse.getWorkflowMenuList();
+                        UserPreference.saveCategoryData(mContext, gson.toJson(menuListResponse.getWorkflowMenuList()));
+                        saveMenusInDB(jsonMenuList, jsonStringImages);
+                        doFirebaseApiCall(UserPreference.readString(mContext, UserPreference.USER_NAME, ""), firebaseToken);
+                    } else {
+                        IOUtils.stopLoading();
+                        MyDynamicToast.errorMessage(LoginActivity.this, "Unexpected response");
+                    }
+                } catch (Exception e) {
+                    IOUtils.stopLoading();
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        @Override
+        public void success(Object obj, JSONObject jsonReqObject) throws JSONException {
+
+        }
+
+        @Override
+        public void failure(VolleyError volleyError) {
+            try {
+                IOUtils.stopLoading();
+                if (volleyError != null && volleyError.networkResponse != null) {
+                    String responseBody = new String(volleyError.networkResponse.data, "utf-8");
+                    int statusCode = volleyError.networkResponse.statusCode;
+                    Log.i("Status Code", "" + statusCode);
+                }
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().GET_MENU_DETAILS + "\nRESPONSE" + volleyError.getMessage());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    };
+
+    public void doFirebaseApiCall(String uname, String token) {
 
         JSONObject jsonObject = new JSONObject();
         try {
@@ -178,17 +237,17 @@ public class LoginActivity extends ActivityManagePermission {
                     String response = obj.toString();
                     JSONObject responseJson = new JSONObject(response);
                     if (responseJson.length() > 0) {
-                       // Log.d(Const.TAG, response);
-                       // gson = new Gson();
-                      //  PushNotificationResponse pushNotificationResponse = gson.fromJson(response, PushNotificationResponse.class);
-                       // MyDynamicToast.informationMessage(mContext,pushNotificationResponse.getMessage());
+                        // Log.d(Const.TAG, response);
+                        // gson = new Gson();
+                        //  PushNotificationResponse pushNotificationResponse = gson.fromJson(response, PushNotificationResponse.class);
+                        // MyDynamicToast.informationMessage(mContext,pushNotificationResponse.getMessage());
                         Intent intent = new Intent(LoginActivity.this, DusmileBaseActivity.class);
                         //intent.putExtra("categorySubcategoryData",loginResponse.getMenudetails());
                         startActivity(intent);
                         overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
                         finish();
                     } else {
-                       // MyDynamicToast.errorMessage(LoginActivity.this, "Unexpected response");
+                        // MyDynamicToast.errorMessage(LoginActivity.this, "Unexpected response");
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -206,26 +265,25 @@ public class LoginActivity extends ActivityManagePermission {
                     // String success = jsonObject.getString("success");
                     if (responseBody != null) {
                         String message = responseBody;
-                      //  MyDynamicToast.informationMessage(mContext, "Invalid username or password");
+                        //  MyDynamicToast.informationMessage(mContext, "Invalid username or password");
                     } else {
                         //MyDynamicToast.warningMessage(LoginActivity.this, "Unable to Connect");
                         int statusCode = volleyError.networkResponse.statusCode;
                         Log.i("Status Code", "" + statusCode);
-                       // IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_LOGIN1 + "\nRESPONSE" + volleyError.getMessage());
+                        // IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_LOGIN1 + "\nRESPONSE" + volleyError.getMessage());
                     }
                 } else {
                     // Toast.makeText(mContext, "Server Erorr !!", Toast.LENGTH_LONG).show();
-                //    MyDynamicToast.errorMessage(LoginActivity.this, "Server Error !!");
+                    //    MyDynamicToast.errorMessage(LoginActivity.this, "Server Error !!");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-              //  MyDynamicToast.warningMessage(LoginActivity.this, "Invalid User");
+                //  MyDynamicToast.warningMessage(LoginActivity.this, "Invalid User");
             }
         }
     };
 
     public void doLogin(String uname, String pass) {
-
         IOUtils.startLoading(mContext, "Authenticating....User");
         JSONObject jsonObject = new JSONObject();
         try {
@@ -233,11 +291,9 @@ public class LoginActivity extends ActivityManagePermission {
             jsonObject.put("password", pass);
             jsonObject.put("clientname", new Const().DATABASE_NAME);
             jsonObject.put("inputSource", "M");
-
             Bundle bundle = new Bundle();
             bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, jsonObject.toString());
             DusmileApplication.getFirebaseAnalytics().logEvent(FirebaseAnalytics.Event.LOGIN, bundle);
-
         } catch (JSONException e) {
             IOUtils.stopLoading();
             e.printStackTrace();
@@ -249,7 +305,6 @@ public class LoginActivity extends ActivityManagePermission {
         new HttpVolleyRequest(mContext, jsonObject, new Const().REQUEST_LOGIN1, listenerLogin, "true");
     }
 
-    private Gson gson;
     MyListener listenerLogin = new MyListener() {
         @Override
         public void success(Object obj) throws JSONException {
@@ -258,8 +313,6 @@ public class LoginActivity extends ActivityManagePermission {
 
         @Override
         public void success(Object obj, JSONObject jsonReqObject) throws JSONException {
-
-            //IOUtils.stopLoading();
             if (obj != null) {
                 try {
                     String response = obj.toString();
@@ -270,17 +323,9 @@ public class LoginActivity extends ActivityManagePermission {
                         LoginResponse loginResponse = gson.fromJson(response, LoginResponse.class);
                         IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_LOGIN1 + "\nRESPONSE" + loginResponse.getSuccess());
                         if (loginResponse.getSuccess().equals("success")) {
-                            List<LoginResponse.MenuList> jsonMenuList = loginResponse.getLoggedInUser().getMenuList();
-                            String jsonStringImages = "";
-                            String firebaseToken = DusmileApplication.getFirebaseToken();
                             UserPreference.saveUserPrefs(mContext, new RecordUser(), loginResponse.getLoggedInUser().getUsername(), loginResponse.getLoggedInUser().getToken(), String.valueOf(loginResponse.getLoggedInUser().getUserId()), loginResponse.getLoggedInUser().getUserId().toString(), "");
-                            UserPreference.saveCategoryData(mContext, gson.toJson(loginResponse.getLoggedInUser().getMenuList()));
-                            saveMenusInDB(jsonMenuList, jsonStringImages);
-                            List<Integer> updatedTemplateVersionList = new ArrayList<>();
                             writeNewUser(UserPreference.readString(getApplicationContext(), UserPreference.USER_ID, ""), UserPreference.readString(getApplicationContext(), UserPreference.USER_NAME, ""), UserPreference.readString(getApplicationContext(), FirebasePreference.getTokenID(getApplicationContext()), ""), "", "");
-                            doFirebaseApiCall(loginResponse.getLoggedInUser().getUsername(),firebaseToken);
-                            //update template received status
-                            // ConfirmTemplateUpdate.sendTemplateUpdateStatusToserver(mContext);
+                            getMenuDetailsApi();
                         } else {
                             IOUtils.stopLoading();
                             MyDynamicToast.errorMessage(LoginActivity.this, "wrong username or password");
@@ -373,7 +418,8 @@ public class LoginActivity extends ActivityManagePermission {
     }
 
 
-    private void saveMenusInDB(List<LoginResponse.MenuList> jsonMenuDetails, String jsonStringImages) {
+    private void saveMenusInDB(List<MenuListResponse.WorkflowMenuList> jsonMenuDetails, String
+            jsonStringImages) {
         try {
             LoginTemplateDB.deleteLoginTemplate(dbHelper);
             CategoryDB.deleteCategoryTable(dbHelper);
@@ -400,13 +446,6 @@ public class LoginActivity extends ActivityManagePermission {
                 category.setCategory_name(categoryName);
                 category.setLogin_json_template_id(String.valueOf(menuRowID));
                 long categoryRowId = CategoryDB.addCategoryEntry(category, dbHelper);
-          /*      String categoryName = jsonMenuDetails.get(i).getCategoryName();
-                Category category = new Category();
-                category.setCategory_name(categoryName);
-                category.setLogin_json_template_id(String.valueOf(menuRowID));
-                long categoryRowId = CategoryDB.addCategoryEntry(category, dbHelper);
-               // subCategoriesList = (List<MenuDetails.GroupToCategoryToSubCategory.SubCategory>) jsonMenuDetails.get(i);
-                for (int j = 0; j < jsonMenuDetails.size(); j++) {*/
                 count = jsonMenuDetails.get(i).getSeqId();
                 String action = jsonMenuDetails.get(i).getAction();
                 String subCategoryName = jsonMenuDetails.get(i).getCategoryName();
@@ -420,111 +459,18 @@ public class LoginActivity extends ActivityManagePermission {
                 subCategory.setIcon(String.valueOf(icon_name));
                 long subCategoryRowId = SubCategoryDB.addSubCategoryEntry(subCategory, dbHelper);
             }
-            // int loginJsonTemplateId = LoginTemplateDB.getLoginJsontemplateID(dbHelper, "Menu Details", UserPreference.getLanguage(getApplicationContext()));
-         /*   if (loginJsonTemplateId > 0) {
-                int categoryId = CategoryDB.getCategoryIdDependsOnLoginJsonID(dbHelper, String.valueOf(loginJsonTemplateId));
-                TemplateOperations.addStaticMenus(categoryId, count, getApplicationContext());
-            }*/
             IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " Added Login menus in DB");
-
-       /* else
-        {
-            IOUtils.appendLog(Tag +" "+IOUtils.getCurrentTimeStamp()+" Updating Login menus in DB");
-            int menuRowID = LoginTemplateDB.getLoginJsontemplateID(dbHelper,menuTemplate.getJson_key(),menuTemplate.getLanguage());
-            LoginTemplateDB.updateLoginTemplate(menuTemplate, dbHelper);
-            LoginTemplateDB.updateLoginTemplate(imagesTemplate, dbHelper);
-            int count = 0;
-            groupToCategoryToSubCategoriesList = menuDetails.getGroupToCategoryToSubCategory();
-            for(int i=0;i<groupToCategoryToSubCategoriesList.size();i++)
-            {
-                String categoryName = groupToCategoryToSubCategoriesList.get(i).getCategoryName();
-                Category category = new Category();
-                category.setCategory_name(categoryName);
-                category.setLogin_json_template_id(String.valueOf(menuRowID));
-                long rows = CategoryDB.updateCategory(category,dbHelper);
-                int category_id = CategoryDB.getCategoryID(dbHelper,categoryName,String.valueOf(menuRowID));
-                subCategoriesList = groupToCategoryToSubCategoriesList.get(i).getSubCategory();
-                for(int j=0;j<subCategoriesList.size();j++)
-                {
-                    count++;
-                    cnt = count;
-                    String subCategoryName = subCategoriesList.get(j).getName();
-                    SubCategory subCategory = new SubCategory();
-                    subCategory.setSubcategory_name(subCategoryName);
-                    subCategory.setCategory_id(String.valueOf(category_id));
-                    subCategory.setSequence_no(""+count);
-                    subCategory.setIsFormMenu("false");
-                    long rowsCount = SubCategoryDB.updateSubCategory(subCategory,dbHelper);
-                }
-            }
-            IOUtils.appendLog(Tag+" "+IOUtils.getCurrentTimeStamp()+" Updated Login menus in DB");
-
-        }*/
-
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-
-    // Setup a recurring alarm every half hour
-   /* public void scheduleAlarm() {
-        // Construct an intent that will execute the AlarmReceiver
-        Intent intent = new Intent(getApplicationContext(), AlarmReceiver.class);
-        // Create a PendingIntent to be triggered when the alarm goes off
-        final PendingIntent pIntent = PendingIntent.getBroadcast(this, AlarmReceiver.REQUEST_CODE,
-                intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        // Setup periodic alarm every 5 seconds
-        long firstMillis = System.currentTimeMillis(); // alarm is set right away
-        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
-        // First parameter is the type: ELAPSED_REALTIME, ELAPSED_REALTIME_WAKEUP, RTC_WAKEUP
-        // Interval can be INTERVAL_FIFTEEN_MINUTES, INTERVAL_HALF_HOUR, INTERVAL_HOUR, INTERVAL_DAY
-        alarm.setRepeating(AlarmManager.RTC_WAKEUP, firstMillis,
-                3000, pIntent);
-    }
-*/
-    private void writeNewUser(String userId, String name, String email, String tokenId, String userProgress) {
+    private void writeNewUser(String userId, String name, String email, String
+            tokenId, String userProgress) {
         User user = new User(name, email, tokenId, userProgress);
         firebaseDatabase.child("users").child(userId).setValue(user);
 
     }
-
-/*    public void showGPSSettingsAlert() {
-        if (mContext != null && ((Activity) mContext)!=null) {
-            if (!((Activity) mContext).isFinishing()) {
-                alertDialog = new AlertDialog.Builder(mContext);
-                alertDialog.setCancelable(false);
-                // Setting Dialog Title
-                alertDialog.setTitle(getString(R.string.app_name));
-
-                // Setting Dialog Message
-                alertDialog
-                        .setMessage("Not able access your location. GPS need to be ON.");
-                // On pressing Settings button
-                alertDialog.setPositiveButton("OK",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(
-                                        Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                                startActivityForResult(intent, 1);
-                                //((Activity) mContext).finish();
-                                dialog.cancel();
-                            }
-                        });
-
-           *//* // on pressing cancel button
-            alertDialog.setNegativeButton("Cancel",
-                    new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.cancel();
-                        }
-                    });*//*
-
-                // Showing Alert Message
-                alertDialog.show();
-            }
-        }
-    }*/
 
     public void showGPSSettingAlert() {
         gpsDialog = new Dialog(this);
