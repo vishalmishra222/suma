@@ -6,8 +6,10 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AlertDialog;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
@@ -19,6 +21,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.error.VolleyError;
+import com.app.dusmile.DBModel.AssignedJobs;
 import com.app.dusmile.DBModel.Category;
 import com.app.dusmile.DBModel.LoginTemplate;
 import com.app.dusmile.DBModel.SubCategory;
@@ -30,11 +33,13 @@ import com.app.dusmile.common.UpdateJobStatus;
 import com.app.dusmile.connection.HttpVolleyRequest;
 import com.app.dusmile.connection.MyListener;
 import com.app.dusmile.constant.AppConstant;
+import com.app.dusmile.database.AssignedJobsDB;
 import com.app.dusmile.database.CategoryDB;
 import com.app.dusmile.database.SubCategoryDB;
 import com.app.dusmile.database.helper.DBHelper;
 import com.app.dusmile.database.LoginTemplateDB;
 import com.app.dusmile.gps.GPSTracker;
+import com.app.dusmile.model.GetAssignJobCountModel;
 import com.app.dusmile.model.LoginResponse;
 import com.app.dusmile.model.MenuDetails;
 import com.app.dusmile.model.MenuListResponse;
@@ -70,6 +75,7 @@ public class LoginActivity extends ActivityManagePermission {
     Dialog gpsDialog;
     private DBHelper dbHelper;
     private Gson gson;
+    private String p = null;
     private String emailTo;
     //List<MenuDetails.GroupToCategoryToSubCategory> groupToCategoryToSubCategoriesList = new ArrayList<>();
     List<MenuDetails.GroupToCategoryToSubCategory.SubCategory> subCategoriesList = new ArrayList<MenuDetails.GroupToCategoryToSubCategory.SubCategory>();
@@ -169,11 +175,12 @@ public class LoginActivity extends ActivityManagePermission {
                         gson = new Gson();
                         MenuListResponse menuListResponse = gson.fromJson(response, MenuListResponse.class);
                         String jsonStringImages = "";
-                        String firebaseToken = DusmileApplication.getFirebaseToken();
+                       // String firebaseToken = DusmileApplication.getFirebaseToken();
                         List<MenuListResponse.WorkflowMenuList> jsonMenuList = menuListResponse.getWorkflowMenuList();
                         UserPreference.saveCategoryData(mContext, gson.toJson(menuListResponse.getWorkflowMenuList()));
                         saveMenusInDB(jsonMenuList, jsonStringImages);
-                        doFirebaseApiCall(UserPreference.readString(mContext, UserPreference.USER_NAME, ""), firebaseToken);
+                        getAssignJobCount(menuListResponse.getWorkflowID());
+                       // doFirebaseApiCall(UserPreference.readString(mContext, UserPreference.USER_NAME, ""), firebaseToken);
                     } else {
                         IOUtils.stopLoading();
                         MyDynamicToast.errorMessage(LoginActivity.this, "Unexpected response");
@@ -205,6 +212,99 @@ public class LoginActivity extends ActivityManagePermission {
             }
         }
     };
+
+    public void getAssignJobCount(String wid) {
+        IOUtils.startLoading(mContext, "Please wait.....");
+        IOUtils.appendLog(Tag + ": API " + new Const().REQUEST_GET_JOB_COUNT);
+        JSONObject jsonObject = new JSONObject();
+        try {
+            jsonObject.put("reportName", "Job Count");
+        } catch (JSONException e) {
+            IOUtils.stopLoading();
+            e.printStackTrace();
+        } catch (Exception e) {
+            IOUtils.stopLoading();
+            e.printStackTrace();
+        }
+        new HttpVolleyRequest(mContext, new Const().BASE_URL +"workflow/" +wid +"/" + new Const().REQUEST_GET_JOB_COUNT, listenerGetAssignJobCount);
+    }
+
+    MyListener listenerGetAssignJobCount = new MyListener() {
+        @Override
+        public void success(Object obj) throws JSONException {
+            if (obj != null) {
+                String jobCountResponse = obj.toString();
+                try {
+                    Gson gson = new Gson();
+                    GetAssignJobCountModel getJobCountModel = gson.fromJson(jobCountResponse, GetAssignJobCountModel.class);
+                    // int availableJobsCnt = getJobCountModel.getAvailableJobs();
+                    int assignedJobCnt = getJobCountModel.getAssignedJobsCount();
+                    DBHelper dbHelper = DBHelper.getInstance(mContext);
+                    int pendingCount = AssignedJobsDB.getPendingJobsCount(dbHelper);
+                    // int completedJobCnt = getJobCountModel.getCompletedJobs();
+                    // UserPreference.writeInteger(mContext,UserPreference.AVAILABLE_CNT,availableJobsCnt);
+                    //  int toalAssCount = assignedJobCnt-pendingCount;
+                    int toalAssCount;
+                    String p = checkStatus(mContext);
+                    if (p == null) {
+                        toalAssCount = assignedJobCnt - pendingCount;
+                    } else {
+                        toalAssCount = assignedJobCnt;
+                    }
+                    UserPreference.writeInteger(mContext, UserPreference.ASSIGNED_CNT, toalAssCount);
+                    UserPreference.writeInteger(mContext, UserPreference.PENDING_CNT, pendingCount);
+                    Intent intent = new Intent(LoginActivity.this, DusmileBaseActivity.class);
+                    //intent.putExtra("categorySubcategoryData",loginResponse.getMenudetails());
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                    finish();
+
+                    // UserPreference.writeInteger(mContext,UserPreference.COMPLETED_CNT,completedJobCnt);
+                   // setDataToAdapter();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+            IOUtils.stopLoading();
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.M)
+        @Override
+        public void success(Object obj, JSONObject jsonObject) throws JSONException {
+
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+        @Override
+        public void failure(VolleyError volleyError) {
+            try {
+                IOUtils.stopLoading();
+                if (volleyError != null) {
+                    MyDynamicToast.warningMessage(mContext, "Unable to connect");
+                    if (volleyError.networkResponse.statusCode == 800) {
+                        //IOUtils.sendUserToLogin(mContext,this);
+                    }
+                } else {
+                    MyDynamicToast.errorMessage(mContext, "Server Error !!");
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+                MyDynamicToast.errorMessage(mContext, "Server Error !!");
+            }
+
+        }
+    };
+
+    public String checkStatus(Context mContext) throws JSONException {
+        DBHelper dbHelper = DBHelper.getInstance(mContext);
+        List<AssignedJobs> PendingList = AssignedJobsDB.getAllAssignedSubmittedJobs(dbHelper, "true");
+        if (PendingList.size() > 0) {
+            for (int i = 0; i < PendingList.size(); i++) {
+                p = PendingList.get(i).getIs_submit();
+            }
+        }
+        return p;
+    }
 
     public void doFirebaseApiCall(String uname, String token) {
 

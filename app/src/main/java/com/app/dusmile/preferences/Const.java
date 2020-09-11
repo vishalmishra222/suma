@@ -17,8 +17,8 @@ public class Const {
     //public static final String BASE_URL = "http://192.168.222.156:8080/Dusmile/";//samiksha
     // public static final String BASE_URL = "http://192.168.222.54:8080/Dusmile/";//Ankita
    // public static final String BASE_URL = "http://192.168.43.242:8080/Dusmile/";
-    public static final String BASE_URL = "http://192.168.43.216/Dusmile/";//samiksha local
-   // public static final String BASE_URL = "http://demockross.sumasoft.com:9090/Dusmile/";//MOHIT
+   // public static final String BASE_URL = "http://192.168.43.216/Dusmile/";//samiksha local
+    public static final String BASE_URL = "http://demockross.sumasoft.com/Dusmile/";//MOHIT
     //public static final String BASE_URL = "http://49.248.24.148/Dusmile/";//public
      public static final String ALTERNATE_BASE_IP = "http://demockross.sumasoft.com:9090/Dusmile/";//mohit
    // public static final String BASE_URL = "http://192.168.111.226:8080/Dusmile/";//UAT
@@ -61,7 +61,7 @@ public class Const {
 
     public String REQUEST_AUTO_UPLOAD_LOGS = BASE_URL + "uploadLogFile";
 
-    public String REQUEST_GET_JOB_COUNT = BASE_URL + "jobs/assignedJobCount";
+    public String REQUEST_GET_JOB_COUNT = "assignedJobCount";
 
     public String REQUEST_UPDATE_JOB_STATUS = BASE_URL + "job/updateStatus";
 

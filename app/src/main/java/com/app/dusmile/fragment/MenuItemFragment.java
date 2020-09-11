@@ -143,7 +143,8 @@ public class MenuItemFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if (IOUtils.isInternetPresent(mContext)) {
-            getAssignJobCount();
+           // getAssignJobCount();
+            setDataToAdapter();
         } else {
             IOUtils.stopLoading();
         }

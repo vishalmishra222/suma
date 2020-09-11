@@ -178,7 +178,7 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        getJobCount();
+       // getJobCount();
     }
 
     /**
@@ -490,7 +490,7 @@ public class NavigationDrawerFragment extends Fragment {
             IOUtils.stopLoading();
             e.printStackTrace();
         }
-        new HttpVolleyRequest(context, new Const().REQUEST_GET_JOB_COUNT + "/" + UserPreference.getUserRecord(context).getUserID(), listenerGetAssignJobCount);
+      //  new HttpVolleyRequest(context, new Const().BASE_URL + wid +"/" + new Const().REQUEST_GET_JOB_COUNT, listenerGetAssignJobCount);
     }
 
     MyListener listenerGetAssignJobCount = new MyListener() {

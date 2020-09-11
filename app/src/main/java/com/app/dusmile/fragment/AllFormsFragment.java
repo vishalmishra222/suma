@@ -1885,8 +1885,8 @@ public class AllFormsFragment extends FragmentManagePermission {
             imageType = imageType.replaceAll(" ", "");
             imageType = imageType.replaceAll(" ", "");
             String fileName = "FIPhotos_" + jobId;
-            String query = "typeOfFile=" + fileName + "&" + "folderName=" + jobId;
-            String url = new Const().REQUEST_UPLOAD_PDF + "?" + "&" + query;
+            String query = "typeOfFile=" + fileName + "&" + "folderName=" + jobId +"&" + "job_id=";
+            String url = new Const().REQUEST_UPLOAD_PDF + "?" + query;
             uploadPdfUrl = url;
             jobID = jobId;
             UploadPdfFile = newFile;
@@ -1895,8 +1895,8 @@ public class AllFormsFragment extends FragmentManagePermission {
             File RecordingFile = new File(RecordingDirectory, jobId + ".mp3");
             if (RecordingFile.exists()) {
                 String fileType = "FIRecording_" + jobId;
-                String Rquery = "typeOfFile=" + fileType + "&" + "folderName=" + jobId;
-                String Rurl = new Const().REQUEST_UPLOAD_PDF + "?" + "&" + Rquery;
+                String Rquery = "typeOfFile=" + fileType + "&" + "folderName=" + jobId + "&" + "job_id=";
+                String Rurl = new Const().REQUEST_UPLOAD_PDF + "?" +  Rquery;
                 if (IOUtils.isInternetPresent(mContext)) {
                     if (UploadImage.uploadMultipartFile(RecordingFile, Rurl, mContext, jobId, nbfcName, true, jobType, saveSubmitJobResponseModel.getMessage(), getActivity(), getString(R.string.app_name))) {
                         // imageUploaded = 1;
