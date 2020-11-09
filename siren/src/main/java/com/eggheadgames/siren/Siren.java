@@ -1,6 +1,5 @@
 package com.eggheadgames.siren;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.net.SSLCertificateSocketFactory;
@@ -11,12 +10,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.lang.ref.WeakReference;
-import java.net.ConnectException;
 import java.net.HttpURLConnection;
-import java.net.NoRouteToHostException;
 import java.net.URL;
 import java.security.KeyStore;
 import java.security.cert.CertificateFactory;
@@ -148,15 +146,13 @@ public class Siren {
 
     @VisibleForTesting
     protected void performVersionCheck(String appDescriptionUrl) {
-
-        String url =  new Constants().BASE_URL+"dusmileUI/assets/apk/WEMI/Dusmile_WEMI.apk";
-        new LoadJsonTask(mApplicationContext).execute(appDescriptionUrl,url);
+        new LoadJsonTask(mApplicationContext).execute(appDescriptionUrl);
     }
 
     @VisibleForTesting
-    protected void handleVerificationResults(String version,String downloadUrl) {
+    protected void handleVerificationResults(String version) {
         try {
-            JSONObject rootJson = new JSONObject(version);
+           JSONObject rootJson = new JSONObject(version);
 
             if (rootJson.isNull(getSirenHelper().getPackageName(mApplicationContext))) {
                 throw new JSONException("field not found");
@@ -164,12 +160,12 @@ public class Siren {
                 JSONObject appJson = rootJson.getJSONObject(getSirenHelper().getPackageName(mApplicationContext));
 
                 //version name have higher priority then version code
-                if (checkVersionName(appJson,downloadUrl)) {
+                if (checkVersionName(appJson)) {
                     mApplicationContext.getSharedPreferences(PREF_NAME, MODE).edit().clear().commit();
                     return;
                 }
 
-                if (checkVersionCode(appJson,downloadUrl)) {
+                if(checkVersionCode(appJson)){
                     mApplicationContext.getSharedPreferences(PREF_NAME, MODE).edit().clear().commit();
                 }
 
@@ -184,16 +180,16 @@ public class Siren {
     }
 
     @VisibleForTesting
-    protected SirenAlertWrapper getAlertWrapper(SirenAlertType alertType, String appVersion, String downloadUrl) {
+    protected SirenAlertWrapper getAlertWrapper(SirenAlertType alertType, String appVersion) {
         Activity activity = mActivityRef.get();
-        return new SirenAlertWrapper(activity, mSirenListener, alertType, appVersion, forceLanguageLocalization, getSirenHelper(),downloadUrl);
+        return new SirenAlertWrapper(activity, mSirenListener, alertType, appVersion, forceLanguageLocalization, getSirenHelper());
     }
 
     protected SirenHelper getSirenHelper() {
         return SirenHelper.getInstance();
     }
 
-    private boolean checkVersionName(JSONObject appJson, String downloadUrl) throws JSONException {
+    private boolean checkVersionName(JSONObject appJson) throws JSONException {
         if (appJson.isNull(Constants.JSON_MIN_VERSION_NAME)) {
             return false;
         }
@@ -233,7 +229,7 @@ public class Siren {
 
             if (alertType != null) {
 
-                showAlert(minVersionName, alertType,downloadUrl);
+                showAlert(minVersionName, alertType);
                 return true;
             }
         }
@@ -252,7 +248,7 @@ public class Siren {
     }
 
     @SuppressWarnings("UnusedReturnValue")
-    private boolean checkVersionCode(JSONObject appJson, String downloadUrl) throws JSONException {
+    private boolean checkVersionCode(JSONObject appJson) throws JSONException {
         if (!appJson.isNull(Constants.JSON_MIN_VERSION_CODE)) {
             int minAppVersionCode = appJson.getInt(Constants.JSON_MIN_VERSION_CODE);
 
@@ -261,42 +257,37 @@ public class Siren {
 
             if (getSirenHelper().getVersionCode(mApplicationContext) < minAppVersionCode
                     && !getSirenHelper().isVersionSkippedByUser(mApplicationContext, String.valueOf(minAppVersionCode))) {
-                showAlert(String.valueOf(minAppVersionCode), versionCodeUpdateAlertType, downloadUrl);
+                showAlert(String.valueOf(minAppVersionCode), versionCodeUpdateAlertType);
                 return true;
             }
         }
         return false;
     }
 
-    private void showAlert(String appVersion, SirenAlertType alertType, String downloadUrl) {
+    private void showAlert(String appVersion, SirenAlertType alertType) {
         if (alertType == SirenAlertType.NONE) {
             if (mSirenListener != null) {
                 mSirenListener.onDetectNewVersionWithoutAlert(getSirenHelper().getAlertMessage(mApplicationContext, appVersion, forceLanguageLocalization));
             }
         } else {
-            getAlertWrapper(alertType, appVersion,downloadUrl).show();
+            getAlertWrapper(alertType, appVersion).show();
         }
     }
 
     private static class LoadJsonTask extends AsyncTask<String, Void, String> {
         private Context mContext;
-        private String url;
-        private String downloadUrl;
         public LoadJsonTask(Context mApplicationContext) {
             mContext = mApplicationContext;
         }
 
-        @SuppressLint("WrongThread")
         @Override
         protected String doInBackground(String... params) {
             HttpURLConnection connection = null;
-            Boolean isServerFound = true;
             HttpsURLConnection httpsURLConnection = null;
-            int status = 0;
+            int status =0;
             try {
-                downloadUrl = params[1];
                 URL url = new URL(params[0]);
-                if (params[0].contains("http://")) {
+                if(params[0].contains("http://")) {
                     connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("GET");
                     connection.setUseCaches(false);
@@ -306,8 +297,10 @@ public class Siren {
 //                connection.setConnectTimeout(120000);
 //                connection.setReadTimeout(120000);
                     connection.connect();
-                    status = connection.getResponseCode();
-                } else {
+                     status = connection.getResponseCode();
+                }
+                else
+                {
 
                     httpsURLConnection = (HttpsURLConnection) url.openConnection();
                     httpsURLConnection.setRequestMethod("GET");
@@ -320,16 +313,18 @@ public class Siren {
                     httpsURLConnection.setSSLSocketFactory(SSLCertificateSocketFactory.getInsecure(0, null));
 //                connection.setConnectTimeout(120000);
 //                connection.setReadTimeout(120000);
-                    httpsURLConnection.connect();
+                     httpsURLConnection.connect();
                     status = httpsURLConnection.getResponseCode();
                 }
                 switch (status) {
                     case 200:
                     case 201:
                         BufferedReader br = null;
-                        if (params[0].contains("http://")) {
+                        if(params[0].contains("http://")) {
                             br = new BufferedReader(new InputStreamReader(connection.getInputStream(), "UTF-8"));
-                        } else {
+                        }
+                        else
+                        {
                             br = new BufferedReader(new InputStreamReader(httpsURLConnection.getInputStream(), "UTF-8"));
                         }
                         StringBuilder sb = new StringBuilder();
@@ -337,9 +332,11 @@ public class Siren {
                         while ((line = br.readLine()) != null) {
                             if (isCancelled()) {
                                 br.close();
-                                if (params[0].contains("http://")) {
+                                if(params[0].contains("http://")) {
                                     connection.disconnect();
-                                } else {
+                                }
+                                else
+                                {
                                     httpsURLConnection.disconnect();
                                 }
                                 return null;
@@ -351,45 +348,27 @@ public class Siren {
                     default: /* ignore unsuccessful results */
                 }
 
-                isServerFound = true;
-            } catch (NoRouteToHostException nr) {
-                isServerFound = false;
-                //version check url
-                url = new Constants().url+"getCurrentAppVersion/WEMI";
-                downloadUrl = new Constants().ALTERNET_URL+"dusmileUI/assets/apk/WEMI/Dusmile_WEMI.apk";
-            } catch ( ConnectException ce) {
-                //version check url
-                isServerFound = false;
-                url = new Constants().url+"getCurrentAppVersion/WEMI";
-                downloadUrl = new Constants().ALTERNET_URL+"dusmileUI/assets/apk/WEMI/Dusmile_WEMI.apk";
-            }
-            catch (Exception ex) {
+            } catch (Exception ex) {
                 ex.printStackTrace();
                 if (Siren.sirenInstance.mSirenListener != null) {
                     Siren.sirenInstance.mSirenListener.onError(ex);
                 }
 
             } finally {
-                if (isServerFound){
-                    if (connection != null || httpsURLConnection != null) {
+                    if (connection != null || httpsURLConnection!=null) {
                         try {
-                            if (params[0].contains("http://")) {
+                            if(params[0].contains("http://")) {
                                 connection.disconnect();
-                            } else {
+                            }
+                            else {
                                 httpsURLConnection.disconnect();
                             }
                         } catch (Exception ex) {
-                            ex.printStackTrace();
-                            if (Siren.sirenInstance.mSirenListener != null) {
-                                Siren.sirenInstance.mSirenListener.onError(ex);
-                            }
+                        ex.printStackTrace();
+                        if (Siren.sirenInstance.mSirenListener != null) {
+                            Siren.sirenInstance.mSirenListener.onError(ex);
                         }
                     }
-                }else {
-                   // String url = "http://demockross.sumasoft.com:8080/dusmileUI/assets/apk/WEMI/Dusmile_WEMI.apk";
-                    new LoadJsonTask(mContext).execute(url,downloadUrl);
-                  //  AutoInstaller.getDefault(mContext).installFromUrl("http://demockross.sumasoft.com:8080/dusmileUI/assets/apk/WEMI/Dusmile_WEMI.apk");
-                    //isServerFound = true;
                 }
             }
             return null;
@@ -406,9 +385,11 @@ public class Siren {
                     if (result.contains("\n")) {
                         result = result.replace("\n", "");
                     }
-                    Siren.sirenInstance.handleVerificationResults(result,downloadUrl);
+                    Siren.sirenInstance.handleVerificationResults(result);
                 }
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 e.printStackTrace();
             }
         }

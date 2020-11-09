@@ -1,5 +1,6 @@
 package com.app.dusmile.utils;
 
+import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.ContentUris;
@@ -16,6 +17,7 @@ import android.os.Build;
 import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 
@@ -34,8 +36,10 @@ import id.zelory.compressor.Compressor;
  */
 
 public class BitmapCompression {
-    public static Bitmap bitmapCompressor(Context mContext,Uri imageUri){
-        String filePath = getFilePath(mContext,imageUri);
+    public static Bitmap bitmapCompressor(Context mContext, Uri imageUri) {
+        IOUtils.appendLog("BitmapCompression" + " " + IOUtils.getCurrentTimeStamp() + imageUri);
+        String filePath = getFilePath(mContext, imageUri);
+        IOUtils.appendLog("BitmapCompression" + " " + IOUtils.getCurrentTimeStamp() + imageUri.toString());
         File actualImage = new File(filePath);
         Bitmap compressedImage = new Compressor.Builder(mContext)
                 .setMaxWidth(640)
@@ -47,7 +51,8 @@ public class BitmapCompression {
                 .compressToBitmap(actualImage);
         return compressedImage;
     }
-    public static Bitmap bitmapCompressor(Context mContext,String filePath){
+
+    public static Bitmap bitmapCompressor(Context mContext, String filePath) {
 
         File actualImage = new File(filePath);
         Bitmap compressedImage = new Compressor.Builder(mContext)
@@ -59,9 +64,10 @@ public class BitmapCompression {
                 .compressToBitmap(actualImage);
         return compressedImage;
     }
-    public static Bitmap compressImage(Context mContext,Uri imageUri) {
 
-        String filePath = getFilePath(mContext,imageUri);
+    public static Bitmap compressImage(Context mContext, Uri imageUri) {
+
+        String filePath = getFilePath(mContext, imageUri);
 
         Bitmap scaledBitmap = null;
 
@@ -86,7 +92,8 @@ public class BitmapCompression {
 //      width and height values are set maintaining the aspect ratio of the image
 
         if (actualHeight > maxHeight || actualWidth > maxWidth) {
-            if (imgRatio < maxRatio) {               imgRatio = maxHeight / actualHeight;
+            if (imgRatio < maxRatio) {
+                imgRatio = maxHeight / actualHeight;
                 actualWidth = (int) (imgRatio * actualWidth);
                 actualHeight = (int) maxHeight;
             } else if (imgRatio > maxRatio) {
@@ -120,7 +127,7 @@ public class BitmapCompression {
 
         }
         try {
-            scaledBitmap = Bitmap.createBitmap(actualWidth, actualHeight,Bitmap.Config.ARGB_8888);
+            scaledBitmap = Bitmap.createBitmap(actualWidth, actualHeight, Bitmap.Config.ARGB_8888);
         } catch (OutOfMemoryError exception) {
             exception.printStackTrace();
         }
@@ -178,16 +185,18 @@ public class BitmapCompression {
         return scaledBitmap;
 
     }
+
     public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
         final int height = options.outHeight;
         final int width = options.outWidth;
         int inSampleSize = 1;
 
         if (height > reqHeight || width > reqWidth) {
-            final int heightRatio = Math.round((float) height/ (float) reqHeight);
+            final int heightRatio = Math.round((float) height / (float) reqHeight);
             final int widthRatio = Math.round((float) width / (float) reqWidth);
             inSampleSize = heightRatio < widthRatio ? heightRatio : widthRatio;
-        }       final float totalPixels = width * height;
+        }
+        final float totalPixels = width * height;
         final float totalReqPixelsCap = reqWidth * reqHeight * 2;
         while (totalPixels / (inSampleSize * inSampleSize) > totalReqPixelsCap) {
             inSampleSize++;
@@ -195,6 +204,7 @@ public class BitmapCompression {
 
         return inSampleSize;
     }
+
     private static String getRealPathFromURI(Activity mContext, String contentURI) {
         Uri contentUri = Uri.parse(contentURI);
         Cursor cursor = mContext.getContentResolver().query(contentUri, null, null, null, null);
@@ -206,8 +216,9 @@ public class BitmapCompression {
             return cursor.getString(index);
         }
     }
+
     public static String getFilename(String new_filename, String job_id) {
-        File file = new File(Environment.getExternalStorageDirectory().getPath(), "/Dusmile/pdf/"+ UserPreference.getUserRecord(DusmileApplication.getAppContext()).getUsername()+"/"+job_id);
+        File file = new File(Environment.getExternalStorageDirectory().getPath(), "/Dusmile/pdf/" + UserPreference.getUserRecord(DusmileApplication.getAppContext()).getUsername() + "/" + job_id);
         if (!file.exists()) {
             file.mkdirs();
         }
@@ -215,8 +226,9 @@ public class BitmapCompression {
         return uriSting;
 
     }
+
     public static String getDirectory(String name) {
-        File file = new File(Environment.getExternalStorageDirectory().getPath(), "/Dusmile/pdf/"+ UserPreference.getUserRecord(DusmileApplication.getAppContext()).getUsername()+"/"+name);
+        File file = new File(Environment.getExternalStorageDirectory().getPath(), "/Dusmile/pdf/" + UserPreference.getUserRecord(DusmileApplication.getAppContext()).getUsername() + "/" + name);
         if (!file.exists()) {
             file.mkdirs();
         }
@@ -225,36 +237,36 @@ public class BitmapCompression {
 
     }
 
-    @TargetApi(Build.VERSION_CODES.KITKAT)
-    public static String getFilePath(Context context, Uri uri)
-    {
+    @SuppressLint("NewApi")
+    public static String getFilePath(final Context context, Uri uri) {
         final boolean isKitKat = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT;
-
-// DocumentProvider
+        IOUtils.appendLog("BitmapCompression" + " " + IOUtils.getCurrentTimeStamp() + "1");
         if (isKitKat && DocumentsContract.isDocumentUri(context, uri)) {
-// ExternalStorageProvider
+            IOUtils.appendLog("BitmapCompression" + " " + IOUtils.getCurrentTimeStamp() + "kitkat version");
             if (isExternalStorageDocument(uri)) {
+                IOUtils.appendLog("BitmapCompression" + " " + IOUtils.getCurrentTimeStamp() + "External docs");
                 final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");
                 final String type = split[0];
-
+                IOUtils.appendLog("BitmapCompression" + " " + IOUtils.getCurrentTimeStamp() + type.toString());
                 if ("primary".equalsIgnoreCase(type)) {
+                    IOUtils.appendLog("BitmapCompression" + " " + IOUtils.getCurrentTimeStamp() + "primary");
                     return Environment.getExternalStorageDirectory() + "/" + split[1];
                 }
-
 // TODO handle non-primary volumes
             }
 // DownloadsProvider
             else if (isDownloadsDocument(uri)) {
-
+                IOUtils.appendLog("BitmapCompression" + " " + IOUtils.getCurrentTimeStamp() + "its downloaded document");
                 final String id = DocumentsContract.getDocumentId(uri);
                 final Uri contentUri = ContentUris.withAppendedId(
                         Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
-
+                IOUtils.appendLog("BitmapCompression" + " " + IOUtils.getCurrentTimeStamp() + id);
                 return getDataColumn(context, contentUri, null, null);
             }
 // MediaProvider
             else if (isMediaDocument(uri)) {
+                IOUtils.appendLog("BitmapCompression" + " " + IOUtils.getCurrentTimeStamp() + "Media docs");
                 final String docId = DocumentsContract.getDocumentId(uri);
                 final String[] split = docId.split(":");
                 final String type = split[0];
@@ -269,19 +281,21 @@ public class BitmapCompression {
                 }
 
                 final String selection = "_id=?";
-                final String[] selectionArgs = new String[] {
+                final String[] selectionArgs = new String[]{
                         split[1]
                 };
-
+                IOUtils.appendLog("BitmapCompression" + " " + IOUtils.getCurrentTimeStamp() + contentUri + " " + selection + " " + selectionArgs);
                 return getDataColumn(context, contentUri, selection, selectionArgs);
             }
         }
 // MediaStore (and general)
         else if ("content".equalsIgnoreCase(uri.getScheme())) {
+            IOUtils.appendLog("BitmapCompression" + " " + IOUtils.getCurrentTimeStamp() + "content" + uri.getScheme() + " " + uri.toString());
             return getDataColumn(context, uri, null, null);
         }
 // File
         else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            IOUtils.appendLog("BitmapCompression" + " " + IOUtils.getCurrentTimeStamp() + "file" + uri.getScheme() + " " + uri.toString());
             return uri.getPath();
         }
 

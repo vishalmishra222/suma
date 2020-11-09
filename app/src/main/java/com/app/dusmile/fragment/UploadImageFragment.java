@@ -21,6 +21,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
@@ -74,13 +75,15 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import javax.crypto.spec.GCMParameterSpec;
+
 import static android.app.Activity.RESULT_OK;
 
 /**
  * Created by suma on 21/03/17.
  */
 
-public class UploadImageFragment extends DialogFragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener{
+public class UploadImageFragment extends DialogFragment implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, com.google.android.gms.location.LocationListener {
     private Context mContext;
     private DBHelper dbHelper;
     private RecyclerView recyclerView;
@@ -91,7 +94,7 @@ public class UploadImageFragment extends DialogFragment implements GoogleApiClie
     List<String> imageList;
     private String selectedForm;
     private int selectedPosition;
-    String jobId,clientName;
+    String jobId, clientName;
     private ImageView closeUploadButton;
     private String Tag = "UploadImageFragment";
     private TextView titleTextView;
@@ -114,9 +117,11 @@ public class UploadImageFragment extends DialogFragment implements GoogleApiClie
     private static final int INITIAL_REQUEST_CAMERA = 1339;
     private static final int REQUEST_CAMERA = 0;
     int position;
+
     public UploadImageFragment() {
         super();
     }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -125,9 +130,9 @@ public class UploadImageFragment extends DialogFragment implements GoogleApiClie
         latitude = 0.0;
         longitude = 0.0;
         dbHelper = DBHelper.getInstance(mContext);
-        AssignedJobs currentAssignedJob = AssignedJobsDB.getJobsByProgress(dbHelper,"true");
+        AssignedJobs currentAssignedJob = AssignedJobsDB.getJobsByProgress(dbHelper, "true");
         String clientTemplateId = currentAssignedJob.getClient_template_id();
-        ClientTemplate clientTemplate = ClientTemplateDB.getSingleClientTemplate(dbHelper,clientTemplateId);
+        ClientTemplate clientTemplate = ClientTemplateDB.getSingleClientTemplate(dbHelper, clientTemplateId);
         jobId = currentAssignedJob.getAssigned_jobId();
         clientName = clientTemplate.getClient_name();
         mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
@@ -136,21 +141,20 @@ public class UploadImageFragment extends DialogFragment implements GoogleApiClie
                 .addApi(LocationServices.API)
                 .build();
 
-        mLocationManager = (LocationManager)mContext.getSystemService(Context.LOCATION_SERVICE);
+        mLocationManager = (LocationManager) mContext.getSystemService(Context.LOCATION_SERVICE);
 
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_upload_image ,container, false);
+        View rootView = inflater.inflate(R.layout.fragment_upload_image, container, false);
         this.findViews(rootView);
         mLayoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(mLayoutManager);
-        if(!TextUtils.isEmpty(jobId) && !TextUtils.isEmpty(clientName))
-        {
+        if (!TextUtils.isEmpty(jobId) && !TextUtils.isEmpty(clientName)) {
             titleTextView.setText("Upload Image");
             File sdCard = Environment.getExternalStorageDirectory();
-            File directory = new File(sdCard.getAbsolutePath() + "/Dusmile/pdf/"+ UserPreference.getUserRecord(mContext).getUsername()+"/"+jobId);
+            File directory = new File(sdCard.getAbsolutePath() + "/Dusmile/pdf/" + UserPreference.getUserRecord(mContext).getUsername() + "/" + jobId);
             if (!directory.isDirectory()) {
                 directory.mkdirs();
             }
@@ -160,15 +164,13 @@ public class UploadImageFragment extends DialogFragment implements GoogleApiClie
     }
 
     @Override
-    public void onStart()
-    {
+    public void onStart() {
         super.onStart();
         if (mGoogleApiClient != null) {
             mGoogleApiClient.connect();
         }
         Dialog dialog = getDialog();
-        if (dialog != null)
-        {
+        if (dialog != null) {
             int width = ViewGroup.LayoutParams.MATCH_PARENT;
             int height = ViewGroup.LayoutParams.MATCH_PARENT;
             dialog.getWindow().setLayout(width, height);
@@ -203,8 +205,7 @@ public class UploadImageFragment extends DialogFragment implements GoogleApiClie
 
     }
 
-     private void setAdapter()
-    {
+    private void setAdapter() {
         try {
             hashMapImages.clear();
             hashMapFilenames.clear();
@@ -222,14 +223,12 @@ public class UploadImageFragment extends DialogFragment implements GoogleApiClie
                 imageList = new ArrayList<>();
                 imageList = bundle.getStringArrayList("imagesList");
                 hashMapImages = getAlreadyExistingImagesHashmap(jobId);
-                if(imageList.size()>0) {
+                if (imageList.size() > 0) {
                     uploadImageAdapter = new UploadImageAdapter(mContext, imageList, getActivity(), btnClickListener, mCallBack, hashMapImages, hashMapFilenames);
                     recyclerView.setAdapter(uploadImageAdapter);
                 }
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -258,7 +257,7 @@ public class UploadImageFragment extends DialogFragment implements GoogleApiClie
                     int currentapiVersion = android.os.Build.VERSION.SDK_INT;
                     if (currentapiVersion >= Build.VERSION_CODES.M) {
                         if (!canAccessFiles()) {
-                           requestPermissions(INITIAL_PERMS, INITIAL_REQUEST);
+                            requestPermissions(INITIAL_PERMS, INITIAL_REQUEST);
                         } else {
 
                             browseFiles("image/*");
@@ -273,8 +272,7 @@ public class UploadImageFragment extends DialogFragment implements GoogleApiClie
         alert.show();
     }
 
-    private void openDeviceCamera()
-    {
+    private void openDeviceCamera() {
         int currentapiVersion = android.os.Build.VERSION.SDK_INT;
         if (currentapiVersion >= Build.VERSION_CODES.M) {
             if (!(canAccessCamera() && canAccessFiles())) {
@@ -305,9 +303,8 @@ public class UploadImageFragment extends DialogFragment implements GoogleApiClie
         return (PackageManager.PERMISSION_GRANTED == mContext.checkSelfPermission(perm) && PackageManager.PERMISSION_GRANTED == mContext.checkSelfPermission(perm2));
     }
 
-    private void cameraIntent()
-    {
-        IOUtils.appendLog(Tag+" "+IOUtils.getCurrentTimeStamp()+" Open camera to capture images");
+    private void cameraIntent() {
+        IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " Open camera to capture images");
         try {
             ContentValues values = new ContentValues();
             values.put(MediaStore.Images.Media.TITLE, "New Picture");
@@ -324,16 +321,14 @@ public class UploadImageFragment extends DialogFragment implements GoogleApiClie
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
             startActivityForResult(intent, REQUEST_CAMERA);
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-            IOUtils.appendLog(Tag+" "+IOUtils.getCurrentTimeStamp()+" Exception occured while capturing images "+e.getMessage());
+            IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " Exception occured while capturing images " + e.getMessage());
         }
     }
 
     private void browseFiles(String minmeType) {
-        IOUtils.appendLog(Tag+" "+IOUtils.getCurrentTimeStamp()+" Browse images from gallery");
+        IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " Browse images from gallery");
         try {
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType(minmeType);
@@ -355,16 +350,16 @@ public class UploadImageFragment extends DialogFragment implements GoogleApiClie
             }
 
             try {
-               startActivityForResult(chooserIntent, CHOOSE_FILE_REQUESTCODE);
+                startActivityForResult(chooserIntent, CHOOSE_FILE_REQUESTCODE);
 
             } catch (ActivityNotFoundException ex) {
 
-               // Toast.makeText(mContext, "No suitable File Manager was found.", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(mContext, "No suitable File Manager was found.", Toast.LENGTH_SHORT).show();
                 MyDynamicToast.errorMessage(mContext, "No suitable File Manager was found");
             }
         } catch (Exception e) {
             e.printStackTrace();
-            IOUtils.appendLog(Tag+" "+IOUtils.getCurrentTimeStamp()+" Exception occured while browsing images from gallery "+e.getMessage());
+            IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " Exception occured while browsing images from gallery " + e.getMessage());
         }
     }
 
@@ -373,7 +368,6 @@ public class UploadImageFragment extends DialogFragment implements GoogleApiClie
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (resultCode != RESULT_OK) {
-
             return;
         }
         switch (requestCode) {
@@ -382,92 +376,99 @@ public class UploadImageFragment extends DialogFragment implements GoogleApiClie
                 convertAndSaveBitmap();
                 break;
             case REQUEST_CAMERA:
+                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.M){
+                     imageUri = data.getData();
+                }
                 convertAndSaveBitmap();
                 break;
         }
-        super.onActivityResult(requestCode, resultCode, data);
     }
 
-   BtnClickListener btnClickListener = new BtnClickListener() {
-       @Override
-       public void uploadImageListener() {
+    BtnClickListener btnClickListener = new BtnClickListener() {
+        @Override
+        public void uploadImageListener() {
 
-       }
+        }
 
-       @Override
-       public void saveListerners() {
+        @Override
+        public void saveListerners() {
 
-       }
+        }
 
-       @Override
-       public void submitListener() {
+        @Override
+        public void submitListener() {
 
-       }
+        }
 
-       @Override
-       public void audioListener() {
+        @Override
+        public void audioListener() {
 
-       }
+        }
 
-       @Override
-       public void cancelListener() {
+        @Override
+        public void cancelListener() {
 
-       }
+        }
 
-       @Override
-       public void clickListener(String val) {
+        @Override
+        public void clickListener(String val) {
 
-       }
+        }
 
-       @Override
-       public void buttonListener(int pos) {
-           openDeviceCamera();
-           selectedPosition = pos;
-           selectedForm = imageList.get(pos);
-       }
+        @Override
+        public void buttonListener(int pos) {
+            openDeviceCamera();
+            selectedPosition = pos;
+            selectedForm = imageList.get(pos);
+        }
 
-       @Override
-       public void viewListener(int pos) {
+        @Override
+        public void viewListener(int pos) {
 
-       }
+        }
 
-       @Override
-       public void sendGeoLocationListener() {
+        @Override
+        public void sendGeoLocationListener() {
 
-       }
+        }
 
-       @Override
-       public void holdListener(String date, String reason, String jobID, String nbfcName) {
+        @Override
+        public void holdListener(String date, String reason, String jobID, String nbfcName) {
 
-       }
-
-
+        }
 
 
-       @Override
-       public void showHoldPopupListener(int pos) {
+        @Override
+        public void showHoldPopupListener(int pos) {
 
-       }
+        }
 
-   };
-
+    };
 
     private void convertAndSaveBitmap() {
         try {
-            IOUtils.appendLog(Tag+" "+IOUtils.getCurrentTimeStamp()+" Convert and save bitmap in local");
-            Bitmap decoded = BitmapCompression.bitmapCompressor(getActivity(),imageUri);
-            Matrix mat = new Matrix();
-            int height = decoded.getHeight();
-            int width = decoded.getWidth();
-            if(width>height) {
-                mat.setRotate(90);
+            IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " Convert and save bitmap in local");
+            if (imageUri != null) {
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " image uri is not null" + imageUri.toString());
+                Bitmap decoded = BitmapCompression.bitmapCompressor(getActivity(), imageUri);
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " bitmap compression is done");
+                Matrix mat = new Matrix();
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " Mat object is taken");
+                int height = decoded.getHeight();
+                int width = decoded.getWidth();
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " Height and width is taken");
+                if (width > height) {
+                    mat.setRotate(90);
+                }
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " bitamap rotation is done");
+                Bitmap bmpPic1 = Bitmap.createBitmap(decoded, 0, 0, decoded.getWidth(), decoded.getHeight(), mat, true);
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " Bitmap is created");
+                DatabaseUI.createCropImageDialog(mContext, bmpPic1, mCallBack);
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " croped image saved locally");
             }
-            Bitmap bmpPic1 = Bitmap.createBitmap(decoded, 0, 0, decoded.getWidth(), decoded.getHeight(), mat, true);
-            DatabaseUI.createCropImageDialog(mContext,bmpPic1,mCallBack);
-
         } catch (Exception e) {
             Log.e("Gallery", "Error while creating temp file", e);
-            IOUtils.appendLog(Tag+" "+IOUtils.getCurrentTimeStamp()+"Exception occured while saving bitmap in local "+e.getMessage());
+            IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + "Exception occured while saving bitmap in local " + e.getMessage());
         }
     }
 
@@ -475,49 +476,48 @@ public class UploadImageFragment extends DialogFragment implements GoogleApiClie
         @Override
         public void imageDelete(String formName, int formPosition, int imagePosition) {
             try {
-                IOUtils.appendLog(Tag+" "+IOUtils.getCurrentTimeStamp()+" Deleting image");
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " Deleting image");
                 File sdCard = Environment.getExternalStorageDirectory();
-                File file = new File(sdCard.getAbsolutePath() + "/Dusmile/pdf/"+ UserPreference.getUserRecord(DusmileApplication.getAppContext()).getUsername()+"/"+jobId+"/"+formName+"_"+formPosition+"_"+imagePosition+".jpg");
-                if(file.exists()){
+                File file = new File(sdCard.getAbsolutePath() + "/Dusmile/pdf/" + UserPreference.getUserRecord(DusmileApplication.getAppContext()).getUsername() + "/" + jobId + "/" + formName + "_" + formPosition + "_" + imagePosition + ".jpg");
+                if (file.exists()) {
                     file.delete();
-                   // Toast.makeText(mContext,"Image Deleted Successfully",Toast.LENGTH_LONG).show();
+                    // Toast.makeText(mContext,"Image Deleted Successfully",Toast.LENGTH_LONG).show();
                     MyDynamicToast.successMessage(mContext, "Image Deleted Successfully");
                     setAdapter();
                 }
 
-            }
-            catch (Exception e)
-            {
-                IOUtils.appendLog(Tag+" "+IOUtils.getCurrentTimeStamp()+" Exception occured while deleting image "+e.getMessage());
+            } catch (Exception e) {
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " Exception occured while deleting image " + e.getMessage());
                 e.printStackTrace();
             }
         }
+
         @Override
         public void cropImageListener(Bitmap bitmap) {
-           setCropImageToGallery(bitmap);
+            setCropImageToGallery(bitmap);
         }
     };
 
 
-    private void setCropImageToGallery(Bitmap bitmap)
-    {
-        IOUtils.appendLog(Tag+" "+IOUtils.getCurrentTimeStamp()+" Set cropped image to gallery");
+    private void setCropImageToGallery(Bitmap bitmap) {
+        IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " Set cropped image to gallery");
         try {
-              AssignedJobs currentAssignedJob = AssignedJobsDB.getJobsByProgress(dbHelper,"true");
-              String jobId = currentAssignedJob.getAssigned_jobId();
-              hashMapImages = getAlreadyExistingImagesHashmap(jobId);
-              int addPosition = 0;
+            AssignedJobs currentAssignedJob = AssignedJobsDB.getJobsByProgress(dbHelper, "true");
+            String jobId = currentAssignedJob.getAssigned_jobId();
+            hashMapImages = getAlreadyExistingImagesHashmap(jobId);
+            int addPosition = 0;
             if (hashMapImages.containsKey(selectedForm)) {
-                //addPosition = hashMapImages.get(selectedForm).size() + 1;
-               int maxPos = getMaxPosition(selectedForm);
-                addPosition = maxPos+1;
-            }else{
+                //addPosition = hashMap
+                // Images.get(selectedForm).size() + 1;
+                int maxPos = getMaxPosition(selectedForm);
+                addPosition = maxPos + 1;
+            } else {
                 addPosition = 1;
             }
             FileOutputStream out = null;
 
-            String new_filename = selectedForm+"_"+selectedPosition+"_"+addPosition+".jpg";
-            String current_filename = BitmapCompression.getFilename(new_filename,jobId);
+            String new_filename = selectedForm + "_" + selectedPosition + "_" + addPosition + ".jpg";
+            String current_filename = BitmapCompression.getFilename(new_filename, jobId);
             out = new FileOutputStream(current_filename);
 //          write the compressed bitmap at the destination specified by filename.
           /*  GPSTracker gpsTracker = new GPSTracker(mContext);
@@ -526,29 +526,26 @@ public class UploadImageFragment extends DialogFragment implements GoogleApiClie
                 double new_Longitude = Double.parseDouble(new DecimalFormat("##.######").format(gpsTracker.getLongitude()));
                 bitmap = IOUtils.mark(bitmap,"x = "+new_Latitude, "y = "+new_Longitude);
             }*/
-            IOUtils.appendLog(Tag + " : " + IOUtils.getCurrentTimeStamp() + " Updating Job status");
+          //  IOUtils.appendLog(Tag + " : " + IOUtils.getCurrentTimeStamp() + " Updating Job status");
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
             Date currentDate = new Date();
             String currentTimeStamp = sdf.format(currentDate);
 
             GPSTracker gpsTracker = new GPSTracker(mContext);
-            if(isLocationEnabled() || gpsTracker.canGetLocation())
-            {
-                if(latitude>0.0 && longitude>0.0) {
+            if (isLocationEnabled() || gpsTracker.canGetLocation()) {
+                if (latitude > 0.0 && longitude > 0.0) {
                     double new_Latitude = Double.parseDouble(new DecimalFormat("##.######").format(latitude));
                     double new_Longitude = Double.parseDouble(new DecimalFormat("##.######").format(longitude));
-                    bitmap = IOUtils.mark(bitmap, "x = " + new_Latitude, "y = " + new_Longitude,currentTimeStamp);
-                }
-                else
-                {
+                    bitmap = IOUtils.mark(bitmap, "x = " + new_Latitude, "y = " + new_Longitude, currentTimeStamp);
+                } else {
 
                     double new_Latitude = Double.parseDouble(new DecimalFormat("##.######").format(gpsTracker.getLatitude()));
                     double new_Longitude = Double.parseDouble(new DecimalFormat("##.######").format(gpsTracker.getLongitude()));
-                   bitmap = IOUtils.mark(bitmap, "x = " + new_Latitude, "y = " + new_Longitude,currentTimeStamp);
+                    bitmap = IOUtils.mark(bitmap, "x = " + new_Latitude, "y = " + new_Longitude, currentTimeStamp);
                 }
             }
             bitmap.compress(Bitmap.CompressFormat.JPEG, 70, out);
-            Bitmap decoded = BitmapCompression.bitmapCompressor(mContext,current_filename);
+            Bitmap decoded = BitmapCompression.bitmapCompressor(mContext, current_filename);
 
             if (hashMapImages.containsKey(selectedForm)) {
                 ArrayList<Bitmap> arrlBmp = hashMapImages.get(selectedForm);
@@ -567,39 +564,31 @@ public class UploadImageFragment extends DialogFragment implements GoogleApiClie
                 hashMapFilenames.put(selectedForm, fileNameList);
 
             }
-            uploadImageAdapter = new UploadImageAdapter(mContext,imageList,getActivity(),btnClickListener,mCallBack,hashMapImages,hashMapFilenames);
+            uploadImageAdapter = new UploadImageAdapter(mContext, imageList, getActivity(), btnClickListener, mCallBack, hashMapImages, hashMapFilenames);
             uploadImageAdapter.notifyDataSetChanged();
             recyclerView.setAdapter(uploadImageAdapter);
             MyDynamicToast.successMessage(mContext, "Image Saved Successfully");
-        }catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             e.printStackTrace();
-        }
-        catch(Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-            IOUtils.appendLog(Tag+" "+IOUtils.getCurrentTimeStamp()+" Exception occured while adding cropped image to gallery "+e.getMessage());
+            IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " Exception occured while adding cropped image to gallery " + e.getMessage());
         }
-
     }
 
-    private HashMap<String, ArrayList<Bitmap>> getAlreadyExistingImagesHashmap(String jobId)
-    {
-        IOUtils.appendLog(Tag+" "+IOUtils.getCurrentTimeStamp()+" Get already existing images from folder");
-        int imageUploaded = 0;   //pdf not created = 0, uploaded successfully = 1, not uploaded = 2
+    private HashMap<String, ArrayList<Bitmap>> getAlreadyExistingImagesHashmap(String jobId) {
+        IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " Get already existing images from folder");
         try {
             hashMapImages.clear();
             hashMapFilenames.clear();
             File sdCard = Environment.getExternalStorageDirectory();
-            File directory = new File(sdCard.getAbsolutePath() + "/Dusmile/pdf/"+ UserPreference.getUserRecord(mContext).getUsername()+"/"+jobId);
-            if(directory.isDirectory()){
+            File directory = new File(sdCard.getAbsolutePath() + "/Dusmile/pdf/" + UserPreference.getUserRecord(mContext).getUsername() + "/" + jobId);
+            if (directory.isDirectory()) {
                 int i = 0;
                 for (File c : directory.listFiles()) {
                     String fileName = c.getName();
-                    String [] fileName_arr = fileName.split("_");
+                    String[] fileName_arr = fileName.split("_");
                     String selectedForm = fileName_arr[0];
-                    int selectedPosition = Integer.parseInt(fileName_arr[1]);
-                    String lastPos = fileName_arr[2].substring(0,fileName_arr[2].lastIndexOf("."));
-                    int addPosition  = Integer.parseInt(lastPos);
                     Bitmap decoded = BitmapFactory.decodeFile(c.getPath());
 
                     if (hashMapImages.containsKey(selectedForm)) {
@@ -608,22 +597,20 @@ public class UploadImageFragment extends DialogFragment implements GoogleApiClie
                         arrlBmp.add(decoded);
                         fileNameList.add(fileName.split("\\.")[0]);
                         hashMapImages.put(selectedForm, arrlBmp);
-                        hashMapFilenames.put(selectedForm,fileNameList);
+                        hashMapFilenames.put(selectedForm, fileNameList);
                     } else {
                         ArrayList<Bitmap> arrayListbmp = new ArrayList<>();
                         ArrayList<String> fileNameList = new ArrayList<>();
                         arrayListbmp.add(decoded);
                         fileNameList.add(fileName.split("\\.")[0]);
                         hashMapImages.put(selectedForm, arrayListbmp);
-                        hashMapFilenames.put(selectedForm,fileNameList);
+                        hashMapFilenames.put(selectedForm, fileNameList);
                     }
                 }
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
-            IOUtils.appendLog(Tag+" "+IOUtils.getCurrentTimeStamp()+" Exception occured while getting already existing images from folder "+e.getMessage());
+            IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " Exception occured while getting already existing images from folder " + e.getMessage());
         }
         return hashMapImages;
     }
@@ -632,38 +619,32 @@ public class UploadImageFragment extends DialogFragment implements GoogleApiClie
     public static Fragment newInstance(int position) {
         UploadImageFragment fragment = new UploadImageFragment();
         Bundle bundle = new Bundle();
-        bundle.putInt("position",position);
+        bundle.putInt("position", position);
         fragment.setArguments(bundle);
         return fragment;
     }
 
 
-    private int getMaxPosition(String selectedForm)
-    {
+    private int getMaxPosition(String selectedForm) {
         int max = 1;
-        if(hashMapFilenames.size()>0)
-        {
+        if (hashMapFilenames.size() > 0) {
 
-            for(Map.Entry<String, ArrayList<String>> listEntry :hashMapFilenames.entrySet())
-            {
-               if(listEntry.getKey().equals(selectedForm))
-               {
-                   ArrayList<String> value = listEntry.getValue();
-                   for(String val : value)
-                   {
-                       int position = Integer.parseInt(val.split("_")[2]);
-                       if(position>max)
-                       max = position;
-                   }
-               }
+            for (Map.Entry<String, ArrayList<String>> listEntry : hashMapFilenames.entrySet()) {
+                if (listEntry.getKey().equals(selectedForm)) {
+                    ArrayList<String> value = listEntry.getValue();
+                    for (String val : value) {
+                        int position = Integer.parseInt(val.split("_")[2]);
+                        if (position > max)
+                            max = position;
+                    }
+                }
 
             }
         }
         return max;
     }
 
-    private void onCloseUploadDialogButtonClick()
-    {
+    private void onCloseUploadDialogButtonClick() {
         closeUploadButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -689,7 +670,7 @@ public class UploadImageFragment extends DialogFragment implements GoogleApiClie
 
         mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
-        if(mLocation == null){
+        if (mLocation == null) {
             startLocationUpdates();
         }
         if (mLocation != null) {
@@ -754,7 +735,7 @@ public class UploadImageFragment extends DialogFragment implements GoogleApiClie
     }
 
     private boolean checkLocation() {
-        if(!isLocationEnabled())
+        if (!isLocationEnabled())
             showAlert();
         return isLocationEnabled();
     }

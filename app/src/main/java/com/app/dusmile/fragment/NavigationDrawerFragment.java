@@ -178,7 +178,7 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-       // getJobCount();
+        getJobCount();
     }
 
     /**
@@ -490,7 +490,8 @@ public class NavigationDrawerFragment extends Fragment {
             IOUtils.stopLoading();
             e.printStackTrace();
         }
-      //  new HttpVolleyRequest(context, new Const().BASE_URL + wid +"/" + new Const().REQUEST_GET_JOB_COUNT, listenerGetAssignJobCount);
+        IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_GET_JOB_COUNT + "\nREQUEST " + jsonObject.toString());
+        new HttpVolleyRequest(context, new Const().REQUEST_GET_JOB_COUNT + "/" + UserPreference.getUserRecord(context).getUserID(), listenerGetAssignJobCount);
     }
 
     MyListener listenerGetAssignJobCount = new MyListener() {
@@ -498,17 +499,15 @@ public class NavigationDrawerFragment extends Fragment {
         public void success(Object obj) throws JSONException {
             if (obj != null) {
                 String jobCountResponse = obj.toString();
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_GET_JOB_COUNT + "\nRESPONSE " + jobCountResponse.toString());
                 try {
                     Gson gson = new Gson();
                     GetAssignJobCountModel getJobCountModel = gson.fromJson(jobCountResponse, GetAssignJobCountModel.class);
-                    // int availableJobsCnt = getJobCountModel.getAvailableJobs();
                     int assignedJobCnt = getJobCountModel.getAssignedJobsCount();
-                    // int completedJobCnt = getJobCountModel.getCompletedJobs();
-                    // UserPreference.writeInteger(mContext,UserPreference.AVAILABLE_CNT,availableJobsCnt);
                     UserPreference.writeInteger(context, UserPreference.ASSIGNED_CNT, assignedJobCnt);
-                    // UserPreference.writeInteger(mContext,UserPreference.COMPLETED_CNT,completedJobCnt);
                     initList();
                 } catch (Exception e) {
+                    IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_GET_JOB_COUNT + "\nRESPONSE " + jobCountResponse.toString());
                     e.printStackTrace();
                 }
             }
@@ -518,8 +517,6 @@ public class NavigationDrawerFragment extends Fragment {
         @RequiresApi(api = Build.VERSION_CODES.M)
         @Override
         public void success(Object obj, JSONObject jsonObject) throws JSONException {
-
-
         }
 
         @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -527,6 +524,7 @@ public class NavigationDrawerFragment extends Fragment {
         public void failure(VolleyError volleyError) {
             try {
                 IOUtils.stopLoading();
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_GET_JOB_COUNT + "\nRESPONSE FAILED" + volleyError.networkResponse.toString() + " " + volleyError.getMessage());
                 if (volleyError != null) {
                     MyDynamicToast.warningMessage(context, "Unable to connect");
                     if (volleyError.networkResponse.statusCode == 800) {
@@ -537,9 +535,9 @@ public class NavigationDrawerFragment extends Fragment {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_GET_JOB_COUNT + "\nRESPONSE EXCEPTION" + volleyError.networkResponse.toString() + " " + volleyError.getMessage());
                 MyDynamicToast.errorMessage(context, "Server Error !!");
             }
-
         }
     };
 

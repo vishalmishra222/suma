@@ -1,9 +1,8 @@
 package com.app.dusmile.model;
 
+import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-
-import java.util.List;
 
 public class SubProcessFieldDataResponse {
 
@@ -18,6 +17,7 @@ public class SubProcessFieldDataResponse {
     public void setTemplateFields(List<TemplateField> templateFields) {
         this.templateFields = templateFields;
     }
+
 
     public class SubProcessField {
 
@@ -39,6 +39,9 @@ public class SubProcessFieldDataResponse {
         @SerializedName("validationType")
         @Expose
         private String validationType;
+        @SerializedName("applicationFormNo")
+        @Expose
+        private String applicationFormNo;
         @SerializedName("validationMessage")
         @Expose
         private String validationMessage;
@@ -133,6 +136,14 @@ public class SubProcessFieldDataResponse {
 
         public void setMaxlength(Integer maxlength) {
             this.maxlength = maxlength;
+        }
+
+        public String getApplicationFormNo() {
+            return applicationFormNo;
+        }
+
+        public void setApplicationFormNo(String applicationFormNo) {
+            this.applicationFormNo = applicationFormNo;
         }
 
         public String getDefaultValue() {

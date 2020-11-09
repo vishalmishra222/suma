@@ -20,7 +20,6 @@ import com.app.dusmile.unhandleException.TopExceptionHandler;
 import com.crashlytics.android.Crashlytics;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.analytics.FirebaseAnalytics;
-import com.google.firebase.iid.FirebaseInstanceId;
 
 import io.fabric.sdk.android.Fabric;
 import java.io.IOException;
@@ -70,8 +69,6 @@ public class DusmileApplication extends Application {
             mInstance = this;
             FirebaseApp.initializeApp(getApplicationContext());
             this.mFirebaseAnalytics = FirebaseAnalytics.getInstance(this);
-
-           // FirebaseInstanceId.getInstance().getToken();
         }
         catch (Exception e)
         {
@@ -95,11 +92,7 @@ public class DusmileApplication extends Application {
     public static FirebaseAnalytics getFirebaseAnalytics() {
         return mFirebaseAnalytics;
     }
-        public static String getFirebaseToken(){
 
-        String token = FirebaseInstanceId.getInstance().getToken();
-        return token;
-        }
 
     public RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {

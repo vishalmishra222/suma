@@ -62,7 +62,6 @@ import com.app.dusmile.utils.RecyclerItemClickListener;
 import com.desai.vatsal.mydynamictoast.MyDynamicToast;
 import com.google.gson.Gson;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -95,7 +94,6 @@ public class MenuItemFragment extends Fragment {
     };
     private RecyclerView recyclerView;
     private Context mContext;
-    private String p = null;
     String job_id, templateName, nbfcName;
     private HashMap<File, List<String>> pendingPdfListMap = new HashMap<>();
     private ProgressDialog assignJobCountProgressBar;
@@ -143,9 +141,8 @@ public class MenuItemFragment extends Fragment {
     public void onResume() {
         super.onResume();
         if (IOUtils.isInternetPresent(mContext)) {
-           // getAssignJobCount();
-            setDataToAdapter();
-        } else {
+            getAssignJobCount();
+        }else {
             IOUtils.stopLoading();
         }
     }
@@ -545,6 +542,7 @@ public class MenuItemFragment extends Fragment {
             IOUtils.stopLoading();
             e.printStackTrace();
         }
+        IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_GET_JOB_COUNT + "\nREQUEST " + jsonObject.toString());
         new HttpVolleyRequest(mContext, new Const().REQUEST_GET_JOB_COUNT + "/" + UserPreference.getUserRecord(mContext).getUserID(), listenerGetAssignJobCount);
     }
 
@@ -553,25 +551,18 @@ public class MenuItemFragment extends Fragment {
         public void success(Object obj) throws JSONException {
             if (obj != null) {
                 String jobCountResponse = obj.toString();
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_GET_JOB_COUNT + "\nREQUEST " + jobCountResponse.toString());
                 try {
                     Gson gson = new Gson();
-                    GetAssignJobCountModel getJobCountModel = gson.fromJson(jobCountResponse, GetAssignJobCountModel.class);
-                    // int availableJobsCnt = getJobCountModel.getAvailableJobs();
+                    GetAssignJobCountModel getJobCountModel = gson.fromJson(jobCountResponse,GetAssignJobCountModel.class);
                     int assignedJobCnt = getJobCountModel.getAssignedJobsCount();
                     DBHelper dbHelper = DBHelper.getInstance(getContext());
                     int pendingCount = AssignedJobsDB.getPendingJobsCount(dbHelper);
                     // int completedJobCnt = getJobCountModel.getCompletedJobs();
                     // UserPreference.writeInteger(mContext,UserPreference.AVAILABLE_CNT,availableJobsCnt);
-                    //  int toalAssCount = assignedJobCnt-pendingCount;
-                    int toalAssCount;
-                    String p = checkStatus(mContext);
-                    if (p == null) {
-                        toalAssCount = assignedJobCnt - pendingCount;
-                    } else {
-                        toalAssCount = assignedJobCnt;
-                    }
-                    UserPreference.writeInteger(mContext, UserPreference.ASSIGNED_CNT, toalAssCount);
-                    UserPreference.writeInteger(mContext, UserPreference.PENDING_CNT, pendingCount);
+                    int toalAssCount = assignedJobCnt-pendingCount;
+                    UserPreference.writeInteger(mContext,UserPreference.ASSIGNED_CNT,toalAssCount);
+                    UserPreference.writeInteger(mContext,UserPreference.PENDING_CNT,pendingCount);
                     // UserPreference.writeInteger(mContext,UserPreference.COMPLETED_CNT,completedJobCnt);
                     setDataToAdapter();
                 } catch (Exception e) {
@@ -592,6 +583,7 @@ public class MenuItemFragment extends Fragment {
         public void failure(VolleyError volleyError) {
             try {
                 IOUtils.stopLoading();
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_GET_JOB_COUNT + "\nRESPONSE" + volleyError.networkResponse.toString() + " " + volleyError.getMessage());
                 if (volleyError != null) {
                     MyDynamicToast.warningMessage(mContext, "Unable to connect");
                     if (volleyError.networkResponse.statusCode == 800) {
@@ -602,20 +594,12 @@ public class MenuItemFragment extends Fragment {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_GET_JOB_COUNT + "\nRESPONSE EXCEPTION" + volleyError.getMessage());
                 MyDynamicToast.errorMessage(mContext, "Server Error !!");
             }
 
         }
     };
 
-    public String checkStatus(Context mContext) throws JSONException {
-        DBHelper dbHelper = DBHelper.getInstance(mContext);
-        List<AssignedJobs> PendingList = AssignedJobsDB.getAllAssignedSubmittedJobs(dbHelper, "true");
-        if (PendingList.size() > 0) {
-            for (int i = 0; i < PendingList.size(); i++) {
-                p = PendingList.get(i).getIs_submit();
-            }
-        }
-        return p;
-    }
+
 }

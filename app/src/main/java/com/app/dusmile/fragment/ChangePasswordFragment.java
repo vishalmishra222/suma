@@ -165,6 +165,7 @@ public class ChangePasswordFragment extends Fragment {
                 IOUtils.stopLoading();
                 if (obj != null) {
                     String response = obj.toString();
+                    IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_CHANGE_PASS + "\nRESPONSE" + response.toString());
                     JSONObject jsonObject = new JSONObject(response);
                     if (jsonObject.length() > 0) {
                         Gson gson = new Gson();
@@ -172,18 +173,16 @@ public class ChangePasswordFragment extends Fragment {
                         Log.i(Tag, "Response " + changePasswordModel.getSuccess());
                         IOUtils.appendLog(Tag + " API " + new Const().REQUEST_CHANGE_PASS + "\nRESPONSE" + changePasswordModel.getSuccess());
                         if (changePasswordModel.getSuccess() == true) {
-                            // Toast.makeText(mContext, "Password changed successfully", Toast.LENGTH_SHORT).show();
                             MyDynamicToast.successMessage(mContext, "Password changed successfully");
                             IOUtils.sendUserToLogin(mContext, getActivity());
                         } else {
-                            //Toast.makeText(mContext, changePasswordModel.getErrMsg(), Toast.LENGTH_SHORT).show();
                             MyDynamicToast.errorMessage(mContext, changePasswordModel.getMessage());
                         }
                     } else {
-                        // Toast.makeText(mContext,"Unexpected Response",Toast.LENGTH_SHORT).show();
                         MyDynamicToast.errorMessage(mContext, "Unexpected Response");
                     }
                 } else {
+                    IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_CHANGE_PASS + "\nREQUEST" + obj.toString());
                     MyDynamicToast.errorMessage(mContext, "Unexpected Response");
                 }
             } catch (Exception e) {
@@ -199,6 +198,7 @@ public class ChangePasswordFragment extends Fragment {
                 volleyError.getMessage();
                 IOUtils.stopLoading();
                 String json;
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_CHANGE_PASS + "\nRESPONSE " + volleyError.getMessage());
                 if (volleyError != null) {
                     IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_CHANGE_PASS + "\nRESPONSE " + volleyError.getMessage());
                     NetworkResponse response = volleyError.networkResponse;
@@ -224,6 +224,7 @@ public class ChangePasswordFragment extends Fragment {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_CHANGE_PASS + "\nRESPONSE " + volleyError.getMessage());
                 MyDynamicToast.errorMessage(mContext, "Server Error !!");
                 Log.i(Tag, "Exception occured " + e.getMessage());
             }

@@ -14,12 +14,12 @@ public class CheckConnectivityReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        if(isInternetAvailable(context))
-        {
-            // Toast.makeText(context,"Fired!!!!!!",Toast.LENGTH_LONG).show();
-            Intent serviceIntent = new Intent(context, SubmitOfflineJobHttpService.class);
-            context.startService(serviceIntent);
-        }
+       if(isInternetAvailable(context))
+       {
+          // Toast.makeText(context,"Fired!!!!!!",Toast.LENGTH_LONG).show();
+           Intent serviceIntent = new Intent(context, SubmitOfflineJobHttpService.class);
+           context.startService(serviceIntent);
+       }
 
     }
 

@@ -45,7 +45,7 @@ public class AssignedJobsDB {
 
         try {
             // The user might already exist in the database (i.e. the same user created multiple posts).
-
+            IOUtils.appendLog( " : " + IOUtils.getCurrentTimeStamp() + record.getApplicant_json());
             ContentValues values = new ContentValues();
             values.put(JOB_ID, record.getAssigned_jobId());
             values.put(ORIGINAL_APPLICANT_JSON, record.getApplicant_json());
@@ -274,7 +274,6 @@ public class AssignedJobsDB {
         AssignedJobs assignedJobs =new AssignedJobs();
         String selectQuery = "SELECT  * FROM " + TABLE_ASSIGNED_JOBS_TABLE + " WHERE " + JOB_ID + " = '"+jobId+"'"+ " AND "+IS_SUBMIT+" = '"+isSubmit+"'";
 
-
         System.out.println("----------------------------------------------------------------------");
 
         System.out.println("----------------------------------------------------------------------");
@@ -342,30 +341,6 @@ public class AssignedJobsDB {
     public static int getPendingJobsCount(DBHelper dbHelper) {
         int cnt=0;
         String countQuery = "SELECT  * FROM " + TABLE_ASSIGNED_JOBS_TABLE + " WHERE "+IS_SUBMIT+" = '"+true+"' OR "+SUBMIT_JSON+" IS NOT NULL";
-        Log.d(TAG,countQuery);
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        Cursor cursor = db.rawQuery(countQuery, null);
-        try {
-            if (cursor != null && cursor.moveToFirst()) {
-                cnt = cursor.getCount();
-            }
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-        finally {
-            if (db != null && db.isOpen()) {
-                cursor.close();
-                db.close();
-            }
-        }
-        return cnt;
-    }
-
-    public static int getPendingCount(DBHelper dbHelper) {
-        int cnt=0;
-        String countQuery = "SELECT  * FROM " + TABLE_ASSIGNED_JOBS_TABLE + " WHERE "+SUBMIT_JSON+" IS NOT NULL";
         Log.d(TAG,countQuery);
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = db.rawQuery(countQuery, null);

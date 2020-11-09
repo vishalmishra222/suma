@@ -19,7 +19,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.provider.Settings;
-import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -83,10 +82,6 @@ import com.app.dusmile.utils.BitmapCompression;
 import com.app.dusmile.utils.IOUtils;
 import com.app.dusmile.view.DatabaseUI;
 import com.app.dusmile.view.UI;
-import com.app.dynamicform.UIFormsDB;
-import com.app.dynamicform.dynamicFields.DropDownClass;
-import com.app.dynamicform.dynamicFields.EditTextClass;
-import com.app.dynamicform.dynamicFields.TextAreaClass;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.desai.vatsal.mydynamictoast.MyDynamicToast;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -95,7 +90,6 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.model.Marker;
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.tom_roush.pdfbox.pdmodel.PDDocument;
 import com.tom_roush.pdfbox.pdmodel.PDPage;
 import com.tom_roush.pdfbox.pdmodel.PDPageContentStream;
@@ -202,7 +196,7 @@ public class AllFormsFragment extends FragmentManagePermission {
     private DBHelper dbHelper;
     private String templateName;
     private String creationTime;
-    //private AwesomeValidation mAwesomeValidation;
+    private AwesomeValidation mAwesomeValidation;
     private String applicantJson;
     private String allFieldsKeys;
     private String tableExist;
@@ -243,34 +237,15 @@ public class AllFormsFragment extends FragmentManagePermission {
     @Override
     public void onResume() {
         super.onResume();
+
         IOUtils.stopLoading();
     }
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        this.formPosition = getArguments().getInt("position");
-        this.formName = getArguments().getString("formName");
-        jobId = AllFormsActivity.job_id;
-        nbfcName = AllFormsActivity.nbfcName;
-        jobType = AllFormsActivity.jobType;
-        templateName = AllFormsActivity.templateName;
-        type = AllFormsActivity.subCategoryName;
-        creationTime = AllFormsActivity.creationTime;
-        cityName = AllFormsActivity.cityName;
-        pinCode = AllFormsActivity.pinCode;
-        mobileNo = AllFormsActivity.mobileNo;
-        address = AllFormsActivity.address;
-        tATime = AllFormsActivity.totalAssignedTime;
-        jobStartTime = AllFormsActivity.jobStartTime;
-        applicationFormNo = AllFormsActivity.applicationFormNo;
-        jobStartTime = AllFormsActivity.jobStartTime;
-        setHasOptionsMenu(true);
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         this.formPosition = getArguments().getInt("position");
         this.formName = getArguments().getString("formName");
         jobId = AllFormsActivity.job_id;
@@ -309,6 +284,7 @@ public class AllFormsFragment extends FragmentManagePermission {
         }
         gson = new Gson();
         dbHelper = DBHelper.getInstance(mContext);
+
         textViewSparseArray = new HashMap<>();
         editTextSparseArray = new HashMap<>();
         templateTextViewSparseArray = new HashMap<>();
@@ -335,6 +311,7 @@ public class AllFormsFragment extends FragmentManagePermission {
                 getJobDetails(jobId, nbfcName, "Assigned");
             }
         }
+
         return v;
     }
 
@@ -352,6 +329,7 @@ public class AllFormsFragment extends FragmentManagePermission {
 
     public void getJobDetails(String jobId, String nbfcName, String type) {
         IOUtils.startLoading(getActivity(), "Retrieving Job Details...");
+
         try {
             IOUtils.appendLog(Tag + " : " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_JOB_DETAILS1 + "/" + jobId);
             new HttpVolleyRequest(getActivity(), new Const().REQUEST_JOB_DETAILS1 + "/" + jobId, listenerJobDetails);
@@ -359,6 +337,7 @@ public class AllFormsFragment extends FragmentManagePermission {
             IOUtils.stopLoading();
             e.printStackTrace();
         }
+
     }
 
     MyListener listenerJobDetails = new MyListener() {
@@ -366,6 +345,7 @@ public class AllFormsFragment extends FragmentManagePermission {
         public void success(Object obj) throws JSONException {
             if (obj != null) {
                 String response = obj.toString();
+                IOUtils.appendLog(Tag + " : " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_JOB_DETAILS1 + " " + response);
                 try {
                     handleResponseToCheckVersion(response);
                 } catch (Exception e) {
@@ -378,16 +358,15 @@ public class AllFormsFragment extends FragmentManagePermission {
         @Override
         public void success(Object obj, JSONObject jsonObject) throws JSONException {
 
-
         }
 
         @Override
         public void failure(VolleyError volleyError) {
             try {
                 IOUtils.stopLoading();
+                IOUtils.appendLog(Tag + " : " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_JOB_DETAILS1 + volleyError.getMessage());
                 if (volleyError != null) {
                     IOUtils.appendLog(Tag + ":" + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_JOB_DETAILS1 + "/" + jobId + "\nRESPONSE " + volleyError.getMessage().toString());
-                    // Toast.makeText(mContext, "Unable to connect", Toast.LENGTH_LONG).show();
                     MyDynamicToast.warningMessage(mContext, "Unable to connect");
                     if (volleyError.networkResponse != null && volleyError.networkResponse.statusCode == 800) {
                         IOUtils.sendUserToLogin(mContext, getActivity());
@@ -397,9 +376,9 @@ public class AllFormsFragment extends FragmentManagePermission {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                IOUtils.appendLog(Tag + " : " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_JOB_DETAILS1 + "Exception in this Api");
                 MyDynamicToast.errorMessage(mContext, "Server Error !!");
             }
-
         }
     };
 
@@ -416,6 +395,7 @@ public class AllFormsFragment extends FragmentManagePermission {
         public void success(Object obj) throws JSONException {
             if (obj != null) {
                 String updateTemplateResponse = obj.toString();
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_GET_UPDATED_TEMPLATE + "\nRESPONSE" + updateTemplateResponse.toString());
                 try {
                     gson = new Gson();
                     UpdatedTemplet updatedTemplet = gson.fromJson(updateTemplateResponse, UpdatedTemplet.class);
@@ -423,6 +403,7 @@ public class AllFormsFragment extends FragmentManagePermission {
                     String app_language = UserPreference.getLanguage(mContext);
                     getTemplateFromDb(app_language, jobDetailsResponse, "false", applicant_Json);
                 } catch (Exception e) {
+                    IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_GET_UPDATED_TEMPLATE + "Exception for this Api");
                     e.printStackTrace();
                 }
             }
@@ -440,8 +421,8 @@ public class AllFormsFragment extends FragmentManagePermission {
         public void failure(VolleyError volleyError) {
             try {
                 IOUtils.stopLoading();
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_GET_UPDATED_TEMPLATE + "\nRESPONSE" + volleyError.networkResponse.toString() + " " + volleyError.getMessage().toString());
                 if (volleyError != null) {
-                    IOUtils.appendLog(Tag + ": API " + new Const().REQUEST_GET_UPDATED_TEMPLATE + "/" + jobType + "\nRESPONSE " + volleyError.getMessage().toString());
                     MyDynamicToast.warningMessage(mContext, "Unable to connect");
                     if (volleyError.networkResponse != null && volleyError.networkResponse.statusCode == 800) {
                         IOUtils.sendUserToLogin(mContext, getActivity());
@@ -529,27 +510,15 @@ public class AllFormsFragment extends FragmentManagePermission {
             UpdatedTemplet.SubProcessFieldsDatum templateField = gson.fromJson(fieldJson, UpdatedTemplet.SubProcessFieldsDatum.class);
             JobDetailsResponse.Applicant applicant = gson.fromJson(applicantJson, JobDetailsResponse.Applicant.class);
             AssignedJobs assignedJobs = AssignedJobsDB.getJobsByJobId(dbHelper, jobId);
-            //ArrayList list = new ArrayList();
-            //list.add(templateField);
-            Gson gson = new GsonBuilder().create();
             List<SubProcessFieldDataResponse.SubProcessField> subProcessFields = templateField.getSubProcessFields();
-            //  mAwesomeValidation = new AwesomeValidation(BASIC);
-            DatabaseUI databaseUI = new DatabaseUI(getActivity(), getActivity(), getChildFragmentManager(), jobId);
-            UIFormsDB uiFormsDB = new UIFormsDB(getActivity(), getActivity(), getChildFragmentManager(), jobId);
-            uiFormsDB.createUIForHeader(getActivity(), llParentLayout, formName, "form", applicant.getCustomerName(), "");
+            mAwesomeValidation = new AwesomeValidation(BASIC);
+            DatabaseUI databaseUI = new DatabaseUI(getActivity(), mAwesomeValidation, getActivity(), getChildFragmentManager(), jobId);
+            databaseUI.createUIForHeader(getActivity(), llParentLayout, formName, "form", applicant.getCustomer_name(), "");
             for (int subProcessFieldsCnt = 0; subProcessFieldsCnt < subProcessFields.size(); subProcessFieldsCnt++) {
-                String subProcessFieldJson = gson.toJson(subProcessFields.get(subProcessFieldsCnt));
-                JSONObject subProcessField = new JSONObject(subProcessFieldJson);
-                String aplic = gson.toJson(applicant);
-                JSONObject applicantJson = new JSONObject(aplic);
-                JSONObject assApplicant = new JSONObject(assignedJobs.getApplicant_json());
                 if (subProcessFields.get(subProcessFieldsCnt).getFieldName().equalsIgnoreCase("label")) {
-                    uiFormsDB.createHorizontalLayoutAndFields(getActivity(), llParentLayout, subProcessField, applicantJson, assApplicant, formPosition);
-                } else if (subProcessFields.get(subProcessFieldsCnt).getFieldType().equalsIgnoreCase("imageUpload") ||
-                        subProcessFields.get(subProcessFieldsCnt).getFieldType().equalsIgnoreCase("map")) {
-                    databaseUI.createHorizontalLayoutAndFields(getActivity(), llParentLayout, subProcessFields.get(subProcessFieldsCnt), applicant, assignedJobs.getApplicant_json(), formPosition);
+                    databaseUI.createHorizontalLayoutAndFields(getActivity(), llParentLayout, subProcessFields.get(subProcessFieldsCnt), subProcessFields.get(subProcessFieldsCnt).getKey(), applicant, assignedJobs.getApplicant_json(), formPosition);
                 } else {
-                    uiFormsDB.createHorizontalLayoutAndFields(getActivity(), llParentLayout, subProcessField, applicantJson, assApplicant, formPosition);
+                    databaseUI.createHorizontalLayoutAndFields(getActivity(), llParentLayout, subProcessFields.get(subProcessFieldsCnt), applicant, assignedJobs.getApplicant_json(), formPosition);
                 }
                 if (subProcessFieldsCnt == subProcessFields.size() - 1) {
                     if (tableExist.equalsIgnoreCase("true")) {
@@ -582,13 +551,19 @@ public class AllFormsFragment extends FragmentManagePermission {
                         if (clearSubProcessFields.contains("]")) {
                             clearSubProcessFields = clearSubProcessFields.replace("]", "");
                         }
+
                         List<String> tableHeaderList = new ArrayList<String>(Arrays.asList(tableHeader.split(",")));
                         List<String> tableKeysList = new ArrayList<String>(Arrays.asList(tableKeys.split(",")));
                         List<String> tableMandatoryFieldsList = new ArrayList<String>(Arrays.asList(tableMandatoryFields.split(",")));
                         List<String> clearSubProcessFieldsList = new ArrayList<String>(Arrays.asList(clearSubProcessFields.split(",")));
                         if (tableName.equalsIgnoreCase("VehicleDetailsTable")) {
+                            // databaseUI.crateTableLayoutAndAddButtonsVehicle(getActivity(), llParentLayout, tableName, tableHeaderList, tableKeysList, tableMandatoryFieldsList, clearSubProcessFieldsList, applicant.getVehicleDetailsTable());
                         } else if (tableName.equalsIgnoreCase("AssetsTable")) {
+                            // databaseUI.crateTableLayoutAndAddButtonsAssets(getActivity(), llParentLayout, tableName, tableHeaderList, tableKeysList, tableMandatoryFieldsList, clearSubProcessFieldsList, applicant.getAssetsTable());
+
                         } else {
+                            //databaseUI.crateTableLayoutAndAddButtonsLoan(getActivity(), llParentLayout, tableName, tableHeaderList, tableKeysList, tableMandatoryFieldsList, clearSubProcessFieldsList, applicant.getLoanDetailsTable());
+
                         }
                     }
                 }
@@ -599,6 +574,7 @@ public class AllFormsFragment extends FragmentManagePermission {
             e.printStackTrace();
             IOUtils.appendLog(Tag + ": Exception occured " + e.getMessage());
         }
+
     }
 
     private void insertIntoAssignedJobs(String client_template_id, JobDetailResponse jobDetailsResponse, String applicantJson) {
@@ -613,6 +589,15 @@ public class AllFormsFragment extends FragmentManagePermission {
             JobDetailsResponse.Applicant applicant = details.getApplicant();
             //String applicantJson = gson.toJson(applicant);
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//            Date oldDate = null;
+//             String endTime = null;
+//            try {
+//            oldDate = sdf.parse(creationTime);
+//            Date newDate = DateUtils.addHours(oldDate, 3);
+//            endTime = sdf.format(newDate);
+//            } catch (ParseException e) {
+//                e.printStackTrace();
+//            }
             GPSTracker gpsTracker = new GPSTracker(mContext);
             String latitude = String.valueOf(gpsTracker.getLatitude());
             String longitude = String.valueOf(gpsTracker.getLongitude());
@@ -644,10 +629,13 @@ public class AllFormsFragment extends FragmentManagePermission {
         public void saveListerners() {
             GPSTracker gpsTracker = new GPSTracker(mContext);
             if (gpsTracker.canGetLocation()) {
+                boolean validate = false;
+                if (mAwesomeValidation != null) {
+                    validate = mAwesomeValidation.validate();
+                }
                 try {
                     String allFieldsKeysArray[] = allFieldsKeys.split(",");
-                    DatabaseUI ui = new DatabaseUI(getActivity(), getActivity(), getChildFragmentManager(), jobId);
-                    UIFormsDB UIDB = new UIFormsDB(getActivity(), getActivity(), getChildFragmentManager(), jobId);
+                    DatabaseUI ui = new DatabaseUI(getActivity(), mAwesomeValidation, getActivity(), getChildFragmentManager(), jobId);
                     JobDetailsResponse.Applicant applicant = gson.fromJson(applicantJson, JobDetailsResponse.Applicant.class);
                     DBHelper dbHelper = DBHelper.getInstance(mContext);
                     AssignedJobs assignedJobsExisting = AssignedJobsDB.getJobsByJobId(dbHelper, jobId);
@@ -663,7 +651,6 @@ public class AllFormsFragment extends FragmentManagePermission {
                     templateTextViewSparseArray = ui.findAllTemplateTextViews(llParentLayout);
                     radioSparseArray = ui.findCustomValidateRadioButtons(llParentLayout);
                     checkboxSparseArray = ui.findAllCheckBox(llParentLayout);
-                    boolean validate = UIDB.hasErrorSet();
                     if (validate) {
                         try {
                             JSONObject jsonObjectApplicant = createApplicant();
@@ -687,9 +674,12 @@ public class AllFormsFragment extends FragmentManagePermission {
         @Override
         public void submitListener() {
             try {
+                boolean validate = false;
+                if (mAwesomeValidation != null) {
+                    validate = mAwesomeValidation.validate();
+                }
                 String allFieldsKeysArray[] = allFieldsKeys.split(",");
-                DatabaseUI ui = new DatabaseUI(getActivity(), getActivity(), getChildFragmentManager(), jobId);
-                UIFormsDB UIDB = new UIFormsDB(getActivity(), getActivity(), getChildFragmentManager(), jobId);
+                DatabaseUI ui = new DatabaseUI(getActivity(), mAwesomeValidation, getActivity(), getChildFragmentManager(), jobId);
                 //delete old data in case user has selected
                 AssignedJobs assignedJobs = AssignedJobsDB.getJobsByJobId(dbHelper, jobId);
                 if (AppConstant.isRedRadioButtonClicked) {
@@ -715,33 +705,35 @@ public class AllFormsFragment extends FragmentManagePermission {
                 templateTextViewSparseArray = ui.findAllTemplateTextViews(llParentLayout);
                 radioSparseArray = ui.findCustomValidateRadioButtons(llParentLayout);
                 checkboxSparseArray = ui.findAllCheckBox(llParentLayout);
-                JSONObject jsonObjectApplicant = createApplicant();
-                ArrayList<TemplateJson> allMandatoryFieldsArrayList = TemplateJsonDB.getAllTemplateJsonBtClientTemplateId(dbHelper, client_template_id);
-                String subProcessFieldJson = gson.toJson(allMandatoryFieldsArrayList);
-                JSONArray mandatoryField = new JSONArray(subProcessFieldJson);
-                boolean validate = UIDB.validateFromApplicant(mContext, jsonObjectApplicant, mandatoryField);
                 if (validate) {
                     try {
                         String latlong = assignedJobs.getLatLong();
+                        JSONObject jsonObjectApplicant = createApplicant();
                         String availability = "Out Of GEO limit";
                         if (jsonObjectApplicant.has("Availability")) {
                             availability = jsonObjectApplicant.getString("Availability");
                         }
                         if (!TextUtils.isEmpty(latlong) && availability.equalsIgnoreCase("Out Of GEO limit")) {
                             Log.d("jsonObject", jsonObjectApplicant.toString());
+                            //String sdcardPath = Environment.getExternalStorageDirectory().getAbsolutePath();
                             String sdcardPath = Environment.getExternalStorageDirectory().getAbsolutePath();
                             String recordingDirectory = sdcardPath + "/Dusmile/Audio/" + UserPreference.getUserRecord(mContext).getUsername() + "/" + jobId;
                             File dir = new File(recordingDirectory);
                             if (!dir.exists()) {
                                 dir.mkdirs();
                             }
+                            //File file = new File(dir,filename);
                             String filePath = recordingDirectory + "/" + jobId + ".mp3";
                             boolean check = new File(filePath).exists();
                             if (hashMapImages.size() != 0) {
                                 if (check == true) {
-                                    jsonObject = createSaveSubmitJobsJson(jsonObjectApplicant, true);
-                                    AssignedJobsDB.updateSubmitJson(dbHelper, jobId, jsonObject.toString(), "false");
-                                    new CreatePdf().execute();
+                                    if (AppConstant.isRedRadioButtonClicked || validateFromApplicant(jsonObjectApplicant)) {
+                                        jsonObject = createSaveSubmitJobsJson(jsonObjectApplicant, true);
+                             /*           AssignedJobsDB.updateApplicant(dbHelper, jobId, jsonObjectApplicant.toString(), "true");
+                                        updateStatusOfJob();*/
+                                        AssignedJobsDB.updateSubmitJson(dbHelper, jobId, jsonObject.toString(), "false");
+                                        new CreatePdf().execute();
+                                    }
                                 } else {
                                     MyDynamicToast.informationMessage(mContext, "Please Save your Recording & Retry");
                                 }
@@ -750,15 +742,19 @@ public class AllFormsFragment extends FragmentManagePermission {
                             }
 
                         } else {
+                            //Toast.makeText(mContext, "Please Click on Save Location Button & Retry", Toast.LENGTH_SHORT).show();
                             MyDynamicToast.informationMessage(mContext, "Please Save your location & Retry");
                         }
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
         }
 
         @Override
@@ -771,6 +767,15 @@ public class AllFormsFragment extends FragmentManagePermission {
             Intent intent = new Intent(getActivity(), RecordingMainActivity.class);
             intent.putExtra("recording", jobId);
             startActivity(intent);
+            //   Intent intent1 = new Intent(getActivity(), AMRAudioRecorder.class);
+
+           /* Toast.makeText(mContext, "This is my Toast message!",
+                    Toast.LENGTH_LONG).show();*/
+         /*   FragmentManager fragment = getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragment.beginTransaction();
+            RecordingMainActivity recording = new RecordingMainActivity();
+            fragmentTransaction.replace(R.id.llParentLayout, recording);
+            fragmentTransaction.commit();*/
         }
 
         @Override
@@ -801,6 +806,7 @@ public class AllFormsFragment extends FragmentManagePermission {
                         String longitude = String.valueOf(gpsTracker.getLongitude());
                         userPreference.writeString(mContext, UserPreference.LATITUDE, latitude);
                         userPreference.writeString(mContext, UserPreference.LONGITUDE, longitude);
+                        // Toast.makeText(mContext, "Your location saved Successfully", Toast.LENGTH_SHORT).show();
                         MyDynamicToast.successMessage(mContext, "Your location saved Successfully");
                     } else {
                         showGPSSettingsAlert();
@@ -828,6 +834,8 @@ public class AllFormsFragment extends FragmentManagePermission {
     };
 
     private void updateStatusOfJob() {
+        //get record of this form id from db if exist then update time else insert new entry of this form
+        //getcurrent timestamp
         try {
             IOUtils.appendLog(Tag + " : " + IOUtils.getCurrentTimeStamp() + " Updating Job status");
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
@@ -838,7 +846,7 @@ public class AllFormsFragment extends FragmentManagePermission {
                 assignedJobsStatus = new AssignedJobsStatus();
                 assignedJobsStatus.setForm_data_update_time(currentTimeStamp);
                 assignedJobsStatus.setJob_id(jobId);
-
+                // assignedJobsStatus.setJson_template_id(jsonTemplateId);
                 AssignedJobsStatusDB.addAssignedJobsStatusEntry(assignedJobsStatus, dbHelper);
             } else {
                 assignedJobsStatus.setForm_data_update_time(currentTimeStamp);
@@ -869,15 +877,21 @@ public class AllFormsFragment extends FragmentManagePermission {
                                 break;
                             }
                         }
+                        /*else
+                        {
+                            isMaditory = false;
+                            MyDynamicToast.errorMessage(mContext, allMandatoryFieldsArray[j] + " is Mandatory in " + formName);
+                        }*/
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
                 }
+
             }
+
         }
         return isMaditory;
     }
-
 
     private JSONObject createApplicant() {
         JSONObject applicantJsonObject = null;
@@ -889,9 +903,11 @@ public class AllFormsFragment extends FragmentManagePermission {
                 if (entry.getKey().contains("/Mandatory")) {
                     Key = entry.getKey().split("/")[0];
                     applicantJsonObject.put(Key, entry.getValue());
+
                 } else {
                     Key = entry.getKey();
                     applicantJsonObject.put(Key, entry.getValue());
+
                 }
             }
 
@@ -915,6 +931,7 @@ public class AllFormsFragment extends FragmentManagePermission {
                     if (entry.getKey().contains("/true")) {
                         Key = entry.getKey().split("/")[0];
                         applicantJsonObject.put(Key, entry.getKey().split("/")[1]);
+
                     } else {
                         Key = entry.getKey();
                         applicantJsonObject.put(Key, entry.getKey().split("/")[1]);
@@ -1297,8 +1314,8 @@ public class AllFormsFragment extends FragmentManagePermission {
             } else {
                 addPosition = 1;
             }
-
             FileOutputStream out = null;
+
             String new_filename = selectedForm + "_" + selectedPosition + "_" + addPosition + ".jpg";
             String current_filename = BitmapCompression.getFilename(new_filename, "temp_" + jobId);
             out = new FileOutputStream(current_filename);
@@ -1316,12 +1333,15 @@ public class AllFormsFragment extends FragmentManagePermission {
                 arrayListbmp.add(decoded);
                 hashMapImages.put(selectedForm, arrayListbmp);
             }
+
             UI.setImagesToGallaryView(getActivity(), llGallleryView, selectedPosition, selectedForm, decoded, addPosition, mCallBack);
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
     }
 
     ImageOperationListener mCallBack = new ImageOperationListener() {
@@ -1341,6 +1361,7 @@ public class AllFormsFragment extends FragmentManagePermission {
                     if (arrlBmp.size() > 0) {
                         hashMapImages.put(formName, arrlBmp);
                     }
+
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -1352,6 +1373,7 @@ public class AllFormsFragment extends FragmentManagePermission {
             setCropImageToGallery(bitmap);
         }
     };
+
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
@@ -1376,6 +1398,7 @@ public class AllFormsFragment extends FragmentManagePermission {
             }
         } else {
             Log.e("Permission", "Denied");
+
         }
     }
 
@@ -1441,8 +1464,8 @@ public class AllFormsFragment extends FragmentManagePermission {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_SAVE_SUBMIT_JOB_DETAILS + "/" + jobId);
         new HttpVolleyRequest(getActivity(), jsonObject, new Const().REQUEST_SAVE_SUBMIT_JOB_DETAILS + "/" + jobId, listenerSaveSubmitJobDetails);
+        IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " "+ new Const().REQUEST_SAVE_SUBMIT_JOB_DETAILS +" \n API " + jsonObject.toString());
     }
 
     MyListener listenerSaveSubmitJobDetails = new MyListener() {
@@ -1458,6 +1481,7 @@ public class AllFormsFragment extends FragmentManagePermission {
                 //IOUtils.stopLoading();
                 if (obj != null) {
                     String response = obj.toString();
+                    IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " "+ new Const().REQUEST_SAVE_SUBMIT_JOB_DETAILS +" \n API " + response.toString());
                     Log.d(Const.TAG, response);
                     Gson gson = new Gson();
                     JSONObject responseJson = new JSONObject(response);
@@ -1539,18 +1563,21 @@ public class AllFormsFragment extends FragmentManagePermission {
                             }
                             IOUtils.stopUpdateStatusLoading();
                             IOUtils.stopLoading();
-                            IOUtils.showSuccessMessage(mContext, getString(R.string.app_name), saveSubmitJobResponseModel.getMessage(), getActivity());
+                            IOUtils.showSuccessMessage(mContext, getString(R.string.app_name), saveSubmitJobResponseModel.getMessage(),getActivity());
                             IOUtils.showSubmitMessage(mContext, getString(R.string.app_name), saveSubmitJobResponseModel.getMessage(), getActivity());
                             //MyDynamicToast.errorMessage(mContext, saveSubmitJobResponseModel.getMessage());
                         }
                     } else {
+                        IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " "+ new Const().REQUEST_SAVE_SUBMIT_JOB_DETAILS +" \n API " + response.toString());
                         MyDynamicToast.errorMessage(mContext, "Unexpected Response");
                     }
                 } else {
+                    IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " "+ new Const().REQUEST_SAVE_SUBMIT_JOB_DETAILS +" \n API " + obj.toString());
                     MyDynamicToast.errorMessage(mContext, "Server Error !!");
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " "+ new Const().REQUEST_SAVE_SUBMIT_JOB_DETAILS +" \n API " + "Exception while saving data");
                 MyDynamicToast.errorMessage(mContext, "Server Error !!");
             }
         }
@@ -1558,6 +1585,7 @@ public class AllFormsFragment extends FragmentManagePermission {
         @Override
         public void failure(VolleyError volleyError) {
             try {
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " "+ new Const().REQUEST_SAVE_SUBMIT_JOB_DETAILS +" \n API " + volleyError.networkResponse.toString() + " " + volleyError.getMessage());
                 if (!IOUtils.isInternetPresent(mContext)) {
                     IOUtils.stopLoading();
                     IOUtils.stopUpdateStatusLoading();
@@ -1565,7 +1593,6 @@ public class AllFormsFragment extends FragmentManagePermission {
                 }
                 IOUtils.stopUpdateStatusLoading();
                 IOUtils.stopLoading();
-                //new CreatePdf().execute();
                 if (volleyError != null) {
                     MyDynamicToast.warningMessage(mContext, "Unable to Connect");
                     if (volleyError.networkResponse.statusCode == 800) {
@@ -1576,6 +1603,7 @@ public class AllFormsFragment extends FragmentManagePermission {
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " "+ new Const().REQUEST_SAVE_SUBMIT_JOB_DETAILS +" \n API " + volleyError.networkResponse.toString() + " Exception for submit job in failure");
                 MyDynamicToast.errorMessage(mContext, "Server Error !!");
             }
         }
@@ -1885,8 +1913,8 @@ public class AllFormsFragment extends FragmentManagePermission {
             imageType = imageType.replaceAll(" ", "");
             imageType = imageType.replaceAll(" ", "");
             String fileName = "FIPhotos_" + jobId;
-            String query = "typeOfFile=" + fileName + "&" + "folderName=" + jobId +"&" + "job_id=";
-            String url = new Const().REQUEST_UPLOAD_PDF + "?" + query;
+            String query = "typeOfFile=" + fileName + "&" + "folderName=" + jobId;
+            String url = new Const().REQUEST_UPLOAD_PDF + "?" + "&" + query;
             uploadPdfUrl = url;
             jobID = jobId;
             UploadPdfFile = newFile;
@@ -1895,8 +1923,8 @@ public class AllFormsFragment extends FragmentManagePermission {
             File RecordingFile = new File(RecordingDirectory, jobId + ".mp3");
             if (RecordingFile.exists()) {
                 String fileType = "FIRecording_" + jobId;
-                String Rquery = "typeOfFile=" + fileType + "&" + "folderName=" + jobId + "&" + "job_id=";
-                String Rurl = new Const().REQUEST_UPLOAD_PDF + "?" +  Rquery;
+                String Rquery = "typeOfFile=" + fileType + "&" + "folderName=" + jobId;
+                String Rurl = new Const().REQUEST_UPLOAD_PDF + "?" + "&" + Rquery;
                 if (IOUtils.isInternetPresent(mContext)) {
                     if (UploadImage.uploadMultipartFile(RecordingFile, Rurl, mContext, jobId, nbfcName, true, jobType, saveSubmitJobResponseModel.getMessage(), getActivity(), getString(R.string.app_name))) {
                         // imageUploaded = 1;
@@ -2217,17 +2245,19 @@ public class AllFormsFragment extends FragmentManagePermission {
 
 
     public void saveData() {
+        boolean validate = false;
+        if (mAwesomeValidation != null) {
+            validate = mAwesomeValidation.validate();
+        }
         try {
             String allFieldsKeysArray[] = allFieldsKeys.split(",");
-            DatabaseUI ui = new DatabaseUI(getActivity(), getActivity(), getChildFragmentManager(), jobId);
-            UIFormsDB UIDB = new UIFormsDB(getActivity(), getActivity(), getChildFragmentManager(), jobId);
+            DatabaseUI ui = new DatabaseUI(getActivity(), mAwesomeValidation, getActivity(), getChildFragmentManager(), jobId);
             AssignedJobs assignedJobs = AssignedJobsDB.getJobsByJobId(dbHelper, jobId);
             applicantJson = assignedJobs.getApplicant_json();
             JobDetailsResponse.Applicant applicant = gson.fromJson(applicantJson, JobDetailsResponse.Applicant.class);
             templateTextViewSparseArray.putAll(ui.putAllKeysToSave(allFieldsKeysArray, applicant, applicantJson));
             textViewSparseArray.putAll(ui.findAllTextViews(llParentLayout, tableExist, tableKeys));
             editTextSparseArray = ui.findAllEdittexts(llParentLayout);
-            boolean validate = UIDB.hasErrorSet();
             templateTextViewSparseArray = ui.findAllTemplateTextViews(llParentLayout);
             radioSparseArray = ui.findCustomValidateRadioButtons(llParentLayout);
             if (validate) {
@@ -2422,4 +2452,5 @@ public class AllFormsFragment extends FragmentManagePermission {
         }
         return hashMapImages;
     }
+
 }

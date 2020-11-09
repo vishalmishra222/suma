@@ -24,7 +24,7 @@ public class SubCategoryDB {
     public static final String SUB_CATEGORY_SEQUENCE_NO="subcategory_sequence_no";
     public static final String SUB_CATEGORY_IS_FORM_MENU="isFormMenu";
     public static final String SUB_CATEGORY_ICON="icon";
-    public static final String SUB_CATEGORY_ACTION= "actio";
+
     public static long addSubCategoryEntry(SubCategory record, DBHelper database) {
         // Create and/or open the database for writing
         SQLiteDatabase db = database.getWritableDatabase();
@@ -42,7 +42,6 @@ public class SubCategoryDB {
             values.put(SUB_CATEGORY_SEQUENCE_NO, record.getSequence_no());
             values.put(SUB_CATEGORY_IS_FORM_MENU, record.getIsFormMenu());
             values.put(SUB_CATEGORY_ICON,record.getIcon());
-            values.put(SUB_CATEGORY_ACTION,record.getAction());
             // Notice how we haven't specified the primary key. SQLite auto increments the primary key column.
             rowID = db.insertOrThrow(TABLE_SUB_CATEGORY, null, values);
             Log.d(TAG,"Rows Inserted -- "+rowID);
@@ -74,7 +73,6 @@ public class SubCategoryDB {
             values.put(SUB_CATEGORY_SEQUENCE_NO, record.getSequence_no());
             values.put(SUB_CATEGORY_IS_FORM_MENU, record.getIsFormMenu());
             values.put(SUB_CATEGORY_ICON,record.getIcon());
-            values.put(SUB_CATEGORY_ACTION,record.getAction());
             // First try to update the user in case the user already exists in the database
             // This assumes userNames are unique
             rows = db.update(TABLE_SUB_CATEGORY, values, CATEGORY_ID + "= ?"+ " and "+SUB_CATEGORY_NAME + "= ?", new String[]{record.getCategory_id(),record.getSubcategory_name()});
@@ -128,7 +126,6 @@ public class SubCategoryDB {
                     subcategory.setSequence_no(c.getString(c.getColumnIndex(SUB_CATEGORY_SEQUENCE_NO)));
                     subcategory.setIsFormMenu(c.getString(c.getColumnIndex(SUB_CATEGORY_IS_FORM_MENU)));
                     subcategory.setIcon(c.getString(c.getColumnIndex(SUB_CATEGORY_ICON)));
-                    subcategory.setAction(c.getString(c.getColumnIndex(SUB_CATEGORY_ACTION)));
                     // adding to todo list
                     subcategoriesList.add(subcategory);
                 } while (c.moveToNext());
@@ -231,7 +228,6 @@ public class SubCategoryDB {
                     subcategory.setSequence_no(c.getString(c.getColumnIndex(SUB_CATEGORY_SEQUENCE_NO)));
                     subcategory.setIsFormMenu(c.getString(c.getColumnIndex(SUB_CATEGORY_IS_FORM_MENU)));
                     subcategory.setIcon(c.getString(c.getColumnIndex(SUB_CATEGORY_ICON)));
-                    subcategory.setAction(c.getString(c.getColumnIndex(SUB_CATEGORY_ACTION)));
                     // adding to todo list
                     subcategoriesList.add(subcategory);
                 } while (c.moveToNext());
@@ -304,7 +300,6 @@ public class SubCategoryDB {
                     subcategory.setSequence_no(c.getString(c.getColumnIndex(SUB_CATEGORY_SEQUENCE_NO)));
                     subcategory.setIsFormMenu(c.getString(c.getColumnIndex(SUB_CATEGORY_IS_FORM_MENU)));
                     subcategory.setIcon(c.getString(c.getColumnIndex(SUB_CATEGORY_ICON)));
-                    subcategory.setAction(c.getString(c.getColumnIndex(SUB_CATEGORY_ACTION)));
                     // adding to todo list
                     subcategoriesList.add(subcategory);
                 } while (c.moveToNext());
@@ -348,7 +343,6 @@ public class SubCategoryDB {
                     subcategory.setSequence_no(c.getString(c.getColumnIndex(SUB_CATEGORY_SEQUENCE_NO)));
                     subcategory.setIsFormMenu(c.getString(c.getColumnIndex(SUB_CATEGORY_IS_FORM_MENU)));
                     subcategory.setIcon(c.getString(c.getColumnIndex(SUB_CATEGORY_ICON)));
-                    subcategory.setAction(c.getString(c.getColumnIndex(SUB_CATEGORY_ACTION)));
                     // adding to todo list
                     /*if(!(subcategory.getSubcategory_name().toString().equals("Available Jobs"))) {*/
                     subcategoriesList.add(subcategory);

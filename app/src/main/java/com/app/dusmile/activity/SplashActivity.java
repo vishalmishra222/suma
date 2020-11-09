@@ -37,7 +37,7 @@ import permission.auron.com.marshmallowpermissionhelper.PermissionUtils;
 public class SplashActivity extends ActivityManagePermission {
 
     private static final String TAG = "SplashScreen";
-    private static int SPLASH_TIME_OUT = 6200;
+    private static int SPLASH_TIME_OUT = 3000;
     TextView txtVersion;
     boolean isUpdateAvailable = false;
     ISirenListener sirenListener = new ISirenListener() {

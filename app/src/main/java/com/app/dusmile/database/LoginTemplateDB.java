@@ -59,7 +59,7 @@ public class LoginTemplateDB {
 
 
     //Update Record
-    /*public static int updateLoginTemplate(LoginTemplate record,DBHelper dbHelper)
+    public static int updateLoginTemplate(LoginTemplate record,DBHelper dbHelper)
     {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         int rows=0;
@@ -93,12 +93,12 @@ public class LoginTemplateDB {
         }
         return rows;
     }
-*/
+
 
     /*
-     * getting all LoginTemplate
-     * */
-    /*public static ArrayList<LoginTemplate> getAllLoginTemplate(DBHelper dbHelper) {
+       * getting all LoginTemplate
+       * */
+    public static ArrayList<LoginTemplate> getAllLoginTemplate(DBHelper dbHelper) {
         ArrayList<LoginTemplate> loginTemplateMasterList = new ArrayList<LoginTemplate>();
 
         //select tfm.* from topicFieldMap tfm inner join dss_user_audit_Topic_map atfm on tfm.topicServerID=atfm.topicServerID where atfm.topicServerID=87 and atfm.user_audit_id=1;
@@ -138,9 +138,9 @@ public class LoginTemplateDB {
         }
         return loginTemplateMasterList;
     }
-*/
 
-    /*public static LoginTemplate getSingleLoginTemplate(DBHelper dbHelper, String json_key, String language) {
+
+    public static LoginTemplate getSingleLoginTemplate(DBHelper dbHelper, String json_key, String language) {
         //select tfm.* from topicFieldMap tfm inner join dss_user_audit_Topic_map atfm on tfm.topicServerID=atfm.topicServerID where atfm.topicServerID=87 and atfm.user_audit_id=1;
         LoginTemplate loginTemplate =new LoginTemplate();
         String selectQuery = "SELECT  * FROM " + TABLE_LOGIN_JSON_TEMPLATE + " WHERE " + LOGIN_JSON_KEY + " = '"+json_key+"'"+ "and "  + JSON_LANGUAGE + " = '"+language+"'";
@@ -177,9 +177,9 @@ public class LoginTemplateDB {
         }
         return loginTemplate;
     }
-*/
 
-   /* public static int getLoginTemplateCount(DBHelper dbHelper,String json_key, String language) {
+
+    public static int getLoginTemplateCount(DBHelper dbHelper,String json_key, String language) {
         int cnt=0;
         String countQuery = "SELECT  * FROM " + TABLE_LOGIN_JSON_TEMPLATE + " WHERE " + LOGIN_JSON_KEY + " = '"+json_key+"'" + "and " + JSON_LANGUAGE + " = '"+language+"'";
 
@@ -204,8 +204,8 @@ public class LoginTemplateDB {
         return cnt;
     }
 
-*/
-  /*  public static String getLoginJsontemplateImageJson (DBHelper dbHelper, String json_key, String language) {
+
+    public static String getLoginJsontemplateImageJson (DBHelper dbHelper, String json_key, String language) {
         //select tfm.* from topicFieldMap tfm inner join dss_user_audit_Topic_map atfm on tfm.topicServerID=atfm.topicServerID where atfm.topicServerID=87 and atfm.user_audit_id=1;
         String selectQuery = "SELECT  * FROM " + TABLE_LOGIN_JSON_TEMPLATE + " WHERE " + LOGIN_JSON_KEY + " = '"+json_key+"'"  + "and " + JSON_LANGUAGE + " = '"+language+"'";
         String imagesJson = null;
@@ -229,7 +229,7 @@ public class LoginTemplateDB {
         }
         return imagesJson;
     }
-*/
+
 
     public static int getLoginJsontemplateID (DBHelper dbHelper, String json_key, String language) {
         //select tfm.* from topicFieldMap tfm inner join dss_user_audit_Topic_map atfm on tfm.topicServerID=atfm.topicServerID where atfm.topicServerID=87 and atfm.user_audit_id=1;

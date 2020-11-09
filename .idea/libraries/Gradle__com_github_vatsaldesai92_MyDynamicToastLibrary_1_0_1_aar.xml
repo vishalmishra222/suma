@@ -1,11 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: com.github.vatsaldesai92:MyDynamicToastLibrary:1.0.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/05800ec161ab34520b304ab2ef939e4f/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/05800ec161ab34520b304ab2ef939e4f/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/MyDynamicToastLibrary-1.0.1.aar/7652576a11b043d8d342bc903e77b5ac/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/MyDynamicToastLibrary-1.0.1.aar/7652576a11b043d8d342bc903e77b5ac/res" />
     </CLASSES>
     <JAVADOC />
-    <LIBRARY_FILE />
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.vatsaldesai92/MyDynamicToastLibrary/1.0.1/d09462318caab258e26040583d4eae9d026db62b/MyDynamicToastLibrary-1.0.1-sources.jar!/" />
     </SOURCES>

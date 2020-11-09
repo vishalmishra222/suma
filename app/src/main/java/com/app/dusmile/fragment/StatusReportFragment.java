@@ -13,34 +13,38 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.android.volley.error.VolleyError;
-import com.app.dusmile.DBModel.SubCategory;
 import com.app.dusmile.R;
 import com.app.dusmile.activity.ReportDetailsActivity;
 import com.app.dusmile.connection.HttpVolleyRequest;
 import com.app.dusmile.connection.MyListener;
-import com.app.dusmile.database.LoginTemplateDB;
-import com.app.dusmile.database.SubCategoryDB;
-import com.app.dusmile.database.helper.DBHelper;
+import com.app.dusmile.constant.AppConstant;
 import com.app.dusmile.interfaces.BtnClickListener;
 import com.app.dusmile.model.ReportFilter;
 import com.app.dusmile.model.ReportFilterModel;
 import com.app.dusmile.preferences.Const;
 import com.app.dusmile.preferences.UserPreference;
+import com.app.dusmile.recording.RecordingMainActivity;
+import com.app.dusmile.unhandleException.TopExceptionHandler;
 import com.app.dusmile.utils.IOUtils;
 import com.app.dusmile.view.DatabaseUI;
+import com.app.dusmile.view.UI;
 import com.desai.vatsal.mydynamictoast.MyDynamicToast;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by suma on 03/02/17.
@@ -51,9 +55,6 @@ public class StatusReportFragment extends Fragment {
     private LinearLayout reportFiltersLin;
     public static String date;
     Date startDate;
-    private List<SubCategory> subCategoryMenuList;
-    private DBHelper dbHelper;
-    private static String PURL = null;
     Date endDate;
     private String Tag = "StatusReportFragment";
     private List<ReportFilterModel.ReportFilter> reportFiltersList = new ArrayList<>();
@@ -73,9 +74,7 @@ public class StatusReportFragment extends Fragment {
         this.findViews(rootView);
         Activity activity = this.getActivity();
         mContext = activity;
-        dbHelper = DBHelper.getInstance(mContext);
         if (IOUtils.isInternetPresent(mContext)) {
-            assignUrl();
             getReportsFilters();
         } else {
             IOUtils.showErrorMessage(mContext, "No internet connection");
@@ -110,30 +109,12 @@ public class StatusReportFragment extends Fragment {
         reportFiltersLin = (LinearLayout) view.findViewById(R.id.reportFiltersLin);
     }
 
-
-    private void assignUrl() {
-        subCategoryMenuList = new ArrayList<>();
-        int loginJsonTemplateId = LoginTemplateDB.getLoginJsontemplateID(dbHelper, "Menu Details", UserPreference.getLanguage(mContext));
-        subCategoryMenuList = SubCategoryDB.getSubCategoriesDependsOnIsMenuFlag(dbHelper, String.valueOf(loginJsonTemplateId), "false");
-        for (int i = 0; i <= subCategoryMenuList.size() - 1; i++) {
-            String jobClicked = subCategoryMenuList.get(i).getSubcategory_name();
-            String usrId = UserPreference.readString(mContext, UserPreference.USER_INT_ID, "");
-            if (jobClicked.equalsIgnoreCase("Jobs Submitted To Supervisor")) {
-                String act = subCategoryMenuList.get(i).getAction();
-                String st = act.substring(1, act.length());
-                String replaceString = st.replace("userId", usrId);
-                PURL = new Const().URL + replaceString;
-            }
-        }
-    }
-
     public void getReportsFilters() {
         IOUtils.startLoading(getActivity(), "Loading.....");
         try {
-            //JSONObject jsonObject = new JSONObject();
-            String url = new Const().GET_PENDING_WITH_BRANCH_REPORT_METADATA;
-           // jsonObject.put("FOSExecutiveID", UserPreference.getUserRecord(mContext).getUserID());
-            new HttpVolleyRequest(getActivity(),url, listenerReportFilters);
+            JSONObject jsonObject = new JSONObject();
+            jsonObject.put("FOSExecutiveID", UserPreference.getUserRecord(mContext).getUserID());
+            new HttpVolleyRequest(getActivity(), jsonObject, new Const().REQUEST_REPORT_FILTERS + "/" + UserPreference.getUserRecord(mContext).getUserID(), listenerReportFilters);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -252,6 +233,8 @@ public class StatusReportFragment extends Fragment {
         @Override
         public void clickListener(String val) {
             try {
+
+
                 SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
                 try {
                     startDate = sdf2.parse(val);
@@ -262,6 +245,14 @@ public class StatusReportFragment extends Fragment {
                 } catch (ParseException e) {
                     e.printStackTrace();
                 }
+               /* String dateDiff = IOUtils.getDateDifference(startDate, endDate);
+                long days = Long.parseLong(dateDiff);
+                if (days > 30) {
+                    //Toast.makeText(getActivity(), "Date difference should not be more than 30 days", Toast.LENGTH_LONG).show();
+                    MyDynamicToast.errorMessage(mContext, "Date difference should not be more than 30 days");
+                } else {*/
+
+                /* }*/
             } catch (Exception e) {
                 e.printStackTrace();
             }

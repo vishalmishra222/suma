@@ -3,6 +3,7 @@ package com.app.dusmile.view;
 import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,6 +18,7 @@ import android.support.design.widget.TextInputEditText;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -26,6 +28,7 @@ import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -45,6 +48,7 @@ import android.widget.RadioGroup;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.app.dusmile.R;
 import com.app.dusmile.activity.AllFormsActivity;
@@ -62,21 +66,11 @@ import com.app.dusmile.model.ReportFilterModel;
 import com.app.dusmile.model.SubProcessFieldDataResponse;
 import com.app.dusmile.utils.IOUtils;
 import com.app.dusmile.utils.MonthYearPicker;
-import com.app.dynamicform.UIFormsDB;
-import com.app.dynamicform.dynamicFields.CheckBoxClass;
-import com.app.dynamicform.dynamicFields.DatePickerDialogClass;
-import com.app.dynamicform.dynamicFields.DropDownClass;
-import com.app.dynamicform.dynamicFields.EditTextClass;
-import com.app.dynamicform.dynamicFields.TextAreaClass;
-import com.app.dynamicform.dynamicFields.TextViewClass;
-import com.app.dynamicform.dynamicFields.YearMonthComboClass;
 import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.desai.vatsal.mydynamictoast.MyDynamicToast;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -86,6 +80,7 @@ import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -95,7 +90,6 @@ import java.util.regex.Pattern;
 import it.sephiroth.android.library.imagezoom.ImageViewTouch;
 import it.sephiroth.android.library.imagezoom.ImageViewTouchBase;
 
-import static com.app.dusmile.view.UI.createTableRows;
 
 /**
  * Created by sumasoft on 23/01/17.
@@ -137,17 +131,504 @@ public class DatabaseUI {
     public DatabaseUI() {
     }
 
-    public DatabaseUI(Context context, Activity activity, android.support.v4.app.FragmentManager fragmentManager, String jobId) {
+    public DatabaseUI(Context context, AwesomeValidation mAwesomeValidation, Activity activity, android.support.v4.app.FragmentManager fragmentManager, String jobId) {
         this.context = context;
+        this.mAwesomeValidation = mAwesomeValidation;
         this.activity = activity;
         this.fragmentManager = fragmentManager;
         this.jobId = jobId;
     }
 
+    //create UI for textView
+    public static TextView createTextView(Context mContext, String text, LinearLayout parent, int textColor, float textSize, String headerType, String tag, String customerName, String coApplicantName) {
+        TextView textView = new TextView(mContext);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
+        textView.setLayoutParams(params);
+        textView.setTextColor(textColor);
+        textView.setTextSize(textSize);
+        textView.setTag(tag);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+        params.setMargins(0, 0, 0, 0);
+        if (text == null) {
+            text = "";
+        }
+        if (headerType.equalsIgnoreCase("tabs")) {
+            textView.setText("View Job Details");
+            textView.setGravity(Gravity.CENTER);
+            textView.setTypeface(null, Typeface.BOLD);
+
+        } else if (headerType.equalsIgnoreCase("form")) {
+            if (text.equalsIgnoreCase("Applicant Profile") || text.equalsIgnoreCase("Employment") || text.equalsIgnoreCase("Office") || text.equalsIgnoreCase("Business")) {
+                textView.setText(text + " : " + customerName);
+            } else if (text.equalsIgnoreCase("CoApplicant Profile") || text.equalsIgnoreCase("CoApplicant Office") || text.equalsIgnoreCase("CoApplicant Business")) {
+                // textView.setText(text + " : " + coApplicantName);
+            } else {
+                textView.setText(text);
+            }
+            textView.setGravity(Gravity.LEFT);
+            textView.setTypeface(null, Typeface.BOLD);
+            textView.setTextColor(Color.WHITE);
+            textView.setPadding(20, 0, 0, 0);
+        } else if (headerType.equalsIgnoreCase("Job")) {
+            textView.setText(text);
+            textView.setGravity(Gravity.CENTER);
+            textView.setTypeface(null, Typeface.BOLD);
+        } else if (headerType.equalsIgnoreCase("fieldHeader")) {
+            textView.setText(text);
+            textView.setTypeface(null, Typeface.BOLD);
+            textView.setGravity(Gravity.LEFT);
+            textView.setTextColor(mContext.getResources().getColor(R.color.accent));
+        } else if (headerType.equalsIgnoreCase("label")) {
+            textView.setText(text);
+            textView.setGravity(Gravity.LEFT);
+        } else {
+            textView.setText(text);
+            textView.setGravity(Gravity.LEFT);
+        }
+        parent.addView(textView);
+        return textView;
+    }
+
+
+   /* //create UI for editText
+    public static void createMapView(final Context mContext, final SubProcessFieldDataResponse1.SubProcessField subProcessField, LinearLayout parent, JobDetailsResponse.Applicant applicant) {
+        final MapView mapView = new MapView(mContext);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT,1f);
+        editText.setLayoutParams(params);
+        params.setMargins(5,5,5,5);
+        textInputLayout.setLayoutParams(params);
+        editText.setTag(subProcessField.getKey());
+        editText.setPadding(10, 10, 10, 20);
+        editText.setId(subProcessField.getFieldID());
+        editText.setTextColor(Color.BLACK);
+        editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+        //add validation pattern
+        mAwesomeValidation.addValidation(editText, subProcessField.getValidationPattern(), subProcessField.getValidationMessage());
+        if(subProcessField.getIsMandatory()){
+            textInputLayout.setHintTextAppearance(R.style.error_appearance);
+            editText.setHintTextColor(Color.RED);
+        }
+        else
+        {
+            textInputLayout.setHintTextAppearance(R.style.TextLabel);
+        }
+
+        Method method = null;
+        try {
+            method =JobDetailsResponse.Applicant.class.getDeclaredMethod("get" + StringUtils.capitalize(subProcessField.getKey()));
+            String text = (String) method.invoke(applicant,null);
+            if(text!=null && !text.isEmpty()) {
+                textInputLayout.setHint(subProcessField.getLable());
+                editText.setHint(subProcessField.getLable());
+                textInputLayout.setHintAnimationEnabled(false);
+                editText.setText(text);
+                textInputLayout.setHintAnimationEnabled(true);
+            }
+            else{
+                textInputLayout.setHint(subProcessField.getLable());
+                editText.setHint(subProcessField.getLable());
+
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            textInputLayout.setHint(subProcessField.getLable());
+            textInputLayout.setHintAnimationEnabled(false);
+            editText.setText("");
+            textInputLayout.setHintAnimationEnabled(true);
+
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+            textInputLayout.setHint(subProcessField.getLable());
+            textInputLayout.setHintAnimationEnabled(false);
+            editText.setText("");
+            textInputLayout.setHintAnimationEnabled(true);
+
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            textInputLayout.setHint(subProcessField.getLable());
+            textInputLayout.setHintAnimationEnabled(false);
+            editText.setText("");
+            textInputLayout.setHintAnimationEnabled(true);
+
+        }catch (Exception e){
+            e.printStackTrace();;
+            textInputLayout.setHint(subProcessField.getLable());
+            textInputLayout.setHintAnimationEnabled(false);
+            editText.setText("");
+            textInputLayout.setHintAnimationEnabled(true);
+
+        }
+
+
+        if(subProcessField.getValidation().equalsIgnoreCase("Numeric") || subProcessField.getValidation().equalsIgnoreCase("Numbers") || subProcessField.getValidation().equalsIgnoreCase("Decimal")){
+            editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+        }else if(subProcessField.getValidation().equalsIgnoreCase("alphaNumeric")){
+            editText.setInputType(InputType.TYPE_CLASS_TEXT);
+        }
+        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            Pattern sPattern
+                    = Pattern.compile(subProcessField.getValidationPattern());
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                EditText edt = (EditText) v;
+                if(!v.hasFocus()){
+                    edt.setSelection(edt.getText().length());
+                    edt.setHint(subProcessField.getLable());
+                    if(subProcessField.getValidationPattern()!=null && !subProcessField.getValidationPattern().isEmpty()) {
+
+                        if (!isValid(edt.getText().toString())) {
+                            //   editText.setText("");
+                            editText.setError(subProcessField.getValidationMessage());
+                        } else {
+                            editText.setError(null);
+                        }
+                    }
+                }else{
+                    edt.setHint("");
+                }
+            }
+            private boolean isValid(CharSequence s) {
+                return sPattern.matcher(s).matches();
+            }
+        });
+
+
+        if(subProcessField.getIsreadonly()!=null && subProcessField.getIsreadonly()){
+            editText.setBackgroundResource(R.drawable.disabled_edittext_background);
+            editText.setEnabled(false);
+        }else{
+            editText.setEnabled(true);
+        }
+        try {
+            viewParent = parent;
+            if(hashMapToggleFields.size()>0){
+                Map.Entry<Boolean,ArrayList<String>> entry=hashMapToggleFields.entrySet().iterator().next();
+                Boolean hashMapkey= entry.getKey();
+                ArrayList<String> arrayListFields=entry.getValue();
+                if(arrayListFields != null) {
+                    for (int i = 0; i < arrayListFields.size(); i++) {
+                        if (subProcessField.getKey().trim().equalsIgnoreCase(arrayListFields.get(i).trim())) {
+                            if (hashMapkey == true) {
+                                //editText.setBackground(null);
+                                editText.setEnabled(true);
+                            } else {
+                                editText.setBackgroundResource(R.drawable.disabled_edittext_background);
+                                editText.setEnabled(false);
+                            }
+                            break;
+                        }
+                        *//*if(editText.getHint().toString().equalsIgnoreCase(arrayListFields.get(i).trim())) {
+                            if (hashMapkey == true) {
+                                //editText.setBackground(null);
+                                editText.setEnabled(true);
+                            } else {
+                                editText.setBackgroundResource(R.drawable.disabled_edittext_background);
+                                editText.setEnabled(false);
+                            }
+                            break;
+                        }*//*
+                    }
+                }
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        textInputLayout.addView(editText);
+        parent.addView(textInputLayout);
+
+    }*/
+
+
+    //create UI for editText
+    public static void createEditText(final Context mContext, final SubProcessFieldDataResponse.SubProcessField subProcessField, LinearLayout parent, JobDetailsResponse.Applicant applicant, String applicant_json) {
+        final TextInputLayout textInputLayout = new TextInputLayout(mContext);
+        final TextInputEditText editText = new TextInputEditText(mContext);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
+        editText.setLayoutParams(params);
+        params.setMargins(5, 5, 5, 5);
+        textInputLayout.setLayoutParams(params);
+        editText.setTag(subProcessField.getKey());
+        editText.setPadding(10, 10, 10, 20);
+        editText.setId(subProcessField.getFieldID());
+        editText.setTextColor(Color.BLACK);
+        editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+
+        //subProcessField.getIsHidden()
+        //add validation pattern
+        mAwesomeValidation.addValidation(editText, subProcessField.getValidationPattern(), subProcessField.getValidationMessage());
+        if (subProcessField.getIsMandatory()) {
+            textInputLayout.setHintTextAppearance(R.style.error_appearance);
+            editText.setHintTextColor(Color.RED);
+
+        } else {
+            textInputLayout.setHintTextAppearance(R.style.TextLabel);
+        }
+
+        Method method = null;
+        JSONObject jsonObject;
+        String val = null;
+        try {
+            jsonObject = new JSONObject(applicant_json);
+            val = jsonObject.getString(subProcessField.getKey());
+            IOUtils.appendLog("Edit text rendered key is " + subProcessField.getKey());
+            IOUtils.appendLog("Edit text rendered value is " + val);
+            method = JobDetailsResponse.Applicant.class.getDeclaredMethod("get" + StringUtils.capitalize(subProcessField.getKey()));
+            String text = (String) method.invoke(applicant, null);
+            if (text != null && !text.isEmpty()) {
+                textInputLayout.setHint(subProcessField.getLable());
+                editText.setHint(subProcessField.getLable());
+                textInputLayout.setHintAnimationEnabled(false);
+                editText.setText(text);
+                textInputLayout.setHintAnimationEnabled(true);
+            } else {
+                textInputLayout.setHint(subProcessField.getLable());
+                editText.setHint(subProcessField.getLable());
+                textInputLayout.setHintAnimationEnabled(false);
+                editText.setText(val);
+                textInputLayout.setHintAnimationEnabled(true);
+
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            textInputLayout.setHint(subProcessField.getLable());
+            editText.setHint(subProcessField.getLable());
+            textInputLayout.setHintAnimationEnabled(false);
+            editText.setText(val);
+            textInputLayout.setHintAnimationEnabled(true);
+
+        } catch (InvocationTargetException e) {
+
+            e.printStackTrace();
+            textInputLayout.setHint(subProcessField.getLable());
+            editText.setHint(subProcessField.getLable());
+            textInputLayout.setHintAnimationEnabled(false);
+            editText.setText(val);
+            textInputLayout.setHintAnimationEnabled(true);
+
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            textInputLayout.setHint(subProcessField.getLable());
+            editText.setHint(subProcessField.getLable());
+            textInputLayout.setHintAnimationEnabled(false);
+            editText.setText(val);
+            textInputLayout.setHintAnimationEnabled(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            textInputLayout.setHint(subProcessField.getLable());
+            editText.setHint(subProcessField.getLable());
+            textInputLayout.setHintAnimationEnabled(false);
+            editText.setText("");
+            textInputLayout.setHintAnimationEnabled(true);
+
+        }
+
+
+        if (subProcessField.getValidation().equalsIgnoreCase("Numeric") || subProcessField.getValidation().equalsIgnoreCase("Numbers") || subProcessField.getValidation().equalsIgnoreCase("Decimal")) {
+            editText.setInputType(InputType.TYPE_CLASS_PHONE);
+        } else if (subProcessField.getValidation().equalsIgnoreCase("alphaNumeric")) {
+            editText.setInputType(InputType.TYPE_CLASS_TEXT);
+        }
+        if (subProcessField.getMaxlength() != null && subProcessField.getMaxlength() > 0) {
+            editText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(subProcessField.getMaxlength())});
+        }
+        boolean isDependentField = false;
+        if (dependentList.size() > 0) {
+            for (int l = 0; l < dependentList.size(); l++) {
+                if (dependentList.get(l).equalsIgnoreCase(subProcessField.getKey())) {
+                    isDependentField = true;
+                }
+            }
+        }
+        if (subProcessField.getIsHidden() != null && subProcessField.getIsHidden() == true) {
+            if (!TextUtils.isEmpty(editText.getText().toString()) || isDependentField) {
+                editText.setVisibility(View.VISIBLE);
+            } else {
+                editText.setVisibility(View.GONE);
+            }
+        } else {
+            editText.setVisibility(View.VISIBLE);
+        }
+        editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            Pattern sPattern
+                    = Pattern.compile(subProcessField.getValidationPattern());
+
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                EditText edt = (EditText) v;
+                if (!v.hasFocus()) {
+                    edt.setSelection(edt.getText().length());
+                    edt.setHint(subProcessField.getLable());
+                    if (subProcessField.getValidationPattern() != null && !subProcessField.getValidationPattern().isEmpty()) {
+
+                        if (!isValid(edt.getText().toString())) {
+                            //   editText.setText("");
+                            editText.setError(subProcessField.getValidationMessage());
+                        } else {
+                            editText.setError(null);
+                        }
+                    }
+                } else {
+                    edt.setHint("");
+                }
+            }
+
+            private boolean isValid(CharSequence s) {
+                return sPattern.matcher(s).matches();
+            }
+        });
+
+
+        if (subProcessField.getIsreadonly() != null && subProcessField.getIsreadonly()) {
+            editText.setBackgroundResource(R.drawable.disabled_edittext_background);
+            editText.setEnabled(false);
+        } else {
+            editText.setEnabled(true);
+        }
+        try {
+            viewParent = parent;
+            if (hashMapToggleFields.size() > 0) {
+                Map.Entry<Boolean, ArrayList<String>> entry = hashMapToggleFields.entrySet().iterator().next();
+                Boolean hashMapkey = entry.getKey();
+                ArrayList<String> arrayListFields = entry.getValue();
+                if (arrayListFields != null) {
+                    for (int i = 0; i < arrayListFields.size(); i++) {
+                        if (subProcessField.getKey().trim().equalsIgnoreCase(arrayListFields.get(i).trim())) {
+                            if (hashMapkey == true) {
+                                //editText.setBackground(null);
+                                editText.setEnabled(true);
+                            } else {
+                                editText.setBackgroundResource(R.drawable.disabled_edittext_background);
+                                editText.setEnabled(false);
+                            }
+                            break;
+                        }
+                        /*if(editText.getHint().toString().equalsIgnoreCase(arrayListFields.get(i).trim())) {
+                            if (hashMapkey == true) {
+                                //editText.setBackground(null);
+                                editText.setEnabled(true);
+                            } else {
+                                editText.setBackgroundResource(R.drawable.disabled_edittext_background);
+                                editText.setEnabled(false);
+                            }
+                            break;
+                        }*/
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        textInputLayout.addView(editText);
+        parent.addView(textInputLayout);
+
+    }
+
+   /* public static LinearLayout.LayoutParams getLayoutParams(){
+        return new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+    }
+    //create UI for editText
+    public static void createEditText(final Context mContext, final SubProcessFieldDataResponse1.SubProcessField subProcessField, LinearLayout parent, JobDetailsResponse.Applicant applicant) {
+
+
+        TextInputLayout titleWrapper = new TextInputLayout(mContext);
+        //    titleWrapper.setId(Integer.parseInt(dynamicField.getFieldServerID()));
+        titleWrapper.setLayoutParams(getLayoutParams());
+        TextInputEditText et = new TextInputEditText(mContext);
+        et.setLayoutParams(getLayoutParams());
+        et.setTextSize(15);
+        et.setTextColor(Color.BLACK);
+        //et.setId(Integer.parseInt(dynamicField.getFieldServerID()));
+        titleWrapper.setHint("Hello");
+        titleWrapper.setHintAnimationEnabled(false);
+        et.setText("ikjhdsakj");
+        titleWrapper.addView(et);
+        parent.addView(titleWrapper);
+
+    }*/
+
+    /*public static  void createAdapterUI(final Context mContext, LinearLayout parent, final int position, final List<String> headersArrayList, final List<AvailableJobsDataModel.ReportDatum> dataArrayList, final BtnClickListener btnClickListener){
+        try {
+            for (int i = 0; i < headersArrayList.size(); i++) {
+                LayoutInflater inflater = null;
+                inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                final View mLinearView = inflater.inflate(R.layout.list_items, null);
+                TextView textViewHeader = (TextView) mLinearView.findViewById(R.id.jobId);
+                final TextView textViewValue = (TextView) mLinearView.findViewById(R.id.jobIdValue);
+                final ImageView imageView = (ImageView) mLinearView.findViewById(R.id.ImageView);
+                textViewHeader.setTag("header" + position);
+                if (headersArrayList.get(i).equalsIgnoreCase("Location"))
+                {
+                    textViewHeader.setText(headersArrayList.get(i));
+                    imageView.setVisibility(View.VISIBLE);
+                    textViewValue.setVisibility(View.GONE);
+                    imageView.setTag(i);
+                    imageView.setBackgroundResource(R.drawable.map2);
+                    imageView.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            int pos = headersArrayList.indexOf("Pincode");
+                            String postCode= dataArrayList.get(position).getPinCode();
+                            if(IOUtils.isInternetPresent(mContext)) {
+                                if (!TextUtils.isEmpty(postCode)) {
+                                    Intent i = new Intent(mContext, MapActivity.class);
+                                    i.putExtra("postalCode", postCode);
+                                    mContext.startActivity(i);
+                                }
+                            }
+                            else
+                            {
+                                IOUtils.showErrorMessage(mContext,"No internet connection");
+                            }
+
+                        }
+                    });
+
+                }
+                else
+                {
+                    imageView.setVisibility(View.GONE);
+                    textViewValue.setVisibility(View.VISIBLE);
+                    if(headersArrayList.get(i).equalsIgnoreCase("status")||headersArrayList.get(i).equalsIgnoreCase("Perform Job")||headersArrayList.get(i).equalsIgnoreCase("View")||headersArrayList.get(i).equalsIgnoreCase("UnAssign Job")||headersArrayList.get(i).equalsIgnoreCase("User Name")) {
+                        textViewHeader.setVisibility(View.GONE);
+                        textViewValue.setVisibility(View.GONE);
+                    }
+                    else
+                    {
+                        textViewHeader.setVisibility(View.VISIBLE);
+                        textViewValue.setVisibility(View.VISIBLE);
+                        textViewValue.setTag(dataArrayList.get(position) + "_" + position);
+                        imageView.setTag(dataArrayList.get(position).getJobId() + "_" + position);
+                        textViewHeader.setText(headersArrayList.get(i));
+                        if(headersArrayList.get(i).equalsIgnoreCase("Job Creation Date")||headersArrayList.get(i).equalsIgnoreCase("Job Start Time")||headersArrayList.get(i).equalsIgnoreCase("Job End Time")||headersArrayList.get(i).equalsIgnoreCase("Job Completion Date"))
+                        {
+                            String relativeDate = IOUtils.getRelativeDate(dataArrayList.get(position).get(i),mContext);
+                            textViewValue.setText(relativeDate);
+                        }
+                        else
+                        {
+                            textViewValue.setText(dataArrayList.get(position).get(i));
+                        }
+                    }
+                }
+
+
+                parent.addView(mLinearView);
+
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+*/
+
+
     public static void createGenericAdapterUI(final Context mContext, LinearLayout parent, LinearLayout cardVerticalLin, final int position, JSONArray reportHeadersArray, final JSONArray reportDataArray, JSONArray reportHeadersUIArray, JSONArray cardHeadersKeyArray, BtnClickListener btnClickListener) {
 
         try {
-            UIFormsDB uiFormsDB = new UIFormsDB();
             parent.removeAllViews();
             parent.invalidate();
             cardVerticalLin.removeAllViews();
@@ -194,10 +675,10 @@ public class DatabaseUI {
                     if (reportHeadersArray.get(x).toString().equalsIgnoreCase("Job Creation Date") || reportHeadersArray.get(x).toString().equalsIgnoreCase("Job Start Time") || reportHeadersArray.get(x).toString().equalsIgnoreCase("Job End Time") || reportHeadersArray.get(x).toString().equalsIgnoreCase("Job Completion Date")) {
                         String relativeDate = IOUtils.getRelativeDate(data, mContext);
                         layout_weight = headerKeyJObject.getString("layout_weight");
-                        cardTextViews = uiFormsDB.createTextView(mContext, relativeDate, firstCardLayout, ContextCompat.getColor(mContext, R.color.Black), 16, "", "", "");
+                        cardTextViews = createTextView(mContext, relativeDate, firstCardLayout, ContextCompat.getColor(mContext, R.color.Black), 16, "", "", "", "");
                     } else {
                         layout_weight = headerKeyJObject.getString("layout_weight");
-                        cardTextViews = uiFormsDB.createTextView(mContext, data, firstCardLayout, ContextCompat.getColor(mContext, R.color.Black), 16, "", "", "");
+                        cardTextViews = createTextView(mContext, data, firstCardLayout, ContextCompat.getColor(mContext, R.color.Black), 16, "", "", "", "");
                     }
 
                     cardTextViews.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, Float.valueOf(layout_weight)));
@@ -230,6 +711,10 @@ public class DatabaseUI {
                     JSONObject jsonObject = reportDataArray.getJSONObject(position);
                     String fieldFinalVal = jsonObject.getString(uiField);
                     Log.i("MYDATA", fieldFinalVal);
+                    /*if (reportHeadersArray.get(i).toString().equalsIgnoreCase("Job Creation Date") || reportHeadersArray.get(i).toString().equalsIgnoreCase("Job Start Time") || reportHeadersArray.get(i).toString().equalsIgnoreCase("Job End Time") || reportHeadersArray.get(i).toString().equalsIgnoreCase("Job Completion Date")) {
+                        String relativeDate = IOUtils.getRelativeDate(fieldFinalVal, mContext);
+                        textViewValue.setText(relativeDate);
+                    } else*/
 
                     if (reportHeadersArray.get(i).toString().equalsIgnoreCase("Location")) {
                         imageView.setVisibility(View.VISIBLE);
@@ -259,7 +744,26 @@ public class DatabaseUI {
                         });
                     } else {
                         textViewValue.setText(fieldFinalVal);
+                    }/*
+                    if (uiField.equalsIgnoreCase("job_id")) {
+                        jobIdTextView.setText(fieldFinalVal);
                     }
+
+                    if (uiField.equalsIgnoreCase("NBFCName")) {
+                        nbfcNameTextView.setText(fieldFinalVal);
+                    }
+                    if (uiField.equalsIgnoreCase("PinCode")) {
+                        pinCodeTextView.setText(fieldFinalVal);
+                    }
+                    if (uiField.equalsIgnoreCase("TAT")) {
+                        //tatTextView.setText(fieldFinalVal + " Hrs");
+                        tatTextView.setText("TAT " + fieldFinalVal+ " hrs");
+                    }
+                    if (uiField.equalsIgnoreCase("job_creation_date_STR") || uiField.equalsIgnoreCase("job_end_date_STR") || uiField.equalsIgnoreCase("RequestDateandTime") || uiField.equalsIgnoreCase("job_start_date_STR")) {
+                        if (!TextUtils.isEmpty(fieldFinalVal)) {
+                            timeLeftTextView.setText(IOUtils.getRelativeDate(fieldFinalVal, mContext));
+                        }
+                    }*/
                 } catch (JSONException e) {
                     e.printStackTrace();
                     textViewValue.setText("");
@@ -280,7 +784,6 @@ public class DatabaseUI {
     public static void createReportAdapterUI(final Context mContext, LinearLayout parent, LinearLayout cardVerticalLin, final int position, JSONArray reportHeadersArray, JSONArray reportDataArray, JSONArray reportHeadersUIArray, JSONArray cardHeadersKeyArray) {
 
         try {
-            UIFormsDB uiFormsDB = new UIFormsDB();
             parent.removeAllViews();
             parent.invalidate();
             cardVerticalLin.removeAllViews();
@@ -310,7 +813,7 @@ public class DatabaseUI {
                         data = jsonObject.getString(header_key);
                     }
                     String layout_weight = headerKeyJObject.getString("layout_weight");
-                    TextView cardTextViews = uiFormsDB.createTextView(mContext, data, firstCardLayout, ContextCompat.getColor(mContext, R.color.Black), 16, "", "", "");
+                    TextView cardTextViews = createTextView(mContext, data, firstCardLayout, ContextCompat.getColor(mContext, R.color.Black), 16, "", "", "", "");
 
                     cardTextViews.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT, Float.valueOf(layout_weight)));
                 }
@@ -404,62 +907,112 @@ public class DatabaseUI {
 
     }
 
+
+    //dynamic create UI for tabs header and form header
+    public static void createUIForHeader(Context mContext, LinearLayout parent, String name, String headerType, String customerName, String coApplicantName) {
+        try {
+            LinearLayout linearLayout = new LinearLayout(mContext);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.setMargins(0, 0, 0, 10);
+            linearLayout.setLayoutParams(params);
+            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+            linearLayout.setTag("name_");
+            if (headerType.equalsIgnoreCase("tabs")) {
+                // linearLayout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.tabs_background));
+                linearLayout.setBackgroundColor(mContext.getResources().getColor(R.color.clrToolbarBg));
+                linearLayout.setGravity(Gravity.CENTER);
+            } else {
+                // createView(mContext, linearLayout, 15, ViewGroup.LayoutParams.MATCH_PARENT, ContextCompat.getColor(mContext, R.color.clrToolbarBg));
+                //linearLayout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.form_header_background));
+                linearLayout.setBackgroundColor(mContext.getResources().getColor(R.color.clrToolbarBg));
+            }
+            parent.addView(linearLayout);
+            createTextView(mContext, name, linearLayout, ContextCompat.getColor(mContext, R.color.clrToolbarBg), 16, headerType, "", customerName, coApplicantName);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    //create UI for custom view
+    public static void createView(Context mContext, LinearLayout parent, int width, int height, int color) {
+        View view = new View(mContext);
+        view.setBackgroundColor(color);
+        view.setLayoutParams(new LinearLayout.LayoutParams(width, height));
+        parent.addView(view);
+    }
+
+
+    public static void createHorizontalLayoutAndFields(Context mContext, LinearLayout parent, SubProcessFieldDataResponse.SubProcessField subProcessField, String type, JobDetailsResponse.Applicant applicant, String appilcant_json, int formPosition) {
+        LinearLayout linearLayout = new LinearLayout(mContext);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.setMargins(10, 10, 10, 10);
+        linearLayout.setLayoutParams(params);
+        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+        identifyViews(mContext, subProcessField, linearLayout, applicant, parent, appilcant_json, formPosition);
+        String name = "";
+        Method method = null;
+        try {
+            method = JobDetailsResponse.Applicant.class.getDeclaredMethod("get" + StringUtils.capitalize(subProcessField.getKey()));
+            name = (String) method.invoke(applicant, null);
+            if (name == null || name.isEmpty()) {
+                name = "";
+            }
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+            name = "";
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+            name = "";
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+            name = "";
+        } catch (Exception e) {
+            name = "";
+        }
+        createTextView(mContext, name, linearLayout, ContextCompat.getColor(mContext, R.color.black), 12, "", subProcessField.getKey(), "", "");
+        parent.addView(linearLayout);
+    }
+
+    public static void createHorizontalLayoutAndFields(Context mContext, LinearLayout parent, SubProcessFieldDataResponse.SubProcessField subProcessField, JobDetailsResponse.Applicant applicant, String applicant_json, int formPosition) {
+        try {
+            LinearLayout linearLayout = new LinearLayout(mContext);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.setMargins(10, 10, 10, 10);
+            linearLayout.setLayoutParams(params);
+            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
+            identifyViews(mContext, subProcessField, linearLayout, applicant, parent, applicant_json, formPosition);
+            parent.addView(linearLayout);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
     private static void identifyViews(Context mContext, SubProcessFieldDataResponse.SubProcessField subProcessField, LinearLayout parent, JobDetailsResponse.Applicant applicant, LinearLayout mainParent, String applicant_json, int formPosition) {
-        Gson gson = new GsonBuilder().create();
         switch (subProcessField.getFieldType()) {
             case "label":
-                TextViewClass tvc = new TextViewClass();
                 if (subProcessField.getIsMandatory()) {
-                    tvc.createTextView(mContext, subProcessField.getLable(), parent, Color.RED, 14, subProcessField.getFieldType(), "", "");
+                    createTextView(mContext, subProcessField.getLable(), parent, Color.RED, 14, subProcessField.getFieldType(), "", "", applicant_json);
                 } else {
-                    tvc.createTextView(mContext, subProcessField.getLable(), parent, ContextCompat.getColor(mContext, R.color.black), 14, subProcessField.getFieldType(), "", "");
+                    createTextView(mContext, subProcessField.getLable(), parent, ContextCompat.getColor(mContext, R.color.black), 14, subProcessField.getFieldType(), "", "", applicant_json);
                 }
                 break;
             case "fieldHeader":
-                TextViewClass tvc1 = new TextViewClass();
-                tvc1.createTextView(mContext, subProcessField.getLable(), parent, ContextCompat.getColor(mContext, R.color.black), 14, subProcessField.getFieldType(), "", "");
+                createTextView(mContext, subProcessField.getLable(), parent, ContextCompat.getColor(mContext, R.color.black), 14, subProcessField.getFieldType(), "", "", applicant_json);
                 break;
             case "text":
-                //   createEditText(mContext, subProcessField, parent, applicant, applicant_json);
+                createEditText(mContext, subProcessField, parent, applicant, applicant_json);
                 break;
             case "dropDownList":
-                DropDownClass ddc = new DropDownClass();
-                try {
-                    String subProcessFieldJson = gson.toJson(subProcessField);
-                    JSONObject subProcess = new JSONObject(subProcessFieldJson);
-                    String aplic = gson.toJson(applicant);
-                    JSONObject applicantJson = new JSONObject(aplic);
-                    JSONObject assApplicant = new JSONObject(applicant_json);
-                    ddc.createDropdown(mContext, subProcess, parent, applicantJson, mainParent, assApplicant);
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                createDropdown(mContext, subProcessField, parent, applicant, mainParent, applicant_json);
                 break;
             case "textArea":
-                TextAreaClass tac = new TextAreaClass();
-                try {
-                    String subProcessFieldJson = gson.toJson(subProcessField);
-                    JSONObject subProcess = new JSONObject(subProcessFieldJson);
-                    String aplic = gson.toJson(applicant);
-                    JSONObject applicantJson = new JSONObject(aplic);
-                    JSONObject assApplicant = new JSONObject(applicant_json);
-                    tac.createTextArea(mContext, subProcess, parent, applicantJson, assApplicant);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+                createTextArea(mContext, subProcessField, parent, applicant, applicant_json);
                 break;
             case "Date":
-                DatePickerDialogClass datePickerDialogClass = new DatePickerDialogClass();
-                try {
-                    String subProcessFieldJson = gson.toJson(subProcessField);
-                    JSONObject subProcess = new JSONObject(subProcessFieldJson);
-                    String aplic = gson.toJson(applicant);
-                    JSONObject applicantJson = new JSONObject(aplic);
-                    JSONObject assApplicant = new JSONObject(applicant_json);
-                    datePickerDialogClass.createDatePickerDialog(mContext, subProcess, parent, applicantJson, mainParent, assApplicant);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+                createDatePickerDialog(mContext, subProcessField, parent, applicant, mainParent, applicant_json);
                 break;
             case "RadioButton":
                 createRadioButton(mContext, subProcessField, parent, applicant, mainParent, applicant_json, formPosition);
@@ -471,30 +1024,10 @@ public class DatabaseUI {
                 createUploadButton(mContext, subProcessField, parent, applicant);
                 break;
             case "YearMonth":
-                YearMonthComboClass ymcc = new YearMonthComboClass();
-                try {
-                    String subProcessFieldJson = gson.toJson(subProcessField);
-                    JSONObject subProcess = new JSONObject(subProcessFieldJson);
-                    String aplic = gson.toJson(applicant);
-                    JSONObject applicantJson = new JSONObject(aplic);
-                    JSONObject assApplicant = new JSONObject(applicant_json);
-                    ymcc.createYearMonthCombo(mContext, subProcess, parent, applicantJson, mainParent, assApplicant,activity);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+                createYearMonthCombo(mContext, subProcessField, parent, applicant, mainParent, applicant_json);
                 break;
             case "checkbox":
-                CheckBoxClass cbc = new CheckBoxClass();
-                try {
-                    String subProcessFieldJson = gson.toJson(subProcessField);
-                    JSONObject subProcess = new JSONObject(subProcessFieldJson);
-                    String aplic = gson.toJson(applicant);
-                    JSONObject applicantJson = new JSONObject(aplic);
-                    JSONObject assApplicant = new JSONObject(applicant_json);
-                    cbc.createCheckBox(mContext, subProcess, parent, applicantJson, mainParent, assApplicant);
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
+                createCheckBox(mContext, subProcessField, parent, applicant, mainParent, applicant_json);
                 break;
         }
     }
@@ -593,6 +1126,8 @@ public class DatabaseUI {
                                                 if (editTextHashMap.size() > 0) {
                                                     for (Map.Entry<Integer, EditText> editTextEntry : editTextHashMap.entrySet()) {
                                                         editTextEntry.getValue().setText("");
+/* params.setMargins(0,0,0,0);
+ editTextEntry.getValue().setLayoutParams(params);*/
                                                         editTextEntry.getValue().setVisibility(View.GONE);
                                                     }
                                                 }
@@ -632,6 +1167,8 @@ public class DatabaseUI {
                                             if (editTextHashMap.size() > 0) {
                                                 for (Map.Entry<Integer, EditText> editTextEntry : editTextHashMap.entrySet()) {
                                                     editTextEntry.getValue().setText("");
+/* params.setMargins(0,0,0,0);
+ editTextEntry.getValue().setLayoutParams(params);*/
                                                     editTextEntry.getValue().setVisibility(View.VISIBLE);
                                                 }
                                             }
@@ -678,6 +1215,7 @@ public class DatabaseUI {
                                     if (val != null && !TextUtils.isEmpty(val)) {
                                         if (subProcessField.getValue().get(i).equalsIgnoreCase(val)) {
                                             radioButton.setChecked(true);
+//radioGroup.check(subProcessField.getIds().get(i));
                                         }
                                     }
                                 } catch (Exception e) {
@@ -689,12 +1227,15 @@ public class DatabaseUI {
                                     if (text != null && !TextUtils.isEmpty(text)) {
                                         if (subProcessField.getValue().get(i).equalsIgnoreCase(text)) {
                                             radioButton.setChecked(true);
+// radioGroup.check(subProcessField.getIds().get(i));
                                         }
                                     }
                                 } catch (NoSuchMethodException e) {
                                     e.printStackTrace();
                                     if (val != null && !TextUtils.isEmpty(val)) {
                                         if (subProcessField.getValue().get(i).equalsIgnoreCase(val)) {
+//radioButton.setChecked(true);
+                                            //radioGroup.check(subProcessField.getIds().get(i));
                                         }
                                     }
 
@@ -702,6 +1243,8 @@ public class DatabaseUI {
                                     e.printStackTrace();
                                     if (val != null && !TextUtils.isEmpty(val)) {
                                         if (subProcessField.getValue().get(i).equalsIgnoreCase(val)) {
+//radioButton.setChecked(true);
+                                            //radioGroup.check(subProcessField.getIds().get(i));
                                         }
                                     }
 
@@ -709,6 +1252,8 @@ public class DatabaseUI {
                                     e.printStackTrace();
                                     if (val != null && !TextUtils.isEmpty(val)) {
                                         if (subProcessField.getValue().get(i).equalsIgnoreCase(val)) {
+// radioButton.setChecked(true);
+                                            //radioGroup.check(subProcessField.getIds().get(i));
                                         }
                                     }
 
@@ -1510,6 +2055,7 @@ public class DatabaseUI {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
                 }
             });
             dialog.show();
@@ -1532,7 +2078,9 @@ public class DatabaseUI {
             editText.setTextColor(Color.BLACK);
             editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
             //add validation pattern
-            mAwesomeValidation.addValidation(editText, subProcessField.getValidationPattern(), subProcessField.getValidationMessage());
+            if (subProcessField.getValidationPattern() != "" && subProcessField.getValidationPattern() != null) {
+                mAwesomeValidation.addValidation(editText, subProcessField.getValidationPattern(), subProcessField.getValidationMessage());
+            }
             if (subProcessField.getIsMandatory()) {
                 textInputLayout.setHintTextAppearance(R.style.error_appearance);
                 editText.setHintTextColor(Color.RED);
@@ -1606,7 +2154,7 @@ public class DatabaseUI {
             } else if (subProcessField.getValidation().equalsIgnoreCase("alphaNumeric")) {
                 editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
             } else {
-                editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+                editText.setInputType(InputType.TYPE_CLASS_TEXT);
             }
             //editText.setGravity(Gravity.TOP);
             editText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
@@ -1698,8 +2246,7 @@ public class DatabaseUI {
             tableRow.setBackground(ContextCompat.getDrawable(mContext, R.drawable.tabs_background));
             addCheckBoxToTableRow(mContext, "Delete", tableRow, Color.BLACK, 12, -1, parent);
             for (int i = 0; i < tableHeaderList.size(); i++) {
-                UIFormsDB uiFormsDB = new UIFormsDB();
-                uiFormsDB.createView(mContext, tableRow, 1, TableRow.LayoutParams.MATCH_PARENT, ContextCompat.getColor(mContext, R.color.gray));
+                createView(mContext, tableRow, 1, TableRow.LayoutParams.MATCH_PARENT, ContextCompat.getColor(mContext, R.color.gray));
                 addTextViewToTableRow(mContext, tableHeaderList.get(i), tableRow, Color.BLACK, 12, -1, tableKeysList.get(i).trim());
             }
             tableRow.setGravity(Gravity.CENTER);
@@ -1743,8 +2290,9 @@ public class DatabaseUI {
 
                     }
 
+
                     if (arrayListRow.size() > 0) {
-                        createTableRows(mContext, linearLayout, arrayListRow, (SubProcessFieldDataResponse.TemplateField) tableKeysList);
+                        createTableRows(mContext, linearLayout, arrayListRow, tableKeysList);
                     }
                 }
             }
@@ -1785,8 +2333,7 @@ public class DatabaseUI {
             tableRow.setBackground(ContextCompat.getDrawable(mContext, R.drawable.tabs_background));
             addCheckBoxToTableRow(mContext, "Delete", tableRow, Color.BLACK, 12, -1, parent);
             for (int i = 0; i < tableHeaderList.size(); i++) {
-                UIFormsDB uiFormsDB = new UIFormsDB();
-                uiFormsDB.createView(mContext, tableRow, 1, TableRow.LayoutParams.MATCH_PARENT, ContextCompat.getColor(mContext, R.color.gray));
+                createView(mContext, tableRow, 1, TableRow.LayoutParams.MATCH_PARENT, ContextCompat.getColor(mContext, R.color.gray));
                 addTextViewToTableRow(mContext, tableHeaderList.get(i), tableRow, Color.BLACK, 12, -1, tableKeysList.get(i).trim());
             }
             tableRow.setGravity(Gravity.CENTER);
@@ -1832,7 +2379,7 @@ public class DatabaseUI {
 
 
                     if (arrayListRow.size() > 0) {
-                        createTableRows(mContext, linearLayout, arrayListRow, (SubProcessFieldDataResponse.TemplateField) tableKeysList);
+                        createTableRows(mContext, linearLayout, arrayListRow, tableKeysList);
                     }
                 }
             }
@@ -1874,8 +2421,7 @@ public class DatabaseUI {
             tableRow.setBackground(ContextCompat.getDrawable(mContext, R.drawable.tabs_background));
             addCheckBoxToTableRow(mContext, "Delete", tableRow, Color.BLACK, 12, -1, parent);
             for (int i = 0; i < tableHeaderList.size(); i++) {
-                UIFormsDB uiFormsDB = new UIFormsDB();
-                uiFormsDB.createView(mContext, tableRow, 1, TableRow.LayoutParams.MATCH_PARENT, ContextCompat.getColor(mContext, R.color.gray));
+                createView(mContext, tableRow, 1, TableRow.LayoutParams.MATCH_PARENT, ContextCompat.getColor(mContext, R.color.gray));
                 addTextViewToTableRow(mContext, tableHeaderList.get(i), tableRow, Color.BLACK, 12, -1, tableKeysList.get(i).trim());
             }
             tableRow.setGravity(Gravity.CENTER);
@@ -1921,7 +2467,7 @@ public class DatabaseUI {
 
 
                     if (arrayListRow.size() > 0) {
-                        createTableRows(mContext, linearLayout, arrayListRow, (SubProcessFieldDataResponse.TemplateField) tableKeysList);
+                        createTableRows(mContext, linearLayout, arrayListRow, tableKeysList);
                     }
                 }
             }
@@ -1971,7 +2517,7 @@ public class DatabaseUI {
 
                         }
                         if (arrayListRow.size() > 0) {
-                            createTableRows(mContext, linearLayout, arrayListRow, (SubProcessFieldDataResponse.TemplateField) tableKeysList);
+                            createTableRows(mContext, linearLayout, arrayListRow, tableKeysList);
                         }
                     }
                 }
@@ -2029,6 +2575,40 @@ public class DatabaseUI {
         }
     }
 
+    /*private static boolean validatePattern(EditText editText, List<String> tableMandatoryFieldsList) {
+        boolean isValid =true;
+        try {
+            for (int i = 0; i < tableMandatoryFieldsList.size(); i++) {
+                String tag = editText.getTag().toString();
+                String key = "";
+                if (tag.contains("/")) {
+                    key = tag.split("/")[0];
+                } else {
+                    key = tag;
+                }
+                if (key.equalsIgnoreCase(tableMandatoryFieldsList.get())) {
+                    if (subProcessField.getValidationPattern() != null && !subProcessField.getValidationPattern().isEmpty()) {
+
+                        Pattern sPattern
+                                = Pattern.compile(subProcessField.getValidationPattern());
+                        String text = editText.getText().toString();
+                        if (!sPattern.matcher(text).matches()) {
+                            editText.setError(subProcessField.getValidationMessage());
+                            isValid = false;
+                            break;
+                        } else {
+                            editText.setError(null);
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+        return isValid;
+    }*/
     private static boolean validateAddTableRow(Context mContext, List<String> tableMandatoryFieldsList, LinearLayout viewParent) {
         String text = "";
         EditText editText = null;
@@ -2058,6 +2638,39 @@ public class DatabaseUI {
 
         return validateFlag;
     }
+
+
+    public static void createTableRows(Context mContext, LinearLayout parent, ArrayList<String> arrayListRow, final List<String> tableKeysList) {
+        try {
+            TableLayout tableLayout = new TableLayout(mContext);
+            TableLayout.LayoutParams params = new TableLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
+            tableLayout.setLayoutParams(params);
+            tableLayout.setId(addCount);
+            //tableLayout.setStretchAllColumns(true);
+            TableRow tableRow = new TableRow(mContext);
+            tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+            addCheckBoxToTableRow(mContext, "", tableRow, Color.BLACK, 12, addCount, parent);
+            for (int i = 0; i < arrayListRow.size(); i++) {
+                createView(mContext, tableRow, 1, TableRow.LayoutParams.MATCH_PARENT, ContextCompat.getColor(mContext, R.color.gray));
+                addTextViewToTableRow(mContext, arrayListRow.get(i), tableRow, Color.BLACK, 12, i, tableKeysList.get(i).trim());
+            }
+            tableRow.setGravity(Gravity.CENTER);
+            tableLayout.addView(tableRow, params);
+            parent.addView(tableLayout);
+            createView(mContext, parent, LinearLayout.LayoutParams.MATCH_PARENT, 1, ContextCompat.getColor(mContext, R.color.gray));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    //create UI for custom view inside table row
+    public static void createView(Context mContext, TableRow parent, int width, int height, int color) {
+        View view = new View(mContext);
+        view.setBackgroundColor(color);
+        view.setLayoutParams(new TableRow.LayoutParams(width, height));
+        parent.addView(view);
+    }
+
 
     private static void addCheckBoxToTableRow(Context mContext, String text, final TableRow parentRow, int textColor, float textSize, final int positionToAdd, final LinearLayout parent) {
         try {
@@ -2179,15 +2792,17 @@ public class DatabaseUI {
     public static void identifyReportViews(Context mContext, ReportFilterModel.ReportFilter reportField, LinearLayout parent) {
         switch (reportField.getFieldType()) {
             case "label":
-                TextViewClass tvc = new TextViewClass();
                 if (reportField.getIsMandatory()) {
-                    tvc.createTextView(mContext, reportField.getLable(), parent, Color.RED, 12, "", "", "");
+                    createTextView(mContext, reportField.getLable(), parent, Color.RED, 12, "", "", "", "");
                 } else {
-                    tvc.createTextView(mContext, reportField.getLable(), parent, ContextCompat.getColor(mContext, R.color.black), 12, "", "", "");
+                    createTextView(mContext, reportField.getLable(), parent, ContextCompat.getColor(mContext, R.color.black), 12, "", "", "", "");
                 }
                 break;
             case "text":
                 createReportEditText(mContext, reportField, parent);
+                break;
+            case "dropDownList":
+                createReportDropdown(mContext, reportField, parent);
                 break;
             case "textArea":
                 createReportTextArea(mContext, reportField, parent);
@@ -2196,6 +2811,70 @@ public class DatabaseUI {
                 createDatePickerDialog(mContext, reportField, parent);
                 break;
         }
+    }
+
+    public static void createReportDropdown(final Context mContext, final ReportFilterModel.ReportFilter reportFilterFeild, LinearLayout parent) {
+        final TextInputEditText editText = new TextInputEditText(mContext);
+        final TextInputLayout textInputLayout = new TextInputLayout(mContext);
+        try {
+
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, 1f);
+            params.setMargins(5, 5, 5, 5);
+            editText.setLayoutParams(params);
+            editText.setPadding(10, 10, 10, 20);
+            textInputLayout.setLayoutParams(params);
+            editText.setTag(reportFilterFeild.getFieldID());
+            editText.setId(reportFilterFeild.getFieldID());
+            editText.setTextColor(Color.BLACK);
+            editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 15);
+            editText.setCompoundDrawablesWithIntrinsicBounds(0, 0, R.drawable.blue_dropdown_arrow, 0);
+            // editText.setCompoundDrawables(null,null,ContextCompat.getDrawable(mContext,R.drawable.black_dropdown_arrow),null);
+            if (reportFilterFeild.getIsMandatory()) {
+                textInputLayout.setHintTextAppearance(R.style.error_appearance);
+                editText.setHintTextColor(Color.RED);
+            } else {
+                textInputLayout.setHintTextAppearance(R.style.TextLabel);
+            }
+            if (reportFilterFeild.getLable() != null) {
+                textInputLayout.setHint(reportFilterFeild.getLable());
+                editText.setHint(reportFilterFeild.getLable());
+                textInputLayout.setHintAnimationEnabled(false);
+                editText.setText(reportFilterFeild.getLable());
+                textInputLayout.setHintAnimationEnabled(true);
+            } else {
+                textInputLayout.setHint(reportFilterFeild.getLable());
+                editText.setHint(reportFilterFeild.getLable());
+                textInputLayout.setHintAnimationEnabled(false);
+                editText.setText("Select");
+                textInputLayout.setHintAnimationEnabled(true);
+            }
+            if (reportFilterFeild.getValidation().equalsIgnoreCase("Numeric") || reportFilterFeild.getValidation().equalsIgnoreCase("Numbers")) {
+                editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+            } else if (reportFilterFeild.getValidation().equalsIgnoreCase("alphaNumeric")) {
+                editText.setInputType(InputType.TYPE_CLASS_TEXT);
+            }
+
+            editText.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    //openDropDownOptions(mContext,editText);
+                }
+            });
+
+            editText.setFocusable(false);
+            editText.setFocusableInTouchMode(false);
+            editText.setBackgroundResource(R.drawable.form_header_background);
+            editText.setEnabled(true);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            textInputLayout.setHint("select");
+            textInputLayout.setHintAnimationEnabled(false);
+            editText.setText("Select");
+            textInputLayout.setHintAnimationEnabled(true);
+        }
+        textInputLayout.addView(editText);
+        parent.addView(textInputLayout);
     }
 
 
@@ -2414,53 +3093,6 @@ public class DatabaseUI {
 
     }
 
-    public static void createHorizontalLayoutAndFields(Context mContext, LinearLayout parent, SubProcessFieldDataResponse.SubProcessField subProcessField, String type, JobDetailsResponse.Applicant applicant, String appilcant_json, int formPosition) {
-        LinearLayout linearLayout = new LinearLayout(mContext);
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        params.setMargins(10, 10, 10, 10);
-        linearLayout.setLayoutParams(params);
-        linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-        identifyViews(mContext, subProcessField, linearLayout, applicant, parent, appilcant_json, formPosition);
-        String name = "";
-
-        Method method = null;
-        try {
-            method = JobDetailsResponse.Applicant.class.getDeclaredMethod("get" + StringUtils.capitalize(subProcessField.getKey()));
-            name = (String) method.invoke(applicant, null);
-            if (name == null || name.isEmpty()) {
-                name = "";
-            }
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-            name = "";
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-            name = "";
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            name = "";
-        } catch (Exception e) {
-            name = "";
-        }
-        TextViewClass tvc = new TextViewClass();
-        tvc.createTextView(mContext, name, linearLayout, ContextCompat.getColor(mContext, com.app.dynamicform.R.color.black), 12, "", subProcessField.getKey(), "");
-        parent.addView(linearLayout);
-    }
-
-    public static void createHorizontalLayoutAndFields(Context mContext, LinearLayout parent, SubProcessFieldDataResponse.SubProcessField subProcessField, JobDetailsResponse.Applicant applicant, String applicant_json, int formPosition) {
-        try {
-            LinearLayout linearLayout = new LinearLayout(mContext);
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.setMargins(10, 10, 10, 10);
-            linearLayout.setLayoutParams(params);
-            linearLayout.setOrientation(LinearLayout.HORIZONTAL);
-            identifyViews(mContext, subProcessField, linearLayout, applicant, parent, applicant_json, formPosition);
-            parent.addView(linearLayout);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public static void createHorizontalLayoutAndFieldsForReport(Context mContext, LinearLayout parent, ReportFilterModel.ReportFilter reportFilterFeilds) {
         try {
 
@@ -2542,6 +3174,9 @@ public class DatabaseUI {
         }
         return reportFilters;
     }
+
+
+    //create button
 
     public static void createUploadButton(final Context mContext, final SubProcessFieldDataResponse.SubProcessField subProcessField, LinearLayout parent, JobDetailsResponse.Applicant applicant) {
         try {
@@ -2764,6 +3399,23 @@ public class DatabaseUI {
                 }
             });
 */
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void createViewPager(Context mContext, LinearLayout llGalleryView, int position, String formName) {
+        try {
+            LayoutInflater inflater = null;
+            inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View mLinearView = inflater.inflate(R.layout.image_gallary, null);
+            LinearLayout linearLayout = (LinearLayout) mLinearView.findViewById(R.id.llParentGallary);
+            TextView textView = (TextView) mLinearView.findViewById(R.id.textView);
+            linearLayout.setTag(formName + "_" + position);
+            textView.setTag("textView" + formName + "_" + position);
+            llGalleryView.addView(mLinearView);
+            //  Bitmap bmp = BitmapFactory.decodeResource(mContext.getResources(),R.drawable.view);
+            // setImagesToGallaryView(mContext,llGalleryView,position,formName,bmp);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -3001,7 +3653,6 @@ public class DatabaseUI {
         }
         return editTextData;
     }
-
 
     public HashMap<String, EditText> findAllEdittextsToValidate(ViewGroup viewGroup) {
         try {
@@ -3298,11 +3949,157 @@ public class DatabaseUI {
                         }
                     }
                 }
+
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return mapbuttonsHashMap;
+    }
+
+
+    public static void createHoldPopup(final Context context, final String[] holdReasonsList, final BtnClickListener btnClickListener, final String jobID, final String nbfcName) {
+        final Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.hold_job_popup);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        TextInputLayout textInputLayoutDate = (TextInputLayout) dialog.findViewById(R.id.selectDateInput);
+        final EditText editTextDate = (EditText) dialog.findViewById(R.id.HoldDateEditText);
+        TextInputLayout textInputLayoutReason = (TextInputLayout) dialog.findViewById(R.id.selectReasonInput);
+        Button okButton = (Button) dialog.findViewById(R.id.okButton);
+        Button cancelButton = (Button) dialog.findViewById(R.id.cancelButton);
+        final EditText editTextReason = (EditText) dialog.findViewById(R.id.ReasonEditText);
+        editTextReason.setText("Select");
+        String myFormat = "dd/MM/yyyy HH:mm:ss"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+        final Calendar myCalendar = Calendar.getInstance();
+        editTextDate.setText(sdf.format(myCalendar.getTime()));
+        ((EditText) editTextDate).setOnTouchListener(new View.OnTouchListener() {
+
+            @Override
+            public boolean onTouch(View arg0, MotionEvent arg1) {
+                // TODO Auto-generated method stub
+                switch (arg1.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        openHoldCalenderView(context, editTextDate);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        break;
+
+                }
+
+                return true;
+            }
+        });
+
+        editTextReason.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openHoldDropDownOptions(context, holdReasonsList, editTextReason, "Select");
+            }
+        });
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        okButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!TextUtils.isEmpty(editTextDate.getText().toString()) && !TextUtils.isEmpty(editTextReason.getText().toString()) && !editTextReason.getText().toString().equalsIgnoreCase("select")) {
+                    String myFormat = "dd/MM/yyyy HH:mm:ss"; //In which you need put here
+                    SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+                    btnClickListener.holdListener(editTextDate.getText().toString(), editTextReason.getText().toString(), jobID, nbfcName);
+                    dialog.dismiss();
+                } else {
+                    MyDynamicToast.errorMessage(context, "Fields can not be empty");
+                }
+            }
+
+        });
+        dialog.show();
+    }
+
+    private static void openHoldCalenderView(final Context mContext, final EditText editText) {
+
+        try {
+            final Date[] value = {new Date()};
+            final Calendar cal = Calendar.getInstance();
+            cal.setTime(value[0]);
+            new DatePickerDialog(mContext,
+                    new DatePickerDialog.OnDateSetListener() {
+                        boolean mFirst = true;
+
+                        @Override
+                        public void onDateSet(DatePicker view,
+                                              int y, int m, int d) {
+
+                            if (mFirst) {
+                                mFirst = false;
+
+                                cal.set(Calendar.YEAR, y);
+                                cal.set(Calendar.MONTH, m);
+                                cal.set(Calendar.DAY_OF_MONTH, d);
+                                // now show the time picker
+                                new TimePickerDialog(mContext,
+                                        new TimePickerDialog.OnTimeSetListener() {
+                                            @Override
+                                            public void onTimeSet(TimePicker view,
+                                                                  int h, int min) {
+                                                cal.set(Calendar.HOUR_OF_DAY, h);
+                                                cal.set(Calendar.MINUTE, min);
+                                                value[0] = cal.getTime();
+                                                String myFormat = "dd/MM/yyyy HH:mm:ss"; //In which you need put here
+                                                SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+                                                String date = sdf.format(value[0]);
+                                                editText.setText(date);
+                                            }
+                                        }, cal.get(Calendar.HOUR_OF_DAY),
+                                        cal.get(Calendar.MINUTE), true).show();
+                            }
+                        }
+                    }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH),
+                    cal.get(Calendar.DAY_OF_MONTH)).show();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private static void openHoldDropDownOptions(final Context mContext, String value[], final EditText editText, final String lable) {
+        try {
+
+            final String value_arr[] = new String[value.length + 1];
+            value_arr[0] = lable;
+            for (int i = 0; i < value.length; i++) {
+                int pos = i + 1;
+                value_arr[pos] = value[i];
+            }
+            final Dialog dialog = new Dialog(mContext);
+            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            dialog.setContentView(R.layout.popup_dropdown);
+            ListView dropdownList = (ListView) dialog.findViewById(R.id.dropdownList);
+            final ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext, R.layout.list_dropdown_items, value_arr);
+            adapter.notifyDataSetChanged();
+            dropdownList.setAdapter(adapter);
+            dropdownList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                    if (position != 0) {
+                        editText.setText(value_arr[position]);
+                    }
+                    dialog.dismiss();
+                }
+            });
+            dialog.show();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 

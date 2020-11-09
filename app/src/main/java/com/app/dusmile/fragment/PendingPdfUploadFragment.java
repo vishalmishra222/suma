@@ -299,6 +299,8 @@ public class PendingPdfUploadFragment extends Fragment {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
     }
 
 
@@ -556,6 +558,7 @@ public class PendingPdfUploadFragment extends Fragment {
     public void submitJobDeails(JSONObject jsonObject, String jobId) {
         IOUtils.startLoading(getActivity(), "Please wait...");
         IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_SAVE_SUBMIT_JOB_DETAILS + "/" + jobId);
+        IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " "+ new Const().REQUEST_SAVE_SUBMIT_JOB_DETAILS +" \n API " + jsonObject.toString());
         new HttpVolleyRequest(DusmileApplication.getAppContext(), jsonObject, new Const().REQUEST_SAVE_SUBMIT_JOB_DETAILS + "/" + jobId, listenerSubmitJobDetails);
     }
 
@@ -571,6 +574,7 @@ public class PendingPdfUploadFragment extends Fragment {
              //   IOUtils.stopLoading();
                 if (obj != null) {
                     String response = obj.toString();
+                    IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " "+ new Const().REQUEST_SAVE_SUBMIT_JOB_DETAILS +" \n API " + response.toString());
                     Gson gson = new Gson();
                     JSONObject responseJson = new JSONObject(response);
                     if (responseJson.length() > 0) {
@@ -578,11 +582,6 @@ public class PendingPdfUploadFragment extends Fragment {
                         IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_SAVE_SUBMIT_JOB_DETAILS + "/" + jobId + "STATUS " + saveSubmitJobResponseModel.getSuccess());
                         Boolean success = saveSubmitJobResponseModel.getSuccess();
                         if (success == true) {
-                           // MyDynamicToast.successMessage(mContext, saveSubmitJobResponseModel.getMessage());
-                            String jobID = saveSubmitJobResponseModel.getJOBID();
-                            String nbfcname = saveSubmitJobResponseModel.getNBFCNAME();
-                           /* AssignedJobsDB.removeJobByJobId(dbHelper, jobId);
-                            AssignedJobsStatusDB.removeJobStatusByJobId(dbHelper, jobId);*/
                             if (hashMapImages.size() > 0) {
                                 new doUploadPDFWork(fileToUpload, requestUrl, getActivity(), jobId, nbfcName, jobtype).execute();
                             } else {
@@ -648,6 +647,7 @@ public class PendingPdfUploadFragment extends Fragment {
                     }
                 }
             } catch (Exception e) {
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " "+ new Const().REQUEST_SAVE_SUBMIT_JOB_DETAILS +" \n API " + obj.toString());
                 IOUtils.stopLoading();
                 IOUtils.stopUpdateStatusLoading();
                 e.printStackTrace();
@@ -658,6 +658,7 @@ public class PendingPdfUploadFragment extends Fragment {
         public void failure(VolleyError volleyError) {
             try {
                 IOUtils.stopLoading();
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " "+ new Const().REQUEST_SAVE_SUBMIT_JOB_DETAILS +" \n API " + volleyError.getMessage() + " " + volleyError.networkResponse.toString());
                 if (volleyError != null) {
                 }
             } catch (Exception e) {
@@ -685,7 +686,6 @@ public class PendingPdfUploadFragment extends Fragment {
 
     private HashMap<String, ArrayList<Bitmap>> getAlreadyExistingImagesHashmap(String jobId) {
         IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " Get already existing images from folder");
-        int imageUploaded = 0;   //pdf not created = 0, uploaded successfully = 1, not uploaded = 2
         try {
             hashMapImages.clear();
             hashMapFilenames.clear();
@@ -697,9 +697,6 @@ public class PendingPdfUploadFragment extends Fragment {
                     String fileName = c.getName();
                     String[] fileName_arr = fileName.split("_");
                     String selectedForm = fileName_arr[0];
-                    // int selectedPosition = Integer.parseInt(fileName_arr[1]);
-                    //  String lastPos = fileName_arr[2].substring(0, fileName_arr[2].lastIndexOf("."));
-                    // int addPosition = Integer.parseInt(lastPos);
                     Bitmap decoded = BitmapFactory.decodeFile(c.getPath());
 
                     if (hashMapImages.containsKey(selectedForm)) {

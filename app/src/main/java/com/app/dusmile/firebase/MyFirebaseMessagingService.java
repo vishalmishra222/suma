@@ -17,7 +17,6 @@ import com.app.dusmile.preferences.RecordUser;
 import com.app.dusmile.preferences.UserPreference;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-
 import org.json.JSONObject;
 
 import java.util.Map;
@@ -29,33 +28,31 @@ import java.util.Map;
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private static final String TAG = "FCM Service";
     private NotificationManager mNotificationManager;
-    public static int NOTIFICATION_ID = 1;
-
+    public static final int NOTIFICATION_ID = 1;
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         // TODO: Handle FCM messages here.
         // If the application is in the foreground handle both data and notification messages here.
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated.
-        if (remoteMessage != null) {
-            Map<String, String> notificationData = remoteMessage.getData();
-            // sendNotification(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
-            Log.e("data", remoteMessage.getData().toString());
-            try {
+        if(remoteMessage!=null) {
+            Map<String,String> notificationData = remoteMessage.getData();
+            sendNotification(remoteMessage.getNotification().getTitle());
+            Log.e("data",remoteMessage.getData().toString());
+            try
+            {
                 Map<String, String> params = remoteMessage.getData();
                 JSONObject object = new JSONObject(params);
                 Log.e("JSON_OBJECT", object.toString());
-                String title = object.getString("title");
-                String message = object.getString("body");
+
+                String message = object.getString("message");
 
                 RecordUser recordUser = UserPreference.getUserRecord(this);
                 if (recordUser != null && !TextUtils.isEmpty(recordUser.getUserID())) {
-                    if (title != null && message != null) {
-                        sendNotification(title, message);
-                    }
+                    sendNotification(message);
                 }
-            } catch (Exception e) {
-                e.printStackTrace();
+            }catch (Exception e){
+
             }
            /* Log.e(TAG, "From: " + remoteMessage.getFrom());
             Log.e(TAG, "Notification Message Body: " + notificationData.get(0));
@@ -68,8 +65,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
     }
 
-    private void sendNotification(String title, String msg) {
-        NOTIFICATION_ID = NOTIFICATION_ID + 1;
+    private void sendNotification(String msg) {
+
         mNotificationManager = (NotificationManager) this
                 .getSystemService(Context.NOTIFICATION_SERVICE);
         AppConstant.isAvilableJobs = false;
@@ -83,7 +80,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         NotificationCompat.Builder mBuilder = (NotificationCompat.Builder) new NotificationCompat.Builder(
                 this)//.setLargeIcon(BitmapFactory.decodeResource(getResources(), R.drawable.app_logo))
                 .setSmallIcon(R.drawable.sumaicon)
-                .setContentTitle(title)
+                .setContentTitle(msg)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(getString(R.string.job_reminder)))
                 .setAutoCancel(true)
                 .setColor(getResources().getColor(R.color.white))
@@ -91,10 +88,11 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentText(msg);
 
         mBuilder.setSound(Settings.System.DEFAULT_NOTIFICATION_URI);
-        mBuilder.setVibrate(new long[]{1000, 1000});
+        mBuilder.setVibrate(new long[] { 1000, 1000});
         mBuilder.setContentIntent(pendingIntent);
         mNotificationManager.notify(NOTIFICATION_ID, mBuilder.build());
     }
+
 
 
 }

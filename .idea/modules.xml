@@ -2,12 +2,14 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="dusmile/app" />
-      <module fileurl="file://$PROJECT_DIR$/autoinstall/autoinstall.iml" filepath="$PROJECT_DIR$/autoinstall/autoinstall.iml" group="dusmile/autoinstall" />
-      <module fileurl="file://$PROJECT_DIR$/dynamicform/dynamicform.iml" filepath="$PROJECT_DIR$/dynamicform/dynamicform.iml" group="Dusmile_Demo/dynamicform" />
-      <module fileurl="file://$PROJECT_DIR$/pdfBox/pdfBox.iml" filepath="$PROJECT_DIR$/pdfBox/pdfBox.iml" group="dusmile/pdfBox" />
-      <module fileurl="file://$PROJECT_DIR$/siren/siren.iml" filepath="$PROJECT_DIR$/siren/siren.iml" group="dusmile/siren" />
-      <module fileurl="file://$PROJECT_DIR$/suma.iml" filepath="$PROJECT_DIR$/suma.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="smile/app" />
+      <module fileurl="file://$PROJECT_DIR$/autoinstall/autoinstall.iml" filepath="$PROJECT_DIR$/autoinstall/autoinstall.iml" group="smile/autoinstall" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/dusmile.iml" filepath="$PROJECT_DIR$/.idea/dusmile.iml" group="dusmile" />
+      <module fileurl="file://$PROJECT_DIR$/pdfBox/pdfBox.iml" filepath="$PROJECT_DIR$/pdfBox/pdfBox.iml" group="smile/pdfBox" />
+      <module fileurl="file://$PROJECT_DIR$/siren/siren.iml" filepath="$PROJECT_DIR$/siren/siren.iml" group="smile/siren" />
+      <module fileurl="file://$PROJECT_DIR$/smile.iml" filepath="$PROJECT_DIR$/smile.iml" group="smile" />
+      <module fileurl="file://$PROJECT_DIR$/sumaforms/sumaforms.iml" filepath="$PROJECT_DIR$/sumaforms/sumaforms.iml" group="dusmile/sumaforms" />
+      <module fileurl="file://$PROJECT_DIR$/sumaforms2/sumaforms2.iml" filepath="$PROJECT_DIR$/sumaforms2/sumaforms2.iml" group="dusmile/sumaforms2" />
     </modules>
   </component>
 </project>

@@ -115,6 +115,10 @@
             android:screenOrientation="portrait" />
 
         <activity
+            android:name=".activity.JobDetailsActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name=".activity.ReportDetailsActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />

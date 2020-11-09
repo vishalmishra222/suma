@@ -26,54 +26,42 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.error.VolleyError;
-import com.app.dusmile.DBModel.OfflineAssignedJobs;
-import com.app.dusmile.DBModel.SubCategory;
 import com.app.dusmile.R;
 import com.app.dusmile.activity.ReportDetailsActivity;
 import com.app.dusmile.adapter.ReportDetailsAdapter;
 import com.app.dusmile.connection.HttpVolleyRequest;
 import com.app.dusmile.connection.MyListener;
-import com.app.dusmile.constant.AppConstant;
-import com.app.dusmile.database.LoginTemplateDB;
-import com.app.dusmile.database.OfflineAssignedJobsDB;
-import com.app.dusmile.database.SubCategoryDB;
-import com.app.dusmile.database.helper.DBHelper;
-import com.app.dusmile.model.JobsResources;
 import com.app.dusmile.preferences.Const;
 import com.app.dusmile.preferences.UserPreference;
 import com.app.dusmile.utils.IOUtils;
 import com.app.dusmile.utils.RecyclerItemClickListener;
 import com.desai.vatsal.mydynamictoast.MyDynamicToast;
-import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
+
 
 /**
  * Created by suma on 03/02/17.
  */
 
 public class ReportDetailsFragment extends Fragment {
+
     private Context mContext;
     private RecyclerView recyclerView;
     private RecyclerView.LayoutManager mLayoutManager;
     private ReportDetailsAdapter reportDetailsAdapter;
     private EditText searchEditText;
     private Button cancelButton;
-    public FragmentTransaction fragmentTransaction;
+    public static FragmentTransaction fragmentTransaction;
     private Toast toast;
-    private List<SubCategory> subCategoryMenuList;
-    private String PURL = null;
-    private DBHelper dbHelper;
-    private TextView tv_msg;
-    private LinearLayout parent_layout;
+    private static TextView tv_msg;
+    private static LinearLayout parent_layout;
     private SwipeRefreshLayout swipeRefreshLayout;
     private View toastRoot;
     private String Tag = "ReportDetailsFragment";
@@ -81,9 +69,7 @@ public class ReportDetailsFragment extends Fragment {
     private JSONArray reportDataArray;
     private JSONArray reportHeadersUIArray;
     private JSONArray cardHeadersKeyArray;
-    JSONObject resourceJsonObj;
     private Button exportBtn;
-    private Gson gson;
     JSONArray filterJsonArray;
     JSONArray exportJsonArray = new JSONArray();
 
@@ -103,7 +89,6 @@ public class ReportDetailsFragment extends Fragment {
         mLayoutManager = new LinearLayoutManager(mContext);
         this.findViews(rootView);
         recyclerView.setLayoutManager(mLayoutManager);
-        dbHelper = DBHelper.getInstance(mContext);
         Activity activity = this.getActivity();
         mContext = activity;
         this.searchReportListener();
@@ -128,28 +113,13 @@ public class ReportDetailsFragment extends Fragment {
         String date = ReportDetailsActivity.date;
 
         if (IOUtils.isInternetPresent(mContext)) {
-            assignUrl();
-            String url = new Const().GET_PENDING_WITH_BRANCH_REPORT_METADATA;
-            getReportDetails(PURL);
+           // if (!TextUtils.isEmpty(date)) {
+                getReportDetails(date);
+            //} else {
+             //   MyDynamicToast.informationMessage(mContext, "Date can not be empty");
+           // }
         } else {
             IOUtils.showErrorMessage(mContext, "No internet connection");
-        }
-    }
-
-
-    private void assignUrl() {
-        subCategoryMenuList = new ArrayList<>();
-        int loginJsonTemplateId = LoginTemplateDB.getLoginJsontemplateID(dbHelper, "Menu Details", UserPreference.getLanguage(mContext));
-        subCategoryMenuList = SubCategoryDB.getSubCategoriesDependsOnIsMenuFlag(dbHelper, String.valueOf(loginJsonTemplateId), "false");
-        for (int i = 0; i <= subCategoryMenuList.size() - 1; i++) {
-            String jobClicked = subCategoryMenuList.get(i).getSubcategory_name();
-            String usrId = UserPreference.readString(mContext, UserPreference.USER_INT_ID, "");
-            if (jobClicked.equalsIgnoreCase("Jobs Submitted To Supervisor")) {
-                String act = subCategoryMenuList.get(i).getAction();
-                String st = act.substring(1, act.length());
-                String replaceString = st.replace("userId", usrId);
-                PURL = new Const().BASE_URL + replaceString;
-            }
         }
     }
 
@@ -172,14 +142,26 @@ public class ReportDetailsFragment extends Fragment {
         swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefreshLayout);
     }
 
-    public void getReportDetails(String url) {
+    public void getReportDetails(String date) {
 
         IOUtils.startLoading(mContext, "Loading......");
 
         JSONObject criteriajsonObject = new JSONObject();
 
         try {
+            //criteriajsonObject.put("startDate", date);
+           // criteriajsonObject.put("endDate", date);
+            //criteriajsonObject.put("FOSExecutiveID", UserPreference.getUserRecord(mContext).getUserID());
+            // jsonObject.put("reportName", "Status Report");
+            // jsonObject.put("redirectPage", "displayReport");
+            //jsonObject.put("database", Const.DATABASE_NAME);
             criteriajsonObject.put("FOSExecutiveID", UserPreference.getUserRecord(mContext).getUserID());
+            //Here Add Firebase LogEvent
+           // Bundle bundle = new Bundle();
+            // bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, jsonObject.toString());
+
+            // DssApp.getFirebaseAnalytics().logEvent(FirebaseAnalytics.Event.LOGIN, bundle);
+
         } catch (JSONException e) {
             IOUtils.stopLoading();
             e.printStackTrace();
@@ -187,57 +169,55 @@ public class ReportDetailsFragment extends Fragment {
             IOUtils.stopLoading();
             e.printStackTrace();
         }
-        new HttpVolleyRequest(mContext, url, listenerJobs);
+        IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_REPORT_FILTERS + "/" + UserPreference.getUserRecord(mContext).getUserID() + "\nREQUEST " + criteriajsonObject.toString());
+        new HttpVolleyRequest(mContext, criteriajsonObject, new Const().REQUEST_REPORT_FILTERS + "/" + UserPreference.getUserRecord(mContext).getUserID(), listenerJobs);
     }
 
     MyListener listenerJobs = new MyListener() {
         @Override
         public void success(Object obj) throws JSONException {
-            try {
-                IOUtils.stopLoading();
-                if (obj != null) {
-                    String response = obj.toString();
-                    JSONObject jsonObject = new JSONObject(response);
-                    if (jsonObject.length() > 0) {
-                        Log.d("DUSMILE", response);
-                        reportHeadersArray = new JSONArray();
-                        reportHeadersUIArray = new JSONArray();
-                        cardHeadersKeyArray = new JSONArray();
-                        reportDataArray = new JSONArray();
-                        reportHeadersArray = jsonObject.getJSONArray("reportHeaders");
-                        reportHeadersUIArray = jsonObject.getJSONArray("reportHeadersKeys");
-                        cardHeadersKeyArray = jsonObject.getJSONArray("cardHeadersKeys");
-                        resourceJsonObj = jsonObject.getJSONObject("resources");
-                        getJobDataApi(jsonObject, resourceJsonObj);
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                MyDynamicToast.errorMessage(mContext, "Unexpected Response");
-            }
+            //showProgress(false);
         }
 
         @Override
         public void success(Object obj, JSONObject jsonReqObject) throws JSONException {
             try {
+
                 IOUtils.stopLoading();
                 if (obj != null) {
                     String response = obj.toString();
                     JSONObject jsonObject = new JSONObject(response);
+                    IOUtils.appendLog(Tag + " : " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_JOB_DETAILS1 + response);
                     if (jsonObject.length() > 0) {
                         Log.d("DUSMILE", response);
-                        reportHeadersArray = new JSONArray();
-                        reportHeadersUIArray = new JSONArray();
-                        cardHeadersKeyArray = new JSONArray();
-                        reportDataArray = new JSONArray();
-                        reportHeadersArray = jsonObject.getJSONArray("reportHeaders");
-                        reportHeadersUIArray = jsonObject.getJSONArray("reportHeadersKeys");
-                        cardHeadersKeyArray = jsonObject.getJSONArray("cardHeadersKeys");
-                        resourceJsonObj = jsonObject.getJSONObject("resources");
-                        getJobDataApi(jsonObject, resourceJsonObj);
+                        if (jsonObject.getBoolean("success") == true) {
+                         //   IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_REPORT_DETAILS + "\nRESPONSE " + true);
+                            reportHeadersArray = jsonObject.getJSONArray("reportHeaders");
+                            reportDataArray = jsonObject.getJSONArray("reportData");
+                            reportHeadersUIArray = jsonObject.getJSONArray("reportHeadersKeys");
+                            cardHeadersKeyArray = jsonObject.getJSONArray("cardHeadersKeys");
+                            if (reportDataArray != null) {
+                                if (reportDataArray.length() > 0) {
+                                    // exportBtn.setVisibility(View.VISIBLE);
+                                    setAdapter(reportHeadersArray, reportDataArray, reportHeadersUIArray, cardHeadersKeyArray);
+                                } else {
+                                    // exportBtn.setVisibility(View.GONE);
+                                    MyDynamicToast.informationMessage(mContext, "No Data Available");
+                                }
+                            }
+                        } else {
+                          //  IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_REPORT_DETAILS + "\nRESPONSE " + false);
+                            String message = jsonObject.getString("message");
+                            MyDynamicToast.informationMessage(mContext, message);
+                        }
+                    } else {
+                        MyDynamicToast.errorMessage(mContext, "Unexpected Response");
                     }
+                } else {
+                    MyDynamicToast.errorMessage(mContext, "Unexpected Response");
                 }
             } catch (Exception e) {
+               // IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_REPORT_DETAILS + "\nRESPONSE " + e.getMessage());
                 e.printStackTrace();
                 MyDynamicToast.errorMessage(mContext, "Unexpected Response");
             }
@@ -247,6 +227,7 @@ public class ReportDetailsFragment extends Fragment {
         public void failure(VolleyError volleyError) {
             try {
                 IOUtils.stopLoading();
+                IOUtils.appendLog(Tag + " : " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_JOB_DETAILS1 + volleyError.getMessage());
                 if (volleyError != null) {
                     MyDynamicToast.warningMessage(mContext, "Unable to connect");
                     if (volleyError.networkResponse.statusCode == 800) {
@@ -309,10 +290,12 @@ public class ReportDetailsFragment extends Fragment {
 
                         if (filterJsonArray != null) {
                             if (filterJsonArray.length() == 0) {
+                                // exportBtn.setVisibility(View.GONE);
                                 showAToast("No Matching Records Found");
                             } else {
                                 //exportBtn.setVisibility(View.VISIBLE);
                             }
+                            // reportDetailsAdapter.refresh(filterJsonArray);
                             reportDetailsAdapter = new ReportDetailsAdapter(mContext, reportHeadersArray, filterJsonArray, reportHeadersUIArray, cardHeadersKeyArray);
                             recyclerView.setAdapter(reportDetailsAdapter);
 
@@ -323,11 +306,14 @@ public class ReportDetailsFragment extends Fragment {
                             cancelButton.setVisibility(View.GONE);
                             if (reportDataArray != null) {
                                 if (reportDataArray.length() == 0) {
+                                    // exportBtn.setVisibility(View.GONE);
                                     showAToast("No Data Available");
                                 } else {
+                                    // exportBtn.setVisibility(View.VISIBLE);
                                 }
                                 reportDetailsAdapter = new ReportDetailsAdapter(mContext, reportHeadersArray, reportDataArray, reportHeadersUIArray, cardHeadersKeyArray);
                                 recyclerView.setAdapter(reportDetailsAdapter);
+
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -352,11 +338,14 @@ public class ReportDetailsFragment extends Fragment {
                     cancelButton.setVisibility(View.GONE);
                     if (reportDataArray != null) {
                         if (reportDataArray.length() == 0) {
+                            //  exportBtn.setVisibility(View.GONE);
                             showAToast("No Data Available");
                         } else {
+                            // exportBtn.setVisibility(View.VISIBLE);
                         }
                         reportDetailsAdapter = new ReportDetailsAdapter(mContext, reportHeadersArray, reportDataArray, reportHeadersUIArray, cardHeadersKeyArray);
                         recyclerView.setAdapter(reportDetailsAdapter);
+
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -372,10 +361,16 @@ public class ReportDetailsFragment extends Fragment {
 
 
     private void showAToast(String message) {
+
         try {
             if (toast != null) {
                 toast.cancel();
             }
+           /* toast = Toast.makeText(mContext, message, Toast.LENGTH_SHORT);
+            TextView toastMessage = (TextView) toast.getView().findViewById(android.R.id.message);
+            toastMessage.setTextColor(Color.WHITE);
+            toastMessage.setBackgroundColor(Color.RED);
+            toast.show();*/
             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             toastRoot = inflater.inflate(R.layout.my_toast, null);
             ImageView iv_left_icon = (ImageView) toastRoot.findViewById(R.id.iv_left_icon);
@@ -386,6 +381,8 @@ public class ReportDetailsFragment extends Fragment {
             tv_msg.setText(message);
             tv_msg.setTextColor(Color.WHITE);
             tv_msg.setTextSize(16);
+
+//        parent_layout.setBackgroundDrawable(createToastBackground(context, parent_layout));
             parent_layout.setBackgroundResource(R.drawable.error_msg_back);
 
             toast = new Toast(mContext);
@@ -399,6 +396,302 @@ public class ReportDetailsFragment extends Fragment {
 
     }
 
+
+    private void onExportButtonClicked() {
+      /*  exportBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showExportChoiceDialog();
+            }
+        });*/
+    }
+
+   /* private void showExportChoiceDialog()
+    {
+        IOUtils.appendLog(Tag+" "+IOUtils.getCurrentTimeStamp()+" "+"Showing export reports menus");
+        final String a[] = {"CSV","EXCEL"};
+        new LovelyChoiceDialog(getActivity())
+                .setTopColorRes(R.color.clrLoginButton)
+                .setTitle(R.string.app_name)
+                .setIcon(R.drawable.suma48)
+                .setMessage(R.string.export_message)
+                .setItems(a, new LovelyChoiceDialog.OnItemSelectedListener<String>() {
+                    @Override
+                    public void onItemSelected(int position, String item) {
+                        switch (item)
+                        {
+                            case "CSV":
+                                new doExportWork().execute(item);
+                                break;
+                            case "EXCEL":
+                                new doExportWork().execute(item);
+                                break;
+                            default:
+                                new doExportWork().execute("CSV");
+                                break;
+                        }
+                    }
+                })
+                .show();
+    }*/
+
+
+    /*public class doExportWork extends AsyncTask<String,Void,Boolean>
+    {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+
+            IOUtils.startLoadingPleaseWait(mContext);
+        }
+
+        @Override
+        protected Boolean doInBackground(String... params) {
+            boolean success = false;
+            try {
+
+                if (params[0].equalsIgnoreCase("CSV")) {
+                    success = exportReportListToCSV();
+                } else {
+                    success = exportReportListToExcel();
+                }
+            }
+            catch (Exception e)
+            {
+                success = false;
+            }
+            return success;
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            super.onPostExecute(result);
+            IOUtils.stopLoading();
+            if(result == true)
+            {
+                IOUtils.showSuccessMessage(mContext,getString(R.string.app_name),"File Exported Successfully. Please check location InternalStorage/DusMile");
+            }
+            else
+            {
+                IOUtils.showWarningMessage(mContext,"File Export Failed");
+            }
+
+        }
+    }*/
+
+    /*private boolean exportReportListToCSV()
+    {
+        IOUtils.appendLog(Tag+" "+IOUtils.getCurrentTimeStamp()+" Exporting Reports to CSV ");
+        CSVWriter writer = null;
+        String fileName = "";
+        boolean result = false;
+        try
+        {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.US);
+            final Calendar myCalendar = Calendar.getInstance();
+            List<String> headers = new ArrayList<>();
+            List<List<String>> Data = new ArrayList<>();
+            for(int i =0;i<reportHeadersArray.length();i++)
+            {
+                if(reportHeadersArray.get(i).toString().contains("Location")||reportHeadersArray.get(i).toString().contains("View")||reportHeadersArray.get(i).toString().contains("Perform Job")){}
+                else {headers.add(reportHeadersArray.get(i).toString());
+                }
+            }
+            if(filterJsonArray!=null&& searchEditText.getText().toString().length()>0 && filterJsonArray.length()>0)
+            {
+                exportJsonArray = filterJsonArray;
+            }
+            else
+            {
+                exportJsonArray = reportDataArray;
+            }
+            for(int j=0;j<exportJsonArray.length();j++) {
+                List<String> data = new ArrayList<>();
+                for (int k = 0; k < reportHeadersUIArray.length(); k++) {
+                    JSONObject headersUIJsonObject = reportHeadersUIArray.getJSONObject(k);
+                    String uiField = headersUIJsonObject.getString("data");
+                    JSONObject jsonObject = exportJsonArray.getJSONObject(j);
+                    if (uiField != null && uiField.contains(".")) {
+                        try {
+                            String fieldDataArray[] = uiField.split("\\.");
+                            String fieldDataVal = fieldDataArray[0];
+                            JSONObject dataJsonObject = jsonObject.getJSONObject(fieldDataVal);
+                            JSONObject applicationJsonObject = dataJsonObject.getJSONObject(fieldDataArray[(fieldDataArray.length) - (fieldDataArray.length - 1)]);
+                            String fieldFinalVal = applicationJsonObject.getString(fieldDataArray[fieldDataArray.length - 1]);
+                            Log.i("MYDATA", fieldFinalVal);
+                            data.add(fieldFinalVal);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            data.add("");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            data.add("");
+                        }
+                    } else {
+                        try {
+                            String fieldFinalVal = jsonObject.getString(uiField);
+                            Log.i("MYDATA", fieldFinalVal);
+                            data.add(fieldFinalVal);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            data.add("");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            data.add("");
+                        }
+                    }
+                }
+                Data.add(data);
+            }
+
+            fileName = "Report".concat(sdf.format(myCalendar.getTime()))+".csv".trim();
+            File sdCard = Environment.getExternalStorageDirectory();
+            File directory = new File(sdCard.getAbsolutePath() + "/Dusmile/CSV");
+            //create directory if not exist
+            if(!directory.isDirectory()){
+                directory.mkdirs();
+            }
+
+            File file = new File(directory, fileName);
+            writer = new CSVWriter(new FileWriter(file), ',');
+            String[] headersData = new String[headers.size()];
+            headersData = headers.toArray(headersData);
+            writer.writeNext(headersData);
+            for(int i = 0 ; i <Data.size();i++)
+            {
+                List<String> dataList = Data.get(i);
+                String[] Reportdata = new String[Data.get(i).size()];
+                Reportdata = dataList.toArray(Reportdata);
+                writer.writeNext(Reportdata);
+            }
+            writer.close();
+            result = true;
+        }
+        catch (Exception e)
+        {
+            result = false;
+        }
+        return  result;
+    }
+
+
+    public boolean exportReportListToExcel(){
+        IOUtils.appendLog(Tag+" "+IOUtils.getCurrentTimeStamp()+" Exporting Reports to Excel ");
+        boolean result = false;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHHmmss", Locale.US);
+            final Calendar myCalendar = Calendar.getInstance();
+            String fileName = "";
+            File directory = null;
+            File sdCard = Environment.getExternalStorageDirectory();
+            fileName = "Report".concat(sdf.format(myCalendar.getTime()))+".xls".trim();
+            directory = new File(sdCard.getAbsolutePath() + "/Dusmile/EXCEL");
+
+            int val = 0;
+            //create directory if not exist
+            if (!directory.isDirectory()) {
+                directory.mkdirs();
+            }
+
+            List<String> headers = new ArrayList<>();
+            List<List<String>> Data = new ArrayList<>();
+
+            headers.clear();
+            for (int i=0;i<reportHeadersArray.length();i++) {
+                if (reportHeadersArray.get(i).toString().contains("Location") || reportHeadersArray.get(i).toString().contains("View") || reportHeadersArray.get(i).toString().contains("Perform Job")) {
+                } else {
+                    headers.add(reportHeadersArray.get(i).toString());
+                }
+            }
+
+            if(filterJsonArray!=null&& searchEditText.getText().toString().length()>0 && filterJsonArray.length()>0)
+            {
+                exportJsonArray = filterJsonArray;
+            }
+            else
+            {
+                exportJsonArray = reportDataArray;
+            }
+
+            for(int j=0;j<exportJsonArray.length();j++) {
+                List<String> data = new ArrayList<>();
+                for (int k = 0; k < reportHeadersUIArray.length(); k++) {
+                    JSONObject headersUIJsonObject = reportHeadersUIArray.getJSONObject(k);
+                    String uiField = headersUIJsonObject.getString("data");
+                    JSONObject jsonObject = exportJsonArray.getJSONObject(j);
+                    if (uiField != null && uiField.contains(".")) {
+                        try {
+                            String fieldDataArray[] = uiField.split("\\.");
+                            String fieldDataVal = fieldDataArray[0];
+                            JSONObject dataJsonObject = jsonObject.getJSONObject(fieldDataVal);
+                            JSONObject applicationJsonObject = dataJsonObject.getJSONObject(fieldDataArray[(fieldDataArray.length) - (fieldDataArray.length - 1)]);
+                            String fieldFinalVal = applicationJsonObject.getString(fieldDataArray[fieldDataArray.length - 1]);
+                            Log.i("MYDATA", fieldFinalVal);
+                            data.add(fieldFinalVal);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            data.add("");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            data.add("");
+                        }
+                    } else {
+                        try {
+                            String fieldFinalVal = jsonObject.getString(uiField);
+                            Log.i("MYDATA", fieldFinalVal);
+                            data.add(fieldFinalVal);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            data.add("");
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            data.add("");
+                        }
+                    }
+                }
+                Data.add(data);
+            }
+
+            //file path
+            File file = new File(directory, fileName);
+            Workbook workbook = new HSSFWorkbook();
+            Sheet studentsSheet = workbook.createSheet("Report Data");
+            int rowIndex = 0;
+            Row row = studentsSheet.createRow(rowIndex);
+            for (int i = 0; i < headers.size(); i++) {
+                row.createCell(i).setCellValue(headers.get(i));
+            }
+            for (int i = 0; i < Data.size(); i++) {
+                val++;
+                Row row1 = studentsSheet.createRow(val);
+                for (int j = 0; j < Data.get(i).size(); j++) {
+
+                    row1.createCell(j).setCellValue(Data.get(i).get(j));
+                }
+            }
+            try {
+                FileOutputStream fos = new FileOutputStream(file);
+                workbook.write(fos);
+                fos.close();
+                result = true;
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+                result =false;
+            } catch (IOException e) {
+                e.printStackTrace();
+                result = false;
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            result = false;
+        }
+        return  result;
+
+    }*/
+
     private void swipeRefreshListener() {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -410,80 +703,13 @@ public class ReportDetailsFragment extends Fragment {
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
+        // Configure the refreshing colors
         swipeRefreshLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
+
+
     }
 
-    private void getJobDataApi(JSONObject jsonObject, JSONObject resources) {
-        IOUtils.startLoading(mContext, "Loading......");
-        try {
-            JSONObject reportHeaderKeys = jsonObject.getJSONObject("reportHeaderKeys");
-            gson = new Gson();
-            JobsResources jobsResources = gson.fromJson(String.valueOf(resources), JobsResources.class);
-            String removeSlash = jobsResources.getDataApi().substring(1);
-            String URL = new Const().BASE_URL + removeSlash;
-            JSONObject jsonObject1 = new JSONObject();
-            jsonObject1.put("reportHeaderKeys", reportHeaderKeys);
-            new HttpVolleyRequest(mContext, jsonObject1, URL, listenerReporData);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-    }
-
-    MyListener listenerReporData = new MyListener() {
-
-        @Override
-        public void success(Object obj) throws JSONException {
-        }
-
-        @Override
-        public void success(Object obj, JSONObject jsonReqObject) throws JSONException {
-            try {
-                IOUtils.stopLoading();
-                if (obj != null) {
-                    String response = obj.toString();
-                    JSONObject jsonObject = new JSONObject(response);
-                    if (jsonObject.length() > 0) {
-                        Log.d("DUSMILE", response);
-                        reportDataArray = jsonObject.getJSONArray("reportData");
-                        if (AppConstant.isAssinedJobs) {
-                            DBHelper dbHelper = DBHelper.getInstance(mContext);
-                            OfflineAssignedJobsDB.removeOfflineAssignedJobs(dbHelper);
-                            OfflineAssignedJobs offlineAssignedJobs = new OfflineAssignedJobs();
-                            offlineAssignedJobs.setOffline_assigned_jobs_json(response);
-                            OfflineAssignedJobsDB.addOfflineAssignedJobsEntry(offlineAssignedJobs, dbHelper);
-                            UserPreference.writeInteger(mContext, UserPreference.ASSIGNED_CNT, reportDataArray.length());
-                        }
-                        if (reportDataArray != null) {
-                            if (reportDataArray.length() > 0) {
-                                setAdapter(reportHeadersArray, reportDataArray, reportHeadersUIArray, cardHeadersKeyArray);
-                            } else {
-                                MyDynamicToast.informationMessage(mContext, "No Data Available");
-                            }
-                        }
-                    }
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                MyDynamicToast.errorMessage(mContext, "Unexpected Response");
-            }
-        }
-
-        @Override
-        public void failure(VolleyError volleyError) {
-            try {
-                IOUtils.stopLoading();
-                if (volleyError != null) {
-                    MyDynamicToast.errorMessage(mContext, volleyError.getLocalizedMessage());
-                } else {
-                    MyDynamicToast.errorMessage(mContext, "Server Error !!");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                MyDynamicToast.errorMessage(mContext, "Server Error !!");
-            }
-        }
-    };
 }

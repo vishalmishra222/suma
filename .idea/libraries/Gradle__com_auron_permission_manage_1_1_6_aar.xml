@@ -1,11 +1,10 @@
 <component name="libraryTable">
   <library name="Gradle: com.auron:permission-manage:1.1.6@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7af4b1f5985d0e12df7fd896ac5fd63e/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7af4b1f5985d0e12df7fd896ac5fd63e/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/permission-manage-1.1.6.aar/cd9cb56f2f418abbf0478dfd0bb48bb5/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-1/files-1.1/permission-manage-1.1.6.aar/cd9cb56f2f418abbf0478dfd0bb48bb5/res" />
     </CLASSES>
     <JAVADOC />
-    <LIBRARY_FILE />
     <SOURCES>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.auron/permission-manage/1.1.6/f94be9086c1b8663f23d7984a8087461dce7a81c/permission-manage-1.1.6-sources.jar!/" />
     </SOURCES>

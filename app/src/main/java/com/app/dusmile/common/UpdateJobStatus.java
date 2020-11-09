@@ -54,12 +54,14 @@ public class UpdateJobStatus {
         new HttpVolleyRequest(DusmileApplication.getAppContext(), new Const().REQUEST_UPDATE_JOB_STATUS + "/" + jobID, listenerUpdateJobStatus);
     }
 
+
     static MyListener listenerUpdateJobStatus = new MyListener() {
         @Override
         public void success(Object obj) throws JSONException {
             try {
                 if (obj != null) {
                     String response = obj.toString();
+                    IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " \n" + response.toString());
                     JSONObject responseJsonObject = new JSONObject(response);
                     if (responseJsonObject.length() > 0) {
                         Log.i("JOB STATUS UPDATEDT", response.toString());
@@ -131,6 +133,7 @@ public class UpdateJobStatus {
                     SubCategoryDB.deleteMenusFromDB(dbHelper, String.valueOf(categoryId), "true");
                 }
             } catch (Exception e) {
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " \n" + "Exception in this api");
                 e.printStackTrace();
             }
             IOUtils.stopUpdateStatusLoading();
@@ -145,6 +148,7 @@ public class UpdateJobStatus {
         @Override
         public void failure(VolleyError volleyError) {
             IOUtils.stopUpdateStatusLoading();
+            IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " \n" + volleyError.toString());
             IOUtils.stopLoading();
             if (!IOUtils.isInternetPresent(mContext)) {
                 IOUtils.stopLoading();

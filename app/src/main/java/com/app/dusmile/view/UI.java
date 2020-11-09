@@ -37,6 +37,8 @@ import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+
 import com.app.dusmile.R;
 import com.app.dusmile.activity.MapActivity;
 import com.app.dusmile.constant.AppConstant;
@@ -45,28 +47,39 @@ import com.app.dusmile.interfaces.ImageOperationListener;
 import com.app.dusmile.model.JobDetailsResponse;
 import com.app.dusmile.model.ReportFilterModel;
 import com.app.dusmile.model.SubProcessFieldDataResponse;
+
+
 import com.app.dusmile.utils.IOUtils;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import org.apache.commons.lang3.StringUtils;
+
+import org.apache.commons.lang.StringUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+
 import java.util.Calendar;
+
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.regex.Pattern;
+
 import it.sephiroth.android.library.imagezoom.ImageViewTouch;
 import it.sephiroth.android.library.imagezoom.ImageViewTouchBase;
+
+
 /**
  * Created by sumasoft on 23/01/17.
  */
+
 public class UI {
     static ArrayList<Integer> arrayListCheckBoxPosition = new ArrayList<>();
     private static View viewParent;
@@ -188,6 +201,7 @@ public class UI {
                 e.printStackTrace();;
                 editText.setText("");
             }
+
 
         if(subProcessField.getValidation().equalsIgnoreCase("Numeric") || subProcessField.getValidation().equalsIgnoreCase("Numbers") || subProcessField.getValidation().equalsIgnoreCase("Decimal")){
             editText.setInputType(InputType.TYPE_CLASS_NUMBER);

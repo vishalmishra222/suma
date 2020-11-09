@@ -61,7 +61,7 @@ import com.desai.vatsal.mydynamictoast.MyDynamicToast;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.filefilter.AgeFileFilter;
-import org.apache.commons.lang3.time.DateUtils;
+import org.apache.commons.lang.time.DateUtils;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -263,7 +263,7 @@ public class IOUtils {
 	}
 
 	public static boolean checkCameraHardware(Context context) {
-		if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_ANY)) {
+		if (context.getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
 			// this device has a camera
 			return true;
 		} else {
@@ -813,7 +813,6 @@ public class IOUtils {
 		return ret;
 	}
 
-	@SuppressLint("LongLogTag")
 	public static String getCompleteAddressString(Context m_context, double LATITUDE, double LONGITUDE) {
 		String strAdd = "";
 		Geocoder geocoder = new Geocoder(m_context, Locale.getDefault());

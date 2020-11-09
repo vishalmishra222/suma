@@ -18,26 +18,22 @@ public class SirenAlertWrapper {
     private final String mMinAppVersion;
     private final SirenSupportedLocales mLocale;
     private final SirenHelper mSirenHelper;
-    private final String downloadUrl;
     private int mTheme;
-    private Activity activity;
 
     public SirenAlertWrapper(Activity activity, ISirenListener sirenListener, SirenAlertType sirenAlertType,
-                             String minAppVersion, SirenSupportedLocales locale, SirenHelper sirenHelper, String downloadUrl) {
+                             String minAppVersion, SirenSupportedLocales locale, SirenHelper sirenHelper) {
         this.mSirenListener = sirenListener;
         this.mSirenAlertType = sirenAlertType;
         this.mMinAppVersion = minAppVersion;
         this.mLocale = locale;
         this.mSirenHelper = sirenHelper;
-        this.activity = activity;
-        this.downloadUrl = downloadUrl;
         this.mActivityRef = new WeakReference<>(activity);
     }
 
     @SuppressWarnings("unused")
     public SirenAlertWrapper(Activity activity, ISirenListener sirenListener, SirenAlertType sirenAlertType,
-                             String minAppVersion, SirenSupportedLocales locale, SirenHelper sirenHelper, int theme,String downloadUrl) {
-        this(activity, sirenListener, sirenAlertType, minAppVersion, locale, sirenHelper, downloadUrl);
+                             String minAppVersion, SirenSupportedLocales locale, SirenHelper sirenHelper, int theme) {
+        this(activity, sirenListener, sirenAlertType, minAppVersion, locale, sirenHelper);
         this.mTheme = theme;
     }
 
@@ -49,23 +45,21 @@ public class SirenAlertWrapper {
                 }
             } else {
                 Dialog dialog;
-                if (!((Activity) activity).isFinishing()) {
-                    if (mTheme > 0) {
-                        dialog = new Dialog(mActivityRef.get(), mTheme);
-                    } else {
-                        dialog = new Dialog(mActivityRef.get());
-                    }
-                    setupDialog(dialog);
-                    dialog.setCancelable(false);
-                    dialog.show();
+                if (mTheme > 0) {
+                    dialog = new Dialog(mActivityRef.get(), mTheme);
+                } else {
+                    dialog = new Dialog(mActivityRef.get());
+                }
+                setupDialog(dialog);
+                dialog.setCancelable(false);
+                dialog.show();
 
-                    if (mSirenListener != null) {
-                        mSirenListener.onShowUpdateDialog();
-                    }
+                if (mSirenListener != null) {
+                    mSirenListener.onShowUpdateDialog();
                 }
             }
         } catch (Exception e) {
-            e.printStackTrace();
+
         }
     }
 
@@ -132,7 +126,6 @@ public class SirenAlertWrapper {
         if (activity == null) {
             return;
         }
-
-        AutoInstaller.getDefault(activity).installFromUrl(downloadUrl);
+        AutoInstaller.getDefault(activity).installFromUrl("http://dusmile.sumasoft.com/dusmileUI/assets/apk/WEMI/Dusmile_WEMI.apk");
     }
 }

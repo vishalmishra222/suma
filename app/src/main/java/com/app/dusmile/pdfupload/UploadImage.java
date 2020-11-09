@@ -66,7 +66,6 @@ public class UploadImage {
             }
 
         } catch (Exception ex) {
-
             ex.printStackTrace();
         }
         return imageUploaded;

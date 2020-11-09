@@ -2,15 +2,11 @@ package com.app.dusmile.activity;
 
 import android.Manifest;
 import android.app.Dialog;
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.annotation.RequiresApi;
-import android.support.v7.app.AlertDialog;
 import android.text.SpannableString;
 import android.text.style.UnderlineSpan;
 import android.util.Log;
@@ -21,29 +17,23 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.android.volley.error.VolleyError;
-import com.app.dusmile.DBModel.AssignedJobs;
 import com.app.dusmile.DBModel.Category;
 import com.app.dusmile.DBModel.LoginTemplate;
 import com.app.dusmile.DBModel.SubCategory;
 import com.app.dusmile.R;
 import com.app.dusmile.User;
 import com.app.dusmile.application.DusmileApplication;
-import com.app.dusmile.common.TemplateOperations;
 import com.app.dusmile.common.UpdateJobStatus;
 import com.app.dusmile.connection.HttpVolleyRequest;
 import com.app.dusmile.connection.MyListener;
 import com.app.dusmile.constant.AppConstant;
-import com.app.dusmile.database.AssignedJobsDB;
 import com.app.dusmile.database.CategoryDB;
 import com.app.dusmile.database.SubCategoryDB;
 import com.app.dusmile.database.helper.DBHelper;
 import com.app.dusmile.database.LoginTemplateDB;
 import com.app.dusmile.gps.GPSTracker;
-import com.app.dusmile.model.GetAssignJobCountModel;
 import com.app.dusmile.model.LoginResponse;
 import com.app.dusmile.model.MenuDetails;
-import com.app.dusmile.model.MenuListResponse;
-import com.app.dusmile.model.PushNotificationResponse;
 import com.app.dusmile.preferences.Const;
 import com.app.dusmile.preferences.FirebasePreference;
 import com.app.dusmile.preferences.RecordUser;
@@ -74,21 +64,15 @@ public class LoginActivity extends ActivityManagePermission {
     private TextView appVersion;
     Dialog gpsDialog;
     private DBHelper dbHelper;
-    private Gson gson;
-    private String p = null;
-    private String emailTo;
-    //List<MenuDetails.GroupToCategoryToSubCategory> groupToCategoryToSubCategoriesList = new ArrayList<>();
     List<MenuDetails.GroupToCategoryToSubCategory.SubCategory> subCategoriesList = new ArrayList<MenuDetails.GroupToCategoryToSubCategory.SubCategory>();
     private static String Tag = "LoginActivity";
     private DatabaseReference firebaseDatabase;
-    private ProgressDialog loginProgressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         mContext = LoginActivity.this;
-
         Const.setmContext(getApplicationContext());
         firebaseDatabase = FirebaseDatabase.getInstance().getReference();
         this.checkPermission();
@@ -155,235 +139,8 @@ public class LoginActivity extends ActivityManagePermission {
         return true;
     }
 
-    public void getMenuDetailsApi() {
-        IOUtils.startLoading(mContext, "Authenticating....User");
-        IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().GET_MENU_DETAILS);
-        new HttpVolleyRequest(mContext, new Const().GET_MENU_DETAILS, listenerMenu);
-    }
-
-    MyListener listenerMenu = new MyListener() {
-        @Override
-        public void success(Object obj) throws JSONException {
-            IOUtils.stopLoading();
-            if (obj != null) {
-                try {
-                    String response = obj.toString();
-                    JSONObject responseJson = new JSONObject(response);
-                    IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().GET_MENU_DETAILS + "\nResponse" + response.toString());
-                    if (responseJson.length() > 0) {
-                        Log.d(Const.TAG, response);
-                        gson = new Gson();
-                        MenuListResponse menuListResponse = gson.fromJson(response, MenuListResponse.class);
-                        String jsonStringImages = "";
-                       // String firebaseToken = DusmileApplication.getFirebaseToken();
-                        List<MenuListResponse.WorkflowMenuList> jsonMenuList = menuListResponse.getWorkflowMenuList();
-                        UserPreference.saveCategoryData(mContext, gson.toJson(menuListResponse.getWorkflowMenuList()));
-                        saveMenusInDB(jsonMenuList, jsonStringImages);
-                        getAssignJobCount(menuListResponse.getWorkflowID());
-                       // doFirebaseApiCall(UserPreference.readString(mContext, UserPreference.USER_NAME, ""), firebaseToken);
-                    } else {
-                        IOUtils.stopLoading();
-                        MyDynamicToast.errorMessage(LoginActivity.this, "Unexpected response");
-                    }
-                } catch (Exception e) {
-                    IOUtils.stopLoading();
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        @Override
-        public void success(Object obj, JSONObject jsonReqObject) throws JSONException {
-
-        }
-
-        @Override
-        public void failure(VolleyError volleyError) {
-            try {
-                IOUtils.stopLoading();
-                if (volleyError != null && volleyError.networkResponse != null) {
-                    String responseBody = new String(volleyError.networkResponse.data, "utf-8");
-                    int statusCode = volleyError.networkResponse.statusCode;
-                    Log.i("Status Code", "" + statusCode);
-                }
-                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().GET_MENU_DETAILS + "\nRESPONSE" + volleyError.getMessage());
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    };
-
-    public void getAssignJobCount(String wid) {
-        IOUtils.startLoading(mContext, "Please wait.....");
-        IOUtils.appendLog(Tag + ": API " + new Const().REQUEST_GET_JOB_COUNT);
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("reportName", "Job Count");
-        } catch (JSONException e) {
-            IOUtils.stopLoading();
-            e.printStackTrace();
-        } catch (Exception e) {
-            IOUtils.stopLoading();
-            e.printStackTrace();
-        }
-        new HttpVolleyRequest(mContext, new Const().BASE_URL +"workflow/" +wid +"/" + new Const().REQUEST_GET_JOB_COUNT, listenerGetAssignJobCount);
-    }
-
-    MyListener listenerGetAssignJobCount = new MyListener() {
-        @Override
-        public void success(Object obj) throws JSONException {
-            if (obj != null) {
-                String jobCountResponse = obj.toString();
-                try {
-                    Gson gson = new Gson();
-                    GetAssignJobCountModel getJobCountModel = gson.fromJson(jobCountResponse, GetAssignJobCountModel.class);
-                    // int availableJobsCnt = getJobCountModel.getAvailableJobs();
-                    int assignedJobCnt = getJobCountModel.getAssignedJobsCount();
-                    DBHelper dbHelper = DBHelper.getInstance(mContext);
-                    int pendingCount = AssignedJobsDB.getPendingJobsCount(dbHelper);
-                    // int completedJobCnt = getJobCountModel.getCompletedJobs();
-                    // UserPreference.writeInteger(mContext,UserPreference.AVAILABLE_CNT,availableJobsCnt);
-                    //  int toalAssCount = assignedJobCnt-pendingCount;
-                    int toalAssCount;
-                    String p = checkStatus(mContext);
-                    if (p == null) {
-                        toalAssCount = assignedJobCnt - pendingCount;
-                    } else {
-                        toalAssCount = assignedJobCnt;
-                    }
-                    UserPreference.writeInteger(mContext, UserPreference.ASSIGNED_CNT, toalAssCount);
-                    UserPreference.writeInteger(mContext, UserPreference.PENDING_CNT, pendingCount);
-                    Intent intent = new Intent(LoginActivity.this, DusmileBaseActivity.class);
-                    //intent.putExtra("categorySubcategoryData",loginResponse.getMenudetails());
-                    startActivity(intent);
-                    overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-                    finish();
-
-                    // UserPreference.writeInteger(mContext,UserPreference.COMPLETED_CNT,completedJobCnt);
-                   // setDataToAdapter();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-            IOUtils.stopLoading();
-        }
-
-        @RequiresApi(api = Build.VERSION_CODES.M)
-        @Override
-        public void success(Object obj, JSONObject jsonObject) throws JSONException {
-
-        }
-
-        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-        @Override
-        public void failure(VolleyError volleyError) {
-            try {
-                IOUtils.stopLoading();
-                if (volleyError != null) {
-                    MyDynamicToast.warningMessage(mContext, "Unable to connect");
-                    if (volleyError.networkResponse.statusCode == 800) {
-                        //IOUtils.sendUserToLogin(mContext,this);
-                    }
-                } else {
-                    MyDynamicToast.errorMessage(mContext, "Server Error !!");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                MyDynamicToast.errorMessage(mContext, "Server Error !!");
-            }
-
-        }
-    };
-
-    public String checkStatus(Context mContext) throws JSONException {
-        DBHelper dbHelper = DBHelper.getInstance(mContext);
-        List<AssignedJobs> PendingList = AssignedJobsDB.getAllAssignedSubmittedJobs(dbHelper, "true");
-        if (PendingList.size() > 0) {
-            for (int i = 0; i < PendingList.size(); i++) {
-                p = PendingList.get(i).getIs_submit();
-            }
-        }
-        return p;
-    }
-
-    public void doFirebaseApiCall(String uname, String token) {
-
-        JSONObject jsonObject = new JSONObject();
-        try {
-            jsonObject.put("username", uname);
-            jsonObject.put("token", token);
-        } catch (JSONException e) {
-            IOUtils.stopLoading();
-            e.printStackTrace();
-        } catch (Exception e) {
-            IOUtils.stopLoading();
-            e.printStackTrace();
-        }
-        new HttpVolleyRequest(mContext, jsonObject, new Const().REQUEST_FIREBASE, listenerfirebase);
-    }
-
-    MyListener listenerfirebase = new MyListener() {
-        @Override
-        public void success(Object obj) throws JSONException {
-
-        }
-
-        @Override
-        public void success(Object obj, JSONObject jsonReqObject) throws JSONException {
-
-            IOUtils.stopLoading();
-            if (obj != null) {
-                try {
-                    String response = obj.toString();
-                    JSONObject responseJson = new JSONObject(response);
-                    if (responseJson.length() > 0) {
-                        // Log.d(Const.TAG, response);
-                        // gson = new Gson();
-                        //  PushNotificationResponse pushNotificationResponse = gson.fromJson(response, PushNotificationResponse.class);
-                        // MyDynamicToast.informationMessage(mContext,pushNotificationResponse.getMessage());
-                        Intent intent = new Intent(LoginActivity.this, DusmileBaseActivity.class);
-                        //intent.putExtra("categorySubcategoryData",loginResponse.getMenudetails());
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
-                        finish();
-                    } else {
-                        // MyDynamicToast.errorMessage(LoginActivity.this, "Unexpected response");
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        @Override
-        public void failure(VolleyError volleyError) {
-            try {
-                IOUtils.stopLoading();
-                if (volleyError != null && volleyError.networkResponse != null) {
-                    String responseBody = new String(volleyError.networkResponse.data, "utf-8");
-                    //JSONObject jsonObject = new JSONObject(responseBody);
-                    // String success = jsonObject.getString("success");
-                    if (responseBody != null) {
-                        String message = responseBody;
-                        //  MyDynamicToast.informationMessage(mContext, "Invalid username or password");
-                    } else {
-                        //MyDynamicToast.warningMessage(LoginActivity.this, "Unable to Connect");
-                        int statusCode = volleyError.networkResponse.statusCode;
-                        Log.i("Status Code", "" + statusCode);
-                        // IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_LOGIN1 + "\nRESPONSE" + volleyError.getMessage());
-                    }
-                } else {
-                    // Toast.makeText(mContext, "Server Erorr !!", Toast.LENGTH_LONG).show();
-                    //    MyDynamicToast.errorMessage(LoginActivity.this, "Server Error !!");
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                //  MyDynamicToast.warningMessage(LoginActivity.this, "Invalid User");
-            }
-        }
-    };
-
     public void doLogin(String uname, String pass) {
+
         IOUtils.startLoading(mContext, "Authenticating....User");
         JSONObject jsonObject = new JSONObject();
         try {
@@ -391,9 +148,11 @@ public class LoginActivity extends ActivityManagePermission {
             jsonObject.put("password", pass);
             jsonObject.put("clientname", new Const().DATABASE_NAME);
             jsonObject.put("inputSource", "M");
+
             Bundle bundle = new Bundle();
             bundle.putString(FirebaseAnalytics.Param.ITEM_NAME, jsonObject.toString());
             DusmileApplication.getFirebaseAnalytics().logEvent(FirebaseAnalytics.Event.LOGIN, bundle);
+
         } catch (JSONException e) {
             IOUtils.stopLoading();
             e.printStackTrace();
@@ -405,6 +164,7 @@ public class LoginActivity extends ActivityManagePermission {
         new HttpVolleyRequest(mContext, jsonObject, new Const().REQUEST_LOGIN1, listenerLogin, "true");
     }
 
+    private Gson gson;
     MyListener listenerLogin = new MyListener() {
         @Override
         public void success(Object obj) throws JSONException {
@@ -413,9 +173,12 @@ public class LoginActivity extends ActivityManagePermission {
 
         @Override
         public void success(Object obj, JSONObject jsonReqObject) throws JSONException {
+
+            IOUtils.stopLoading();
             if (obj != null) {
                 try {
                     String response = obj.toString();
+                    IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_LOGIN1 + "\nRESPONSE" + response.toString());
                     JSONObject responseJson = new JSONObject(response);
                     if (responseJson.length() > 0) {
                         Log.d(Const.TAG, response);
@@ -423,19 +186,29 @@ public class LoginActivity extends ActivityManagePermission {
                         LoginResponse loginResponse = gson.fromJson(response, LoginResponse.class);
                         IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_LOGIN1 + "\nRESPONSE" + loginResponse.getSuccess());
                         if (loginResponse.getSuccess().equals("success")) {
+                            List<LoginResponse.MenuList> jsonMenuList = loginResponse.getLoggedInUser().getMenuList();
+                            String jsonStringImages = "";
                             UserPreference.saveUserPrefs(mContext, new RecordUser(), loginResponse.getLoggedInUser().getUsername(), loginResponse.getLoggedInUser().getToken(), String.valueOf(loginResponse.getLoggedInUser().getUserId()), loginResponse.getLoggedInUser().getUserId().toString(), "");
+                            UserPreference.saveCategoryData(mContext, gson.toJson(loginResponse.getLoggedInUser().getMenuList()));
+                            saveMenusInDB(jsonMenuList, jsonStringImages);
+                            List<Integer> updatedTemplateVersionList = new ArrayList<>();
                             writeNewUser(UserPreference.readString(getApplicationContext(), UserPreference.USER_ID, ""), UserPreference.readString(getApplicationContext(), UserPreference.USER_NAME, ""), UserPreference.readString(getApplicationContext(), FirebasePreference.getTokenID(getApplicationContext()), ""), "", "");
-                            getMenuDetailsApi();
+                            //update template received status
+                            // ConfirmTemplateUpdate.sendTemplateUpdateStatusToserver(mContext);
+                            Intent intent = new Intent(LoginActivity.this, DusmileBaseActivity.class);
+                            //intent.putExtra("categorySubcategoryData",loginResponse.getMenudetails());
+                            startActivity(intent);
+                            overridePendingTransition(R.anim.slide_from_right, R.anim.slide_to_left);
+                            finish();
                         } else {
-                            IOUtils.stopLoading();
+                            IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_LOGIN1 + "\nRESPONSE" + response.toString());
                             MyDynamicToast.errorMessage(LoginActivity.this, "wrong username or password");
                         }
                     } else {
-                        IOUtils.stopLoading();
                         MyDynamicToast.errorMessage(LoginActivity.this, "Unexpected response");
                     }
                 } catch (Exception e) {
-                    IOUtils.stopLoading();
+                    IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_LOGIN1 + "Exception while login");
                     e.printStackTrace();
                 }
             }
@@ -445,10 +218,9 @@ public class LoginActivity extends ActivityManagePermission {
         public void failure(VolleyError volleyError) {
             try {
                 IOUtils.stopLoading();
+                IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " API " + new Const().REQUEST_LOGIN1 + "\nResponse Failed" + volleyError.networkResponse + volleyError.getMessage());
                 if (volleyError != null && volleyError.networkResponse != null) {
                     String responseBody = new String(volleyError.networkResponse.data, "utf-8");
-                    //JSONObject jsonObject = new JSONObject(responseBody);
-                    // String success = jsonObject.getString("success");
                     if (responseBody != null) {
                         String message = responseBody;
                         MyDynamicToast.informationMessage(mContext, "Invalid username or password");
@@ -490,7 +262,6 @@ public class LoginActivity extends ActivityManagePermission {
 
     //Check Premission for marshmallow
     public void checkPermission() {
-        //String permissionAsk[] = {PermissionUtils.Manifest_CAMERA, PermissionUtils.Manifest_WRITE_EXTERNAL_STORAGE,PermissionUtils.Manifest_READ_CALL_LOG,PermissionUtils.Manifest_WRITE_CALL_LOG,PermissionUtils.Manifest_READ_PHONE_STATE};
         String permissionAsk[] = {PermissionUtils.Manifest_READ_EXTERNAL_STORAGE, PermissionUtils.Manifest_WRITE_EXTERNAL_STORAGE, PermissionUtils.Manifest_ACCESS_FINE_LOCATION, PermissionUtils.Manifest_CAMERA, PermissionUtils.Manifest_CALL_PHONE, Manifest.permission.RECORD_AUDIO};
         askCompactPermissions(permissionAsk, new PermissionResult() {
 
@@ -508,7 +279,7 @@ public class LoginActivity extends ActivityManagePermission {
                     String permissionAsk[] = {PermissionUtils.Manifest_READ_EXTERNAL_STORAGE, PermissionUtils.Manifest_WRITE_EXTERNAL_STORAGE, PermissionUtils.Manifest_ACCESS_FINE_LOCATION, PermissionUtils.Manifest_CAMERA, PermissionUtils.Manifest_CALL_PHONE, Manifest.permission.RECORD_AUDIO};
                     boolean isGranted = isPermissionsGranted(LoginActivity.this, permissionAsk);
                     if (!isGranted) {
-                        // showDialog();
+
                     } else {
                         System.out.println("IS GRANTED -- " + isGranted);
                     }
@@ -518,8 +289,7 @@ public class LoginActivity extends ActivityManagePermission {
     }
 
 
-    private void saveMenusInDB(List<MenuListResponse.WorkflowMenuList> jsonMenuDetails, String
-            jsonStringImages) {
+    private void saveMenusInDB(List<LoginResponse.MenuList> jsonMenuDetails, String jsonStringImages) {
         try {
             LoginTemplateDB.deleteLoginTemplate(dbHelper);
             CategoryDB.deleteCategoryTable(dbHelper);
@@ -537,7 +307,6 @@ public class LoginActivity extends ActivityManagePermission {
             IOUtils.appendLog(Tag + " " + IOUtils.getCurrentTimeStamp() + " Adding Login menus in DB");
             long menuRowID = LoginTemplateDB.addLoginTemplateEntry(menuTemplate, dbHelper);
             long imagesRowID = LoginTemplateDB.addLoginTemplateEntry(imagesTemplate, dbHelper);
-            //UserPreference.saveImagesData(mContext, jsonStringImages);
             int count = 0;
 
             for (int i = 0; i < jsonMenuDetails.size(); i++) {
@@ -547,7 +316,6 @@ public class LoginActivity extends ActivityManagePermission {
                 category.setLogin_json_template_id(String.valueOf(menuRowID));
                 long categoryRowId = CategoryDB.addCategoryEntry(category, dbHelper);
                 count = jsonMenuDetails.get(i).getSeqId();
-                String action = jsonMenuDetails.get(i).getAction();
                 String subCategoryName = jsonMenuDetails.get(i).getCategoryName();
                 String icon_name = jsonMenuDetails.get(i).getIconClass();
                 SubCategory subCategory = new SubCategory();
@@ -555,7 +323,6 @@ public class LoginActivity extends ActivityManagePermission {
                 subCategory.setCategory_id(String.valueOf(categoryRowId));
                 subCategory.setSequence_no("" + count);
                 subCategory.setIsFormMenu("false");
-                subCategory.setAction(action);
                 subCategory.setIcon(String.valueOf(icon_name));
                 long subCategoryRowId = SubCategoryDB.addSubCategoryEntry(subCategory, dbHelper);
             }
@@ -565,8 +332,7 @@ public class LoginActivity extends ActivityManagePermission {
         }
     }
 
-    private void writeNewUser(String userId, String name, String email, String
-            tokenId, String userProgress) {
+    private void writeNewUser(String userId, String name, String email, String tokenId, String userProgress) {
         User user = new User(name, email, tokenId, userProgress);
         firebaseDatabase.child("users").child(userId).setValue(user);
 

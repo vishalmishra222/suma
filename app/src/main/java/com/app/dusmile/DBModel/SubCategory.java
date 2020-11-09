@@ -14,7 +14,6 @@ public class SubCategory implements Parcelable {
     String sequence_no;
     String isFormMenu;
     String icon;
-    String action;
     public SubCategory()
     {
 
@@ -27,7 +26,6 @@ public class SubCategory implements Parcelable {
         sequence_no = in.readString();
         isFormMenu = in.readString();
         icon = in.readString();
-        action = in.readString();
     }
 
     public String getID() {
@@ -44,14 +42,6 @@ public class SubCategory implements Parcelable {
 
     public void setCategory_id(String category_id) {
         this.category_id = category_id;
-    }
-
-    public String getAction() {
-        return action;
-    }
-
-    public void setAction(String action) {
-        this.action = action;
     }
 
     public String getSubcategory_name() {
@@ -98,7 +88,6 @@ public class SubCategory implements Parcelable {
         dest.writeString(sequence_no);
         dest.writeString(isFormMenu);
         dest.writeString(icon);
-        dest.writeString(action);
     }
 
     @Override

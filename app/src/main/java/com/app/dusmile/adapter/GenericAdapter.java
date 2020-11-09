@@ -27,7 +27,6 @@ import com.app.dusmile.activity.LoginActivity;
 import com.app.dusmile.constant.AppConstant;
 import com.app.dusmile.database.AssignedJobsDB;
 import com.app.dusmile.database.helper.DBHelper;
-import com.app.dusmile.fragment.MenuItemFragment;
 import com.app.dusmile.interfaces.BtnClickListener;
 import com.app.dusmile.view.DatabaseUI;
 import com.desai.vatsal.mydynamictoast.MyDynamicToast;
@@ -181,7 +180,6 @@ public class GenericAdapter extends RecyclerView.Adapter<GenericAdapter.Holder> 
             //DatabaseUI.createGenericAdapterUI(mContext, holder.jobIdTextView, holder.nbfcNameTextView, holder.pinCodeTextView, holder.timeLeftTextView, holder.tATimeTextView, holder.expandableLin, position, reportHeadersArray, reportDataArray, reportHeadersUIArray,btnClickListener);//by netra
             String pjobId = null;
             boolean pendingFlag = false;
-            String p = null;
             DBHelper dbHelper = DBHelper.getInstance(mContext);
             List<AssignedJobs> PendingList = AssignedJobsDB.getAllAssignedSubmittedJobs(dbHelper, "true");
             if (PendingList.size() > 0) {
@@ -189,8 +187,7 @@ public class GenericAdapter extends RecyclerView.Adapter<GenericAdapter.Holder> 
                     pjobId = PendingList.get(i).getAssigned_jobId();
                     JSONObject jsonObject = reportDataArray.getJSONObject(position);
                     String myId = jsonObject.getString("job_id");
-                    String status = jsonObject.getString("status");
-                    if (myId.equalsIgnoreCase(pjobId) && status.equals("FOS Assigned")){
+                    if (myId.equalsIgnoreCase(pjobId)) {
                         pendingFlag = true;
                     }
                 }

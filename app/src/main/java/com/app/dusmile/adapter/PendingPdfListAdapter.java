@@ -1,6 +1,10 @@
 package com.app.dusmile.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.content.LocalBroadcastManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -8,10 +12,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.app.dusmile.R;
+import com.app.dusmile.interfaces.BtnClickListener;
 import com.app.dusmile.interfaces.PDFUploadListener;
+import com.app.dusmile.view.UI;
 
 import java.io.File;
 import java.util.ArrayList;

@@ -45,7 +45,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String SUB_CATEGORY_SEQUENCE_NO="subcategory_sequence_no";
     public static final String SUB_CATEGORY_IS_FORM_MENU="isFormMenu";
     public static final String SUB_CATEGORY_ICON = "icon";
-    public static final String SUB_CATEGORY_ACTION = "actio";
 
     //ClientTemplateTable
     public static final String TABLE_CLIENT_TEMPLATE = "client_template_Table";
@@ -219,8 +218,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 SUB_CATEGORY_NAME + " TEXT ," +
                 SUB_CATEGORY_SEQUENCE_NO+ " TEXT ," +
                 SUB_CATEGORY_IS_FORM_MENU+ " TEXT ," +
-                SUB_CATEGORY_ICON+ " TEXT ," +
-                SUB_CATEGORY_ACTION+ " TEXT " +
+                SUB_CATEGORY_ICON+ " TEXT " +
                 ")";
 
 
